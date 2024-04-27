@@ -2,9 +2,13 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   const Division = sequelize.define('Division', {
-    division: {
-      type: DataTypes.STRING(1),
+    id_division: {
+      type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
+    },
+    nombre: {
+      type: DataTypes.STRING(1),
     },
     id_curso: {
       type: DataTypes.INTEGER,

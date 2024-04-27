@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
       autoIncrement: true,
     },
     calificacion: {
-      type: DataTypes.STRING(2),
+      type: DataTypes.STRING(4),
       allowNull: false,
     },
     aprobado: {

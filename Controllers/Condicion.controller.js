@@ -1,13 +1,13 @@
 const db = require('../Models');
 
+
 exports.lista = (req,res) =>{
-    console.log("get ciclos lectivos");
-    db.CicloLectivo.findAll()
-    .then(ciclolectivos => {
-        res.json(ciclolectivos);
+    db.Condicion.findAll()
+    .then(condiciones => {
+        res.json(condiciones);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener los ciclos lectivos"
+            message: err.message || "Ocurrió un error al obtener los condiciones"
         });
     });
 }
@@ -15,81 +15,81 @@ exports.lista = (req,res) =>{
 exports.filtrar = (req,res) =>{
     const campo = req.params.campo;
     const valor = req.params.valor;
-    db.CicloLectivo.findAll({
+    db.Condicion.findAll({
         where: {
             [campo]: valor
         }
     })
-    .then(ciclolectivos => {
-        res.json(ciclolectivos);
+    .then(condiciones => {
+        res.json(condiciones);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener los ciclos lectivos"
+            message: err.message || "Ocurrió un error al obtener los condiciones"
         });
     });
 }
 
 exports.nuevo = (req,res) =>{
-    if(!req.body.anio){
+    if(!req.body.nombre){
         res.status(400).send({
             message: "Faltan datos"
         });
         return;
     }
-    const ciclolectivo = {
-        anio: req.body.anio
+    const condicion = {
+        nombre: req.body.nombre
     }
-    db.CicloLectivo.create(ciclolectivo)
+    db.Condicion.create(condicion)
     .then(data => {
         res.json(data);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Ocurrió un error al crear el ciclo lectivo"
+            message: err.message || "Ocurrió un error al crear el condicion"
         });
     });
 }
 
 exports.actualizar = (req,res) =>{
     const id = req.params.id;
-    db.CicloLectivo.update(req.body,{
-        where: {id_ciclo: id}
+    db.Condicion.update(req.body,{
+        where: {id_condicion: id}
     })
     .then(num => {
         if(num == 1){
             res.send({
-                message: "ciclo lectivo actualizado"
+                message: "condicion actualizado"
             });
         }else{
             res.send({
-                message: "No se pudo actualizar el ciclo lectivo"
+                message: "No se pudo actualizar el condicion"
             });
         }
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Ocurrió un error al actualizar el ciclo lectivo"
+            message: err.message || "Ocurrió un error al actualizar el condicion"
         });
     });
 }
 
 exports.eliminar = (req,res) =>{
     const id = req.params.id;
-    console.log(`Eliminar ciclo lectivo con id: ${id}`);
-    db.CicloLectivo.destroy({
-        where: {id_ciclo: id}
+    console.log(`Eliminar condicion con id: ${id}`);
+    db.Condicion.destroy({
+        where: {id_condicion: id}
     })
     .then(num => {
         if(num == 1){
             res.send({
-                message: "ciclo lectivo eliminado"
+                message: "condicion eliminado"
             });
         }else{
             res.send({
-                message: "No se pudo eliminar el ciclo lectivo"
+                message: "No se pudo eliminar el condicion"
             });
         }
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Ocurrió un error al eliminar el ciclo lectivo"
+            message: err.message || "Ocurrió un error al eliminar el condicion"
         });
     });
 }

@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
     },
     area: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     id_curso: {
       type: DataTypes.INTEGER,
