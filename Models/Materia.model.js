@@ -23,14 +23,6 @@ module.exports = (sequelize) => {
         key: 'id_curso'
       }
     },
-    id_plan: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'planes', // nombre de la tabla referenciada
-        key: 'id_plan'
-      }
-    },
   }, {
     tableName: 'materias', // especificamos el nombre de la tabla
   });

@@ -15,38 +15,6 @@ module.exports = (sequelize) => {
         key: 'dni'
       }
     },
-    id_curso: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'cursos', // nombre de la tabla referenciada
-        key: 'id_curso'
-      }
-    },
-    division: {
-      type: DataTypes.STRING(1),
-      allowNull: false,
-      references: {
-        model: 'divisiones', // nombre de la tabla referenciada
-        key: 'division'
-      }
-    },
-    id_plan: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'planes', // nombre de la tabla referenciada
-        key: 'id_plan'
-      }
-    },
-    id_ciclo: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'cicloLectivos', // nombre de la tabla referenciada
-        key: 'id_ciclo'
-      }
-    },
     id_condicion: {
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
         },
         // El campo anio, es un dato tipo fecha y no puede ser nulo y se trata de un año, ejemplo: 2021
         anio: {
-            type: DataTypes.DATE,
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
     },

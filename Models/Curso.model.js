@@ -14,7 +14,14 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
-
+    id_plan: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'planes', // nombre de la tabla referenciada
+        key: 'id_plan'
+      }
+    },
     // Definimos el campo 'nombre'. Este es un campo de cadena que no puede ser nulo.
     nombre: {
       type: DataTypes.STRING(2),

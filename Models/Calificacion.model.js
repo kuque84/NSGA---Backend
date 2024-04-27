@@ -11,6 +11,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(2),
       allowNull: false,
     },
+    aprobado: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
   },
   {
     tableName: 'calificaciones',
