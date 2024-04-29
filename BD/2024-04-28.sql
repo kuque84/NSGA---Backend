@@ -82,7 +82,7 @@ CREATE TABLE `ciclolectivos` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id_ciclo`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `ciclolectivos` (
 
 LOCK TABLES `ciclolectivos` WRITE;
 /*!40000 ALTER TABLE `ciclolectivos` DISABLE KEYS */;
-INSERT INTO `ciclolectivos` VALUES (1,2015,'2024-04-27 17:29:43','2024-04-27 17:29:43'),(2,2016,'2024-04-27 17:29:54','2024-04-27 17:29:54'),(3,2017,'2024-04-27 17:29:57','2024-04-27 17:29:57'),(4,2018,'2024-04-27 17:30:01','2024-04-27 17:30:01'),(5,2019,'2024-04-27 17:30:06','2024-04-27 17:30:06'),(6,2020,'2024-04-27 17:30:08','2024-04-27 17:30:08'),(7,2021,'2024-04-27 17:30:11','2024-04-27 17:30:11'),(8,2022,'2024-04-27 17:30:13','2024-04-27 17:30:13'),(9,2023,'2024-04-27 17:30:17','2024-04-27 17:30:17');
+INSERT INTO `ciclolectivos` VALUES (1,2015,'2024-04-27 17:29:43','2024-04-27 17:29:43'),(2,2016,'2024-04-27 17:29:54','2024-04-27 17:29:54'),(3,2017,'2024-04-27 17:29:57','2024-04-27 17:29:57'),(4,2018,'2024-04-27 17:30:01','2024-04-27 17:30:01'),(5,2019,'2024-04-27 17:30:06','2024-04-27 17:30:06'),(6,2020,'2024-04-27 17:30:08','2024-04-27 17:30:08'),(7,2021,'2024-04-27 17:30:11','2024-04-27 17:30:11'),(8,2022,'2024-04-27 17:30:13','2024-04-27 17:30:13'),(9,2023,'2024-04-27 17:30:17','2024-04-27 17:30:17'),(10,2024,'2024-04-28 12:41:00','2024-04-28 12:41:00');
 /*!40000 ALTER TABLE `ciclolectivos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,8 +209,26 @@ CREATE TABLE `cursos` (
   CONSTRAINT `cursos_ibfk_73` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
   CONSTRAINT `cursos_ibfk_74` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
   CONSTRAINT `cursos_ibfk_75` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_76` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_77` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_78` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_79` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
   CONSTRAINT `cursos_ibfk_8` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
-  CONSTRAINT `cursos_ibfk_9` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`)
+  CONSTRAINT `cursos_ibfk_80` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_81` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_82` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_83` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_84` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_85` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_86` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_87` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_88` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_89` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_9` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_90` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_91` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_92` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`),
+  CONSTRAINT `cursos_ibfk_93` FOREIGN KEY (`id_plan`) REFERENCES `planes` (`id_plan`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -275,7 +293,25 @@ CREATE TABLE `divisiones` (
   CONSTRAINT `divisiones_ibfk_4` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
   CONSTRAINT `divisiones_ibfk_40` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
   CONSTRAINT `divisiones_ibfk_41` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_42` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_43` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_44` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_45` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_46` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_47` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_48` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_49` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
   CONSTRAINT `divisiones_ibfk_5` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_50` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_51` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_52` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_53` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_54` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_55` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_56` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_57` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_58` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `divisiones_ibfk_59` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
   CONSTRAINT `divisiones_ibfk_6` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
   CONSTRAINT `divisiones_ibfk_7` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
   CONSTRAINT `divisiones_ibfk_8` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
@@ -375,6 +411,10 @@ CREATE TABLE `fechas` (
   CONSTRAINT `fechas_ibfk_68` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
   CONSTRAINT `fechas_ibfk_69` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
   CONSTRAINT `fechas_ibfk_7` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechas_ibfk_70` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechas_ibfk_71` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechas_ibfk_72` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechas_ibfk_73` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
   CONSTRAINT `fechas_ibfk_8` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
   CONSTRAINT `fechas_ibfk_9` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -387,6 +427,48 @@ CREATE TABLE `fechas` (
 LOCK TABLES `fechas` WRITE;
 /*!40000 ALTER TABLE `fechas` DISABLE KEYS */;
 /*!40000 ALTER TABLE `fechas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fechasexamen`
+--
+
+DROP TABLE IF EXISTS `fechasexamen`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `fechasexamen` (
+  `id_fechaExamen` int NOT NULL AUTO_INCREMENT,
+  `FechaExamen` datetime NOT NULL,
+  `id_turno` int NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `id_materia` int NOT NULL,
+  PRIMARY KEY (`id_fechaExamen`),
+  KEY `fechasExamen_id_materia_foreign_idx` (`id_materia`),
+  KEY `id_turno` (`id_turno`),
+  CONSTRAINT `fechasexamen_ibfk_1` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechasexamen_ibfk_10` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechasexamen_ibfk_11` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechasexamen_ibfk_2` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechasexamen_ibfk_3` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechasexamen_ibfk_4` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechasexamen_ibfk_5` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechasexamen_ibfk_6` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechasexamen_ibfk_7` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechasexamen_ibfk_8` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechasexamen_ibfk_9` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `fechasExamen_id_materia_foreign_idx` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fechasexamen`
+--
+
+LOCK TABLES `fechasexamen` WRITE;
+/*!40000 ALTER TABLE `fechasexamen` DISABLE KEYS */;
+INSERT INTO `fechasexamen` VALUES (1,'2024-04-17 08:00:00',1,'2024-04-28 16:10:27','2024-04-28 16:10:27',8);
+/*!40000 ALTER TABLE `fechasexamen` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -531,11 +613,55 @@ CREATE TABLE `inscripciones` (
   CONSTRAINT `inscripciones_ibfk_205` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
   CONSTRAINT `inscripciones_ibfk_206` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
   CONSTRAINT `inscripciones_ibfk_207` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_208` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_209` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
   CONSTRAINT `inscripciones_ibfk_21` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_210` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_211` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_212` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_213` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_214` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_215` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_216` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_217` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_218` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_219` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
   CONSTRAINT `inscripciones_ibfk_22` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_220` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_221` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_222` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_223` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_224` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_225` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_226` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_227` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_228` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_229` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
   CONSTRAINT `inscripciones_ibfk_23` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_230` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_231` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_232` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_233` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_234` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_235` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_236` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_237` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_238` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_239` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
   CONSTRAINT `inscripciones_ibfk_24` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_240` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_241` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_242` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_243` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_244` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_245` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_246` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_247` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_248` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
+  CONSTRAINT `inscripciones_ibfk_249` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
   CONSTRAINT `inscripciones_ibfk_25` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
+  CONSTRAINT `inscripciones_ibfk_250` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
+  CONSTRAINT `inscripciones_ibfk_251` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
   CONSTRAINT `inscripciones_ibfk_26` FOREIGN KEY (`id_turno`) REFERENCES `turnosexamen` (`id_turno`),
   CONSTRAINT `inscripciones_ibfk_27` FOREIGN KEY (`id_fecha`) REFERENCES `fechas` (`id_fecha`),
   CONSTRAINT `inscripciones_ibfk_28` FOREIGN KEY (`id_previa`) REFERENCES `previas` (`id_previa`),
@@ -714,7 +840,25 @@ CREATE TABLE `materias` (
   CONSTRAINT `materias_ibfk_7` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
   CONSTRAINT `materias_ibfk_70` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
   CONSTRAINT `materias_ibfk_71` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_72` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_73` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_74` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_75` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_76` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_77` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_78` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_79` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
   CONSTRAINT `materias_ibfk_8` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_80` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_81` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_82` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_83` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_84` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_85` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_86` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_87` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_88` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  CONSTRAINT `materias_ibfk_89` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
   CONSTRAINT `materias_ibfk_9` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`)
 ) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -818,8 +962,26 @@ CREATE TABLE `planes` (
   CONSTRAINT `planes_ibfk_73` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
   CONSTRAINT `planes_ibfk_74` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
   CONSTRAINT `planes_ibfk_75` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_76` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_77` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_78` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_79` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
   CONSTRAINT `planes_ibfk_8` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
-  CONSTRAINT `planes_ibfk_9` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`)
+  CONSTRAINT `planes_ibfk_80` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_81` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_82` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_83` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_84` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_85` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_86` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_87` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_88` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_89` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_9` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_90` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_91` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_92` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `planes_ibfk_93` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -973,12 +1135,66 @@ CREATE TABLE `previas` (
   CONSTRAINT `previas_ibfk_205` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
   CONSTRAINT `previas_ibfk_206` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
   CONSTRAINT `previas_ibfk_207` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_208` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_209` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
   CONSTRAINT `previas_ibfk_21` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_210` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_211` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_212` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_213` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_214` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_215` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_216` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_217` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_218` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_219` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
   CONSTRAINT `previas_ibfk_22` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_220` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_221` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_222` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_223` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_224` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_225` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_226` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_227` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_228` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_229` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
   CONSTRAINT `previas_ibfk_23` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_230` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_231` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_232` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_233` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_234` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_235` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_236` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_237` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_238` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_239` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
   CONSTRAINT `previas_ibfk_24` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_240` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_241` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_242` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_243` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_244` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_245` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_246` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_247` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_248` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_249` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
   CONSTRAINT `previas_ibfk_25` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_250` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_251` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_252` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_253` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_254` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_255` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_256` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
+  CONSTRAINT `previas_ibfk_257` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_258` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
+  CONSTRAINT `previas_ibfk_259` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
   CONSTRAINT `previas_ibfk_26` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_260` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `previas_ibfk_261` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
   CONSTRAINT `previas_ibfk_27` FOREIGN KEY (`id_materia`) REFERENCES `materias` (`id_materia`),
   CONSTRAINT `previas_ibfk_28` FOREIGN KEY (`dni_alumno`) REFERENCES `alumnos` (`dni`),
   CONSTRAINT `previas_ibfk_29` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
@@ -1080,11 +1296,42 @@ DROP TABLE IF EXISTS `turnosexamen`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `turnosexamen` (
   `id_turno` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(255) NOT NULL,
+  `nombre` varchar(15) NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
-  PRIMARY KEY (`id_turno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_condicion` int NOT NULL,
+  `id_ciclo` int DEFAULT NULL,
+  PRIMARY KEY (`id_turno`),
+  KEY `id_condicion` (`id_condicion`),
+  KEY `id_ciclo` (`id_ciclo`),
+  CONSTRAINT `turnosexamen_ibfk_1` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_10` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_11` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `turnosexamen_ibfk_12` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_13` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `turnosexamen_ibfk_14` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_15` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `turnosexamen_ibfk_16` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_17` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `turnosexamen_ibfk_18` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_19` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `turnosexamen_ibfk_2` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_20` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_21` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `turnosexamen_ibfk_22` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_23` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `turnosexamen_ibfk_24` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_25` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `turnosexamen_ibfk_3` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_4` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_5` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_6` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_7` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_8` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`),
+  CONSTRAINT `turnosexamen_ibfk_9` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `turnosExamen_id_ciclo_foreign_idx` FOREIGN KEY (`id_ciclo`) REFERENCES `ciclolectivos` (`id_ciclo`),
+  CONSTRAINT `turnosExamen_id_condicion_foreign_idx` FOREIGN KEY (`id_condicion`) REFERENCES `condiciones` (`id_condicion`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1093,6 +1340,7 @@ CREATE TABLE `turnosexamen` (
 
 LOCK TABLES `turnosexamen` WRITE;
 /*!40000 ALTER TABLE `turnosexamen` DISABLE KEYS */;
+INSERT INTO `turnosexamen` VALUES (1,'ABRIL','2024-04-28 15:17:27','2024-04-28 15:17:27',1,10),(2,'ABRIL','2024-04-28 15:17:47','2024-04-28 15:17:47',2,10),(3,'JULIO','2024-04-28 15:18:00','2024-04-28 15:18:00',1,10),(4,'JULIO','2024-04-28 15:18:02','2024-04-28 15:18:02',2,10),(5,'SEPTIEMBRE','2024-04-28 15:18:12','2024-04-28 15:18:12',1,10),(6,'SEPTIEMBRE','2024-04-28 15:18:16','2024-04-28 15:18:16',2,10),(7,'DICIEMBRE','2024-04-28 15:18:29','2024-04-28 15:18:29',1,10),(8,'DICIEMBRE','2024-04-28 15:18:32','2024-04-28 15:18:32',2,10),(9,'FEBRERO','2024-04-28 15:18:38','2024-04-28 15:18:38',1,10),(10,'FEBRERO','2024-04-28 15:18:41','2024-04-28 15:18:41',2,10),(11,'DICIEMBRE','2024-04-28 15:18:55','2024-04-28 15:18:55',3,10),(12,'FEBRERO','2024-04-28 15:19:23','2024-04-28 15:19:23',4,10),(13,'FEBRERO','2024-04-28 15:19:27','2024-04-28 15:19:27',6,10);
 /*!40000 ALTER TABLE `turnosexamen` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1134,4 +1382,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-27 20:11:52
+-- Dump completed on 2024-04-28 13:13:49

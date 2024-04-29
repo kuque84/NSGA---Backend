@@ -40,10 +40,10 @@ db.Division = require('./Division.model')(sequelize);//
 db.Materia = require('./Materia.model')(sequelize);//
 db.Condicion = require('./Condicion.model')(sequelize);// PREVIA - EQUIVALENCIA - TERCERA MATERIA - EXCEPTUADA - COLOQUIO
 db.Calificacion = require('./Calificacion.model')(sequelize);// A - 1 a 10
-db.Alumno = require('./Alumno.model')(sequelize);// 
+db.Alumno = require('./Alumno.model')(sequelize);//
 db.Previa = require('./Previa.model')(sequelize);//
 db.TurnoExamen = require('./TurnoExamen.model')(sequelize);// ABRIL - JULIO - SEPTIEMBRE - DICIEMBRE - FEBRERO
-db.Fecha = require('./Fecha.model')(sequelize);
+db.FechaExamen = require('./FechaExamen.model')(sequelize);
 db.Inscripcion = require('./Inscripcion.model')(sequelize);// Inscripcion de un alumno a un examen
 
 // Definimos las relaciones entre los modelos

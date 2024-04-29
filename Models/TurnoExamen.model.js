@@ -8,8 +8,24 @@ module.exports = (sequelize) => {
       autoIncrement: true,
     },
     nombre: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(15),
       allowNull: false,
+    },
+    id_condicion: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'condiciones', // nombre de la tabla referenciada
+        key: 'id_condicion'
+      }
+    },
+    id_ciclo: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'cicloLectivos', // nombre de la tabla referenciada
+        key: 'id_ciclo'
+      }
     },
   },{
     tableName: 'turnosExamen',

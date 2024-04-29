@@ -23,17 +23,21 @@ module.exports = (sequelize) => {
         key: 'id_turno'
       }
     },
-    id_fecha: {
+    id_fechaExamen: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'fechas', // nombre de la tabla referenciada
-        key: 'id_fecha'
+        model: 'fechasExamen', // nombre de la tabla referenciada
+        key: 'id_fechaExamen'
       }
     },
-    nota: {
+    id_calificacion: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
+      references: {
+        model: 'calificaciones', // nombre de la tabla referenciada
+        key: 'id_calificacion'
+      }
     },
     libro: {
       type: DataTypes.STRING(255),

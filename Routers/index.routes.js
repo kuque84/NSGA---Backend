@@ -13,6 +13,10 @@ module.exports = (app) => {
     const CondicionRoutes = require('./Condicion.routes.js');
     const CalificacionRoutes = require('./Calificacion.routes.js');
     const AlumnoRoutes = require('./Alumno.routes.js');
+    const TurnoExamenRoutes = require('./TurnoExamen.routes.js');
+    const FechaExamenRoutes = require('./FechaExamen.routes.js');
+    const PreviaRoutes = require('./Previa.routes.js');
+    const InscripcionRoutes = require('./Inscripcion.routes.js');
     
     // Usamos el middleware de autenticación y las rutas del usuario para todas las solicitudes a '/usuario'
     app.use('/usuario', UsuarioRoutes);
@@ -24,4 +28,8 @@ module.exports = (app) => {
     app.use('/condicion', CondicionRoutes);
     app.use('/calificacion', CalificacionRoutes);
     app.use('/alumno', AlumnoRoutes);
+    app.use('/turnoexamen', TurnoExamenRoutes);
+    app.use('/fechaexamen', FechaExamenRoutes);
+    app.use('/previa', PreviaRoutes);
+    app.use('/inscripcion', InscripcionRoutes);
 };
