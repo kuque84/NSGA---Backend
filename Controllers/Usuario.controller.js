@@ -54,26 +54,32 @@ exports.nuevo = (req,res) =>{
     });
 }
 
-exports.actualizar = (req,res) =>{
+exports.actualizar = (req, res) => {
     const id = req.params.id;
-    db.Usuario.update(req.body,{
-        where: {id: id}
-    })
-    .then(num => {
-        if(num == 1){
-            res.send({
-                message: "Usuario actualizado"
+    // Verificar si se está actualizando la contraseña
+    if (req.body.password) {
+        req.body.password = bcrypt.hashSync(req.body.password, 8); // Cifrar la nueva contraseña
+    }
+    db.Usuario.update(req.body, {
+            where: {
+                id: id
+            }
+        })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Usuario actualizado"
+                });
+            } else {
+                res.send({
+                    message: "No se pudo actualizar el usuario"
+                });
+            }
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "Ocurrió un error al actualizar el usuario"
             });
-        }else{
-            res.send({
-                message: "No se pudo actualizar el usuario"
-            });
-        }
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al actualizar el usuario"
         });
-    });
 }
 
 exports.eliminar = (req,res) =>{
