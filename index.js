@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const port = require('./Config/env').port || 3000; // Definimos el puerto
 const cors = require('cors');
+const errorHandler = require('./Middlewares/errorHandler');
 
 // Usamos el middleware de express para parsear el cuerpo de las solicitudes a JSON
 app.use(express.json());
@@ -23,6 +24,9 @@ const db = require('./Models');
 
 // Importamos las rutas y las ejecutamos
 require('./Routers/index.routes')(app); 
+
+// Usamos el middleware de manejo de errores
+app.use(errorHandler);
 
 // Sincronizamos la base de datos
 db.sequelize

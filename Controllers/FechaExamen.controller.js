@@ -2,22 +2,19 @@
 const db = require('../Models');
 
 // Definimos un controlador para obtener la lista de todas las fechas de examen
-exports.lista = (req,res) =>{
+exports.lista = (req, res, next) =>{
     // Utilizamos el método findAll de Sequelize para obtener todas las fechas de examen
     db.FechaExamen.findAll()
     .then(fechasExamen => {
         // Si la operación es exitosa, enviamos las fechas de examen como respuesta en formato JSON
         res.json(fechasExamen);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener las fechas de examen"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para filtrar las fechas de examen por un campo y valor específicos
-exports.filtrar = (req,res) =>{
+exports.filtrar = (req, res, next) =>{
     // Obtenemos el campo y el valor de los parámetros de la ruta
     const campo = req.params.campo;
     const valor = req.params.valor;
@@ -31,15 +28,12 @@ exports.filtrar = (req,res) =>{
         // Si la operación es exitosa, enviamos las fechas de examen como respuesta en formato JSON
         res.json(fechasExamen);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener las fechas de examen"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para crear una nueva fecha de examen
-exports.nuevo = (req,res) =>{
+exports.nuevo = (req, res, next) =>{
     // Verificamos que los campos necesarios estén presentes en el cuerpo de la solicitud
     if(!req.body.fechaExamen || !req.body.id_turno || !req.body.id_materia){
         // Si no están presentes, enviamos un mensaje de error con el estado 400
@@ -60,15 +54,12 @@ exports.nuevo = (req,res) =>{
         // Si la operación es exitosa, enviamos los datos de la nueva fecha de examen como respuesta en formato JSON
         res.json(data);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al crear la fecha de examen"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para actualizar una fecha de examen existente
-exports.actualizar = (req,res) =>{
+exports.actualizar = (req, res, next) =>{
     // Obtenemos el id de la fecha de examen de los parámetros de la ruta
     const id = req.params.id;
     // Utilizamos el método update de Sequelize para actualizar la fecha de examen
@@ -88,15 +79,12 @@ exports.actualizar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al actualizar la fecha de examen"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para eliminar una fecha de examen existente
-exports.eliminar = (req,res) =>{
+exports.eliminar = (req, res, next) =>{
     // Obtenemos el id de la fecha de examen de los parámetros de la ruta
     const id = req.params.id;
     // Imprimimos un mensaje en la consola indicando que se va a eliminar una fecha de examen
@@ -118,9 +106,6 @@ exports.eliminar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al eliminar la fecha de examen"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }

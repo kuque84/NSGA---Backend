@@ -2,22 +2,19 @@
 const db = require('../Models');
 
 // Función para obtener la lista de todos los planes
-exports.lista = (req,res) =>{
+exports.lista = (req, res, next) =>{
     // Usamos el método findAll de Sequelize para obtener todos los planes
     db.Plan.findAll()
     .then(Planes => {
         // Si la operación es exitosa, devolvemos los planes como respuesta JSON
         res.json(Planes);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener los Planes"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Función para filtrar planes por un campo específico
-exports.filtrar = (req,res) =>{
+exports.filtrar = (req, res, next) =>{
     // Obtenemos el campo y el valor de los parámetros de la solicitud
     const campo = req.params.campo;
     const valor = req.params.valor;
@@ -31,15 +28,12 @@ exports.filtrar = (req,res) =>{
         // Si la operación es exitosa, devolvemos los planes como respuesta JSON
         res.json(Planes);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener los Planes"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Función para crear un nuevo plan
-exports.nuevo = (req,res) =>{
+exports.nuevo = (req, res, next) =>{
     // Verificamos que los datos necesarios estén presentes en el cuerpo de la solicitud
     if(!req.body.codigo || !req.body.descripcion){
         // Si faltan datos, enviamos un mensaje de error con un código de estado 400
@@ -60,15 +54,12 @@ exports.nuevo = (req,res) =>{
         // Si la operación es exitosa, devolvemos los datos del nuevo plan como respuesta JSON
         res.json(data);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al crear el Plan"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Función para actualizar un plan existente
-exports.actualizar = (req,res) =>{
+exports.actualizar = (req, res, next) =>{
     // Obtenemos el ID del plan de los parámetros de la solicitud
     const id = req.params.id;
     // Usamos el método update de Sequelize para actualizar el plan
@@ -88,15 +79,12 @@ exports.actualizar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al actualizar el Plan"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Función para eliminar un plan existente
-exports.eliminar = (req,res) =>{
+exports.eliminar = (req, res, next) =>{
     // Obtenemos el ID del plan de los parámetros de la solicitud
     const id = req.params.id;
     // Imprimimos un mensaje en la consola indicando que vamos a eliminar el plan
@@ -118,9 +106,6 @@ exports.eliminar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al eliminar el Plan"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }

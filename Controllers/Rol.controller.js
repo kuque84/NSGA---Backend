@@ -2,22 +2,19 @@
 const db = require('../Models');
 
 // Definimos el método 'lista' que se encargará de obtener todas las instancias de 'Rol'
-exports.lista = (req,res) =>{
+exports.lista = (req, res, next) =>{
     // Utilizamos el método 'findAll' de Sequelize para obtener todas las instancias de 'Rol'
     db.Rol.findAll()
     .then(roles => {
         // Si la operación es exitosa, enviamos las instancias obtenidas como respuesta en formato JSON
         res.json(roles);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado HTTP 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener los roles"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos el método 'filtrar' que se encargará de obtener las instancias de 'Rol' que coincidan con un valor específico en un campo específico
-exports.filtrar = (req,res) =>{
+exports.filtrar = (req, res, next) =>{
     // Obtenemos el campo y el valor de los parámetros de la ruta de la solicitud HTTP
     const campo = req.params.campo;
     const valor = req.params.valor;
@@ -31,15 +28,12 @@ exports.filtrar = (req,res) =>{
         // Si la operación es exitosa, enviamos las instancias obtenidas como respuesta en formato JSON
         res.json(roles);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado HTTP 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener los roles"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos el método 'nuevo' que se encargará de crear una nueva instancia de 'Rol'
-exports.nuevo = (req,res) =>{
+exports.nuevo = (req, res, next) =>{
     // Verificamos que los datos necesarios estén presentes en el cuerpo de la solicitud HTTP
     if(!req.body.nombre){
         // Si faltan datos, enviamos un mensaje de error con un código de estado HTTP 400
@@ -59,15 +53,12 @@ exports.nuevo = (req,res) =>{
         // Si la operación es exitosa, enviamos la nueva instancia como respuesta en formato JSON
         res.json(data);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado HTTP 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al crear el rol"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos el método 'actualizar' que se encargará de actualizar una instancia existente de 'Rol'
-exports.actualizar = (req,res) =>{
+exports.actualizar = (req, res, next) =>{
     // Obtenemos el ID de los parámetros de la ruta de la solicitud HTTP
     const id = req.params.id;
     // Utilizamos el método 'update' de Sequelize para actualizar la instancia en la base de datos
@@ -87,15 +78,12 @@ exports.actualizar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado HTTP 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al actualizar el rol"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos el método 'eliminar' que se encargará de eliminar una instancia existente de 'Rol'
-exports.eliminar = (req,res) =>{
+exports.eliminar = (req, res, next) =>{
     // Obtenemos el ID de los parámetros de la ruta de la solicitud HTTP
     const id = req.params.id;
     // Imprimimos un mensaje en la consola indicando que se intentará eliminar la instancia con ese ID
@@ -117,9 +105,6 @@ exports.eliminar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado HTTP 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al eliminar el rol"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }

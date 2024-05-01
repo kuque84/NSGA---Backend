@@ -2,22 +2,19 @@
 const db = require('../Models');
 
 // Función para obtener la lista de todas las materias
-exports.lista = (req,res) =>{
+exports.lista = (req, res, next) =>{
     // Usamos el método findAll de Sequelize para obtener todas las materias
     db.Materia.findAll()
     .then(materias => {
         // Si la operación es exitosa, devolvemos las materias como respuesta JSON
         res.json(materias);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener las materias"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Función para filtrar materias por un campo específico
-exports.filtrar = (req,res) =>{
+exports.filtrar = (req, res, next) =>{
     // Obtenemos el campo y el valor de los parámetros de la solicitud
     const campo = req.params.campo;
     const valor = req.params.valor;
@@ -31,15 +28,12 @@ exports.filtrar = (req,res) =>{
         // Si la operación es exitosa, devolvemos las materias como respuesta JSON
         res.json(materias);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener las materias"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Función para crear una nueva materia
-exports.nuevo = (req,res) =>{
+exports.nuevo = (req, res, next) =>{
     // Verificamos que los datos necesarios estén presentes en el cuerpo de la solicitud
     if(!req.body.nombre || !req.body.id_curso){
         // Si faltan datos, enviamos un mensaje de error con un código de estado 400
@@ -60,15 +54,12 @@ exports.nuevo = (req,res) =>{
         // Si la operación es exitosa, devolvemos los datos de la nueva materia como respuesta JSON
         res.json(data);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al crear la materia"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Función para actualizar una materia existente
-exports.actualizar = (req,res) =>{
+exports.actualizar = (req, res, next) =>{
     // Obtenemos el ID de la materia de los parámetros de la solicitud
     const id = req.params.id;
     // Usamos el método update de Sequelize para actualizar la materia
@@ -88,15 +79,12 @@ exports.actualizar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al actualizar la materia"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Función para eliminar una materia existente
-exports.eliminar = (req,res) =>{
+exports.eliminar = (req, res, next) =>{
     // Obtenemos el ID de la materia de los parámetros de la solicitud
     const id = req.params.id;
     // Imprimimos un mensaje en la consola indicando que vamos a eliminar la materia
@@ -118,9 +106,6 @@ exports.eliminar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al eliminar la materia"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }

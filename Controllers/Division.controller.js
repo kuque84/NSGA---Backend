@@ -2,22 +2,19 @@
 const db = require('../Models');
 
 // Definimos un controlador para obtener la lista de todas las divisiones
-exports.lista = (req,res) =>{
+exports.lista = (req, res, next) =>{
     // Utilizamos el método findAll de Sequelize para obtener todas las divisiones
     db.Division.findAll()
     .then(divisiones => {
         // Si la operación es exitosa, enviamos las divisiones como respuesta en formato JSON
         res.json(divisiones);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener las divisiones"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para filtrar las divisiones por un campo y valor específicos
-exports.filtrar = (req,res) =>{
+exports.filtrar = (req, res, next) =>{
     // Obtenemos el campo y el valor de los parámetros de la ruta
     const campo = req.params.campo;
     const valor = req.params.valor;
@@ -31,15 +28,12 @@ exports.filtrar = (req,res) =>{
         // Si la operación es exitosa, enviamos las divisiones como respuesta en formato JSON
         res.json(divisiones);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener las divisiones"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para crear una nueva división
-exports.nuevo = (req,res) =>{
+exports.nuevo = (req, res, next) =>{
     // Verificamos que los campos necesarios estén presentes en el cuerpo de la solicitud
     if(!req.body.nombre){
         // Si no están presentes, enviamos un mensaje de error con el estado 400
@@ -59,15 +53,12 @@ exports.nuevo = (req,res) =>{
         // Si la operación es exitosa, enviamos los datos de la nueva división como respuesta en formato JSON
         res.json(data);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al crear la división"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para actualizar una división existente
-exports.actualizar = (req,res) =>{
+exports.actualizar = (req, res, next) =>{
     // Obtenemos el id de la división de los parámetros de la ruta
     const id = req.params.id;
     // Utilizamos el método update de Sequelize para actualizar la división
@@ -87,15 +78,12 @@ exports.actualizar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al actualizar la división"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para eliminar una división existente
-exports.eliminar = (req,res) =>{
+exports.eliminar = (req, res, next) =>{
     // Obtenemos el id de la división de los parámetros de la ruta
     const id = req.params.id;
     // Utilizamos el método destroy de Sequelize para eliminar la división
@@ -115,9 +103,6 @@ exports.eliminar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al eliminar la división"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }

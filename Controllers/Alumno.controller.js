@@ -2,22 +2,19 @@
 const db = require('../Models');
 
 // Definimos un controlador para obtener la lista de todos los alumnos
-exports.lista = (req,res) =>{
+exports.lista = (req, res, next) =>{
     // Utilizamos el método findAll de Sequelize para obtener todos los alumnos
     db.Alumno.findAll()
     .then(alumnos => {
         // Si la operación es exitosa, enviamos los alumnos como respuesta en formato JSON
         res.json(alumnos);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener los alumnos"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para filtrar los alumnos por un campo y valor específicos
-exports.filtrar = (req,res) =>{
+exports.filtrar = (req, res, next) =>{
     // Obtenemos el campo y el valor de los parámetros de la ruta
     const campo = req.params.campo;
     const valor = req.params.valor;
@@ -31,15 +28,12 @@ exports.filtrar = (req,res) =>{
         // Si la operación es exitosa, enviamos los alumnos como respuesta en formato JSON
         res.json(alumnos);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener los alumnos"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para crear un nuevo alumno
-exports.nuevo = (req,res) =>{
+exports.nuevo = (req, res, next) =>{
     // Verificamos que los campos necesarios estén presentes en el cuerpo de la solicitud
     if(!req.body.nombres || !req.body.dni || !req.body.apellidos){
         // Si no están presentes, enviamos un mensaje de error con el estado 400
@@ -60,15 +54,12 @@ exports.nuevo = (req,res) =>{
         // Si la operación es exitosa, enviamos los datos del nuevo alumno como respuesta en formato JSON
         res.json(data);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al crear el alumno"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para actualizar un alumno
-exports.actualizar = (req,res) =>{
+exports.actualizar = (req, res, next) =>{
     // Obtenemos el id del alumno de los parámetros de la ruta
     const id = req.params.id;
     // Utilizamos el método update de Sequelize para actualizar el alumno
@@ -88,15 +79,12 @@ exports.actualizar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al actualizar el alumno"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para eliminar un alumno
-exports.eliminar = (req,res) =>{
+exports.eliminar = (req, res, next) =>{
     // Obtenemos el id del alumno de los parámetros de la ruta
     const id = req.params.id;
     // Utilizamos el método destroy de Sequelize para eliminar el alumno
@@ -116,9 +104,6 @@ exports.eliminar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al eliminar el alumno"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }

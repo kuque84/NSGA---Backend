@@ -2,22 +2,19 @@
 const db = require('../Models');
 
 // Definimos un controlador para obtener la lista de todas las calificaciones
-exports.lista = (req,res) =>{
+exports.lista = (req, res, next) =>{
     // Utilizamos el método findAll de Sequelize para obtener todas las calificaciones
     db.Calificacion.findAll()
     .then(calificaciones => {
         // Si la operación es exitosa, enviamos las calificaciones como respuesta en formato JSON
         res.json(calificaciones);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener las calificaciones"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para filtrar las calificaciones por un campo y valor específicos
-exports.filtrar = (req,res) =>{
+exports.filtrar = (req, res, next) =>{
     // Obtenemos el campo y el valor de los parámetros de la ruta
     const campo = req.params.campo;
     const valor = req.params.valor;
@@ -31,15 +28,12 @@ exports.filtrar = (req,res) =>{
         // Si la operación es exitosa, enviamos las calificaciones como respuesta en formato JSON
         res.json(calificaciones);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener las calificaciones"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para crear una nueva calificación
-exports.nuevo = (req,res) =>{
+exports.nuevo = (req, res, next) =>{
     // Verificamos que los campos necesarios estén presentes en el cuerpo de la solicitud
     if(!req.body.calificacion || req.body.aprobado === undefined){
         // Si no están presentes, enviamos un mensaje de error con el estado 400
@@ -59,15 +53,12 @@ exports.nuevo = (req,res) =>{
         // Si la operación es exitosa, enviamos los datos de la nueva calificación como respuesta en formato JSON
         res.json(data);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al crear la calificación"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para actualizar una calificación
-exports.actualizar = (req,res) =>{
+exports.actualizar = (req, res, next) =>{
     // Obtenemos el id de la calificación de los parámetros de la ruta
     const id = req.params.id;
     // Utilizamos el método update de Sequelize para actualizar la calificación
@@ -87,15 +78,12 @@ exports.actualizar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al actualizar la calificación"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para eliminar una calificación
-exports.eliminar = (req,res) =>{
+exports.eliminar = (req, res, next) =>{
     // Obtenemos el id de la calificación de los parámetros de la ruta
     const id = req.params.id;
     // Imprimimos un mensaje en la consola indicando que se va a eliminar la calificación con el id especificado
@@ -117,9 +105,6 @@ exports.eliminar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al eliminar la calificación"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }

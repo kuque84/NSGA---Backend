@@ -2,22 +2,19 @@
 const db = require('../Models');
 
 // Función para obtener la lista de todas las inscripciones
-exports.lista = (req,res) =>{
+exports.lista = (req, res, next) =>{
     // Buscamos todas las inscripciones en la base de datos
     db.Inscripcion.findAll()
     .then(inscripciones => {
         // Si la búsqueda es exitosa, devolvemos las inscripciones como respuesta en formato JSON
         res.json(inscripciones);
     }).catch(err => {
-        // Si ocurre un error, devolvemos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener las inscripciones"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Función para filtrar las inscripciones por un campo específico
-exports.filtrar = (req,res) =>{
+exports.filtrar = (req, res, next) =>{
     // Obtenemos el campo y el valor por el cual filtrar de los parámetros de la solicitud
     const campo = req.params.campo;
     const valor = req.params.valor;
@@ -31,15 +28,12 @@ exports.filtrar = (req,res) =>{
         // Si la búsqueda es exitosa, devolvemos las inscripciones filtradas como respuesta en formato JSON
         res.json(inscripciones);
     }).catch(err => {
-        // Si ocurre un error, devolvemos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener las inscripciones"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Función para crear una nueva inscripción
-exports.nuevo = (req,res) =>{
+exports.nuevo = (req, res, next) =>{
     // Verificamos que todos los campos necesarios estén presentes en el cuerpo de la solicitud
     if(!req.body.id_previa || !req.body.id_turno || !req.body.id_fechaExamen || !req.body.id_calificacion || !req.body.libro || !req.body.folio){
         // Si falta algún campo, devolvemos un mensaje de error con un código de estado 400
@@ -63,15 +57,12 @@ exports.nuevo = (req,res) =>{
         // Si la creación es exitosa, devolvemos los datos de la nueva inscripción como respuesta en formato JSON
         res.json(data);
     }).catch(err => {
-        // Si ocurre un error, devolvemos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al crear la inscripcion"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Función para actualizar una inscripción existente
-exports.actualizar = (req,res) =>{
+exports.actualizar = (req, res, next) =>{
     // Obtenemos el id de la inscripción a actualizar de los parámetros de la solicitud
     const id = req.params.id;
     // Actualizamos la inscripción en la base de datos con los datos presentes en el cuerpo de la solicitud
@@ -91,15 +82,12 @@ exports.actualizar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, devolvemos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al actualizar la inscripcion"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Función para eliminar una inscripción existente
-exports.eliminar = (req,res) =>{
+exports.eliminar = (req, res, next) =>{
     // Obtenemos el id de la inscripción a eliminar de los parámetros de la solicitud
     const id = req.params.id;
     // Imprimimos un mensaje en la consola indicando el id de la inscripción a eliminar
@@ -121,9 +109,6 @@ exports.eliminar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, devolvemos un mensaje de error con un código de estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al eliminar la inscripcion"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }

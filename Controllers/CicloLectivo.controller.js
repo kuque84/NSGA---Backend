@@ -2,22 +2,19 @@
 const db = require('../Models');
 
 // Definimos un controlador para obtener la lista de todos los ciclos lectivos
-exports.lista = (req,res) =>{
+exports.lista = (req, res, next) =>{
     // Utilizamos el método findAll de Sequelize para obtener todos los ciclos lectivos
     db.CicloLectivo.findAll()
     .then(ciclolectivos => {
         // Si la operación es exitosa, enviamos los ciclos lectivos como respuesta en formato JSON
         res.json(ciclolectivos);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener los ciclos lectivos"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para filtrar los ciclos lectivos por un campo y valor específicos
-exports.filtrar = (req,res) =>{
+exports.filtrar = (req, res, next) =>{
     // Obtenemos el campo y el valor de los parámetros de la ruta
     const campo = req.params.campo;
     const valor = req.params.valor;
@@ -31,15 +28,12 @@ exports.filtrar = (req,res) =>{
         // Si la operación es exitosa, enviamos los ciclos lectivos como respuesta en formato JSON
         res.json(ciclolectivos);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener los ciclos lectivos"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para crear un nuevo ciclo lectivo
-exports.nuevo = (req,res) =>{
+exports.nuevo = (req, res, next) =>{
     // Verificamos que los campos necesarios estén presentes en el cuerpo de la solicitud
     if(!req.body.anio){
         // Si no están presentes, enviamos un mensaje de error con el estado 400
@@ -58,15 +52,12 @@ exports.nuevo = (req,res) =>{
         // Si la operación es exitosa, enviamos los datos del nuevo ciclo lectivo como respuesta en formato JSON
         res.json(data);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al crear el ciclo lectivo"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para actualizar un ciclo lectivo
-exports.actualizar = (req,res) =>{
+exports.actualizar = (req, res, next) =>{
     // Obtenemos el id del ciclo lectivo de los parámetros de la ruta
     const id = req.params.id;
     // Utilizamos el método update de Sequelize para actualizar el ciclo lectivo
@@ -86,15 +77,12 @@ exports.actualizar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al actualizar el ciclo lectivo"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para eliminar un ciclo lectivo
-exports.eliminar = (req,res) =>{
+exports.eliminar = (req, res, next) =>{
     // Obtenemos el id del ciclo lectivo de los parámetros de la ruta
     const id = req.params.id;
     // Imprimimos un mensaje en la consola indicando que se va a eliminar el ciclo lectivo con el id especificado
@@ -116,9 +104,6 @@ exports.eliminar = (req,res) =>{
             });
         }
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al eliminar el ciclo lectivo"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }

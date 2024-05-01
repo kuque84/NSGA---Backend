@@ -2,22 +2,19 @@
 const db = require('../Models');
 
 // Definimos un controlador para obtener la lista de todas las condiciones
-exports.lista = (req,res) =>{
+exports.lista = (req, res, next) =>{
     // Utilizamos el método findAll de Sequelize para obtener todas las condiciones
     db.Condicion.findAll()
     .then(condiciones => {
         // Si la operación es exitosa, enviamos las condiciones como respuesta en formato JSON
         res.json(condiciones);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener las condiciones"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para filtrar las condiciones por un campo y valor específicos
-exports.filtrar = (req,res) =>{
+exports.filtrar = (req, res, next) =>{
     // Obtenemos el campo y el valor de los parámetros de la ruta
     const campo = req.params.campo;
     const valor = req.params.valor;
@@ -31,15 +28,12 @@ exports.filtrar = (req,res) =>{
         // Si la operación es exitosa, enviamos las condiciones como respuesta en formato JSON
         res.json(condiciones);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al obtener las condiciones"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para crear una nueva condición
-exports.nuevo = (req,res) =>{
+exports.nuevo = (req, res, next) =>{
     // Verificamos que los campos necesarios estén presentes en el cuerpo de la solicitud
     if(!req.body.nombre){
         // Si no están presentes, enviamos un mensaje de error con el estado 400
@@ -58,15 +52,12 @@ exports.nuevo = (req,res) =>{
         // Si la operación es exitosa, enviamos los datos de la nueva condición como respuesta en formato JSON
         res.json(data);
     }).catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al crear la condición"
-        });
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
 
 // Definimos un controlador para actualizar una condición existente
-exports.actualizar = (req, res) => {
+exports.actualizar = (req, res, next) => {
     // Obtenemos el ID de la condición de los parámetros de la ruta
     const id = req.params.id;
 
@@ -86,17 +77,13 @@ exports.actualizar = (req, res) => {
                 message: `No se pudo actualizar la condición con ID=${id}.`
             });
         }
-    })
-    .catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al actualizar la condición."
-        });
+    }).catch(err => {
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 };
 
 // Definimos un controlador para eliminar una condición existente
-exports.eliminar = (req, res) => {
+exports.eliminar = (req, res, next) => {
     // Obtenemos el ID de la condición de los parámetros de la ruta
     const id = req.params.id;
 
@@ -116,11 +103,7 @@ exports.eliminar = (req, res) => {
                 message: `No se pudo eliminar la condición con ID=${id}.`
             });
         }
-    })
-    .catch(err => {
-        // Si ocurre un error, enviamos un mensaje de error con el estado 500
-        res.status(500).send({
-            message: err.message || "Ocurrió un error al eliminar la condición."
-        });
+    }).catch(err => {
+        next(err); // Pasamos el error al middleware de manejo de errores
     });
 };
