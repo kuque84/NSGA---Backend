@@ -6,18 +6,18 @@ const dbConfig = require('../Config/db.config');
 
 // Creamos una nueva instancia de Sequelize con la configuración de la base de datos
 const sequelize = new Sequelize(
-  dbConfig.DB,
-  dbConfig.USER,
-  dbConfig.PASSWORD,
+  dbConfig.DB, // Nombre de la base de datos
+  dbConfig.USER, // Usuario de la base de datos
+  dbConfig.PASSWORD, // Contraseña de la base de datos
   {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
-    port: dbConfig.port,
+    host: dbConfig.HOST, // Host de la base de datos
+    dialect: dbConfig.dialect, // Dialecto de la base de datos (por ejemplo, 'mysql', 'postgres', 'sqlite')
+    port: dbConfig.port, // Puerto de la base de datos
     pool: {
-      max: dbConfig.pool.max,
-      min: dbConfig.pool.min,
-      acquire: dbConfig.pool.acquire,
-      idle: dbConfig.pool.idle
+      max: dbConfig.pool.max, // Número máximo de conexiones en el grupo de conexiones
+      min: dbConfig.pool.min, // Número mínimo de conexiones en el grupo de conexiones
+      acquire: dbConfig.pool.acquire, // Tiempo máximo en milisegundos para adquirir una conexión antes de lanzar un error
+      idle: dbConfig.pool.idle // Tiempo máximo en milisegundos que una conexión puede estar inactiva antes de ser liberada
     }
   }
 );
@@ -45,6 +45,7 @@ db.Previa = require('./Previa.model')(sequelize);//
 db.TurnoExamen = require('./TurnoExamen.model')(sequelize);// ABRIL - JULIO - SEPTIEMBRE - DICIEMBRE - FEBRERO
 db.FechaExamen = require('./FechaExamen.model')(sequelize);
 db.Inscripcion = require('./Inscripcion.model')(sequelize);// Inscripcion de un alumno a un examen
+db.Rol = require ('./Rol.model')(sequelize);
 
 // Definimos las relaciones entre los modelos
 //db.Alumno.belongsToMany(db.Curso, { through: db.Previa });
