@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 
 // Importamos la llave secreta desde la configuración del entorno
-const llave = require('../Config/env').llave;
+const llave = require('../Config/env.env').llave;
 
 // Exportamos un middleware que verifica el token JWT
 module.exports = (req,res,next) =>{

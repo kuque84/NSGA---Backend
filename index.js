@@ -1,7 +1,7 @@
 // Importamos los módulos necesarios
 const express = require('express');
 const app = express();
-const port = require('./Config/env').port || 3000; // Definimos el puerto
+const port = require('./Config/env.env').port || 3000; // Definimos el puerto
 const cors = require('cors');
 const errorHandler = require('./Middlewares/errorHandler');
 
