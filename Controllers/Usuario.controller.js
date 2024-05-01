@@ -2,7 +2,7 @@
 const db = require('../Models'); // Importamos los modelos de la base de datos
 const bcrypt = require('bcrypt'); // Importamos bcrypt para cifrar las contraseñas
 const jwt = require('jsonwebtoken'); // Importamos jsonwebtoken para generar tokens de autenticación
-const llave = require('../Config/env.env').llave; // Importamos la llave secreta para firmar los tokens
+const llave = require('dotenv').config().parsed.SECRET_KEY; // Importamos la llave secreta para firmar los tokens
 
 // Función para obtener la lista de todos los usuarios
 exports.lista = (req, res, next) =>{

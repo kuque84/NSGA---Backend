@@ -1,9 +1,10 @@
 // Importamos los módulos necesarios
 const express = require('express');
 const app = express();
-const port = require('./Config/env.env').port || 3000; // Definimos el puerto
+const port = require('dotenv').config().parsed.PORT; // Importamos el puerto desde la configuración del entorno
 const cors = require('cors');
 const errorHandler = require('./Middlewares/errorHandler');
+console.log(port);
 
 // Usamos el middleware de express para parsear el cuerpo de las solicitudes a JSON
 app.use(express.json());

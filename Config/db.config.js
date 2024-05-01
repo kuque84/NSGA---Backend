@@ -1,34 +1,22 @@
-module.exports = {
-    // El host de la base de datos
-    HOST: "localhost",
+require('dotenv').config();
 
-    // El usuario de la base de datos
-    USER: "root",
+//console.log(process.env); // Imprime todas las variables de entorno
 
-    // La contraseña del usuario de la base de datos
-    PASSWORD: "8484",
-
-    // El nombre de la base de datos
-    DB: "nsgaDb",
-
-    // El dialecto de la base de datos (en este caso, MySQL)
-    dialect: "mysql",
-
-    // El puerto en el que se ejecuta la base de datos
-    port: '3306',
-
-    // Configuración del pool de conexiones a la base de datos
+const dbConfig = {
+    HOST: process.env.DB_HOST,
+    USER: process.env.DB_USER,
+    PASSWORD: process.env.DB_PASSWORD,
+    DB: process.env.DB_NAME,
+    dialect: process.env.DB_DIALECT,
+    PORT: process.env.DB_PORT,
     pool: {
-        // Número máximo de conexiones en el pool
         max: 5,
-
-        // Número mínimo de conexiones en el pool
         min: 0,
-
-        // Tiempo máximo, en milisegundos, que una conexión puede ser utilizada antes de ser liberada
         acquire: 30000,
-
-        // Tiempo máximo, en milisegundos, que una conexión puede estar ociosa antes de ser liberada
         idle: 10000
     }
 };
+
+console.log(dbConfig); // Imprime la configuración de la base de datos
+
+module.exports = dbConfig;
