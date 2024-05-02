@@ -3,6 +3,7 @@ const db = require('../Models'); // Importamos los modelos de la base de datos
 const bcrypt = require('bcrypt'); // Importamos bcrypt para cifrar las contraseñas
 const jwt = require('jsonwebtoken'); // Importamos jsonwebtoken para generar tokens de autenticación
 const llave = require('dotenv').config().parsed.SECRET_KEY; // Importamos la llave secreta para firmar los tokens
+const logger = require('../Config/logger'); // Importamos el logger
 
 // Función para obtener la lista de todos los usuarios
 exports.lista = (req, res, next) =>{
@@ -10,6 +11,7 @@ exports.lista = (req, res, next) =>{
     .then(usuarios => {
         res.json(usuarios); // Enviamos los usuarios como respuesta
     }).catch(err => {
+        logger.error('Error al obtener la lista de usuarios: ', err); // Imprimimos el error en el log
         next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
@@ -26,6 +28,7 @@ exports.filtrar = (req, res, next) =>{
     .then(usuarios => {
         res.json(usuarios); // Enviamos los usuarios filtrados como respuesta
     }).catch(err => {
+        logger.error('Error al obtener la lista de usuarios: ', err);
         next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
@@ -153,6 +156,7 @@ exports.login = (req,res, next) => {
             token: token // Enviamos el token como respuesta
         });
     }).catch(err => {
+        logger.error('Error al iniciar sesión: ', err); // Imprimimos el error en el log
         next(err); // Pasamos el error al middleware de manejo de errores
     });
 }

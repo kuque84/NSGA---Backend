@@ -1,21 +1,25 @@
 // Importamos los módulos necesarios
 const express = require('express');
 const app = express();
-const port = require('dotenv').config().parsed.PORT; // Importamos el puerto desde la configuración del entorno
+const dotenv = require('dotenv');
 const cors = require('cors');
 const errorHandler = require('./Middlewares/errorHandler');
-console.log(port);
+const corsOptions = require('./Config/corsOptions'); // Importamos la configuración de CORS desde un archivo separado
+const logger = require('./Config/logger'); // Importamos el logger
+
+// Cargamos las variables de entorno
+const envConfig = dotenv.config();
+
+if (envConfig.error) {
+    logger.error('Error al cargar las variables de entorno: ', envConfig.error);
+    process.exit(1);
+
+}
+
+const port = envConfig.parsed.PORT;
 
 // Usamos el middleware de express para parsear el cuerpo de las solicitudes a JSON
 app.use(express.json());
-
-// Definimos las opciones de CORS
-const corsOptions = {
-    origin: '*', // Permitimos cualquier origen
-    methods: 'GET,PUT,POST,DELETE', // Permitimos estos métodos
-    allowedHeaders: '*', // Permitimos cualquier cabecera
-    optionsSuccessStatus: 200, // El código de estado que se devuelve cuando una solicitud de pre-vuelo tiene éxito
-};
 
 // Usamos el middleware de CORS con las opciones definidas
 app.use(cors(corsOptions));
@@ -30,16 +34,33 @@ require('./Routers/index.routes')(app);
 app.use(errorHandler);
 
 // Sincronizamos la base de datos
-db.sequelize
-    .sync({alter:true}) // {alter/force:true} (alter:actualizar // force: regenera)
-    .then((result) => {
-        console.log(`Database connected ${result}`); // Si todo va bien, mostramos este mensaje
-    })
-    .catch((err) => {
-        console.log('Error: ', err); // Si hay un error, lo mostramos
-    });
+const syncDatabase = async () => {
+    try {
+        const result = await db.sequelize.sync({alter:true});
+        logger.info(`Base de Datos conectada: ${result}`);
+    } catch (err) {
+        logger.error('Error: ', err);
+        server.close(() => {
+            process.exit(1);
+        });
+    }
+};
+
+syncDatabase();
 
 // Iniciamos el servidor
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`); // Mostramos el puerto en el que se está ejecutando el servidor
-});
+let server;
+const startServer = () => {
+    server = app.listen(port, () => {
+        logger.info(`Se inicializó el servidor en el puerto: ${port}`);
+    });
+
+    server.on('error', (err) => {
+        logger.error('Error al iniciar el servidor: ', err);
+        server.close(() => {
+            process.exit(1);
+        });
+    });
+};
+
+startServer();

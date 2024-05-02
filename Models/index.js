@@ -2,26 +2,44 @@
 const Sequelize = require('sequelize');
 
 // Importamos la configuración de la base de datos
-const dbConfig = require('../Config/db.config');
+require('dotenv').config();
+
+// Importamos el logger
+const logger = require('../Config/logger'); // Asegúrate de reemplazar 'path/to/logger' con la ruta correcta al archivo del logger
+
+// Validamos que todas las variables de entorno necesarias están definidas
+if (!process.env.DB_HOST || !process.env.DB_USER || !process.env.DB_PASSWORD || !process.env.DB_NAME || !process.env.DB_DIALECT || !process.env.DB_PORT) {
+  logger.error('Falta una o más variables de entorno requeridas');
+  process.exit(1);
+}
 
 // Creamos una nueva instancia de Sequelize con la configuración de la base de datos
 const sequelize = new Sequelize(
-  dbConfig.DB, // Nombre de la base de datos
-  dbConfig.USER, // Usuario de la base de datos
-  dbConfig.PASSWORD, // Contraseña de la base de datos
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
   {
-    host: dbConfig.HOST, // Host de la base de datos
-    dialect: dbConfig.dialect, // Dialecto de la base de datos (por ejemplo, 'mysql', 'postgres', 'sqlite')
-    port: dbConfig.port, // Puerto de la base de datos
-    pool: {
-      max: dbConfig.pool.max, // Número máximo de conexiones en el grupo de conexiones
-      min: dbConfig.pool.min, // Número mínimo de conexiones en el grupo de conexiones
-      acquire: dbConfig.pool.acquire, // Tiempo máximo en milisegundos para adquirir una conexión antes de lanzar un error
-      idle: dbConfig.pool.idle // Tiempo máximo en milisegundos que una conexión puede estar inactiva antes de ser liberada
-    }
+  host: process.env.DB_HOST,
+  dialect: process.env.DB_DIALECT,
+  port: process.env.DB_PORT,
+  pool: {
+    max: parseInt(process.env.DB_POOL_MAX),
+    min: parseInt(process.env.DB_POOL_MIN),
+    acquire: parseInt(process.env.DB_POOL_ACQUIRE),
+    idle: parseInt(process.env.DB_POOL_IDLE)
+  }
   }
 );
 
+let dbConfig = {...sequelize.config}; // Hacemos una copia del objeto de datos del usuario
+dbConfig.PASSWORD = '********'; // Eliminamos la propiedad de la contraseña
+console.log(dbConfig); // Imprimimos los datos del usuario
+
+// Probamos la conexión a la base de datos
+sequelize.authenticate()
+  .then(() => logger.info('Conexión a la base de datos establecida con éxito.'))
+  .catch(err => logger.error('No se pudo conectar a la base de datos:', err));
+  
 // Creamos un objeto vacío para almacenar los modelos de la base de datos
 const db = {};
 
@@ -46,10 +64,6 @@ db.TurnoExamen = require('./TurnoExamen.model')(sequelize);// ABRIL - JULIO - SE
 db.FechaExamen = require('./FechaExamen.model')(sequelize);
 db.Inscripcion = require('./Inscripcion.model')(sequelize);// Inscripcion de un alumno a un examen
 db.Rol = require ('./Rol.model')(sequelize);
-
-// Definimos las relaciones entre los modelos
-//db.Alumno.belongsToMany(db.Curso, { through: db.Previa });
-//db.Curso.belongsToMany(db.Alumno, { through: db.Previa });
 
 // Exportamos el objeto db
 module.exports = db;

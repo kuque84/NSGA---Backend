@@ -4,6 +4,9 @@ const jwt = require('jsonwebtoken');
 // Importamos la llave secreta desde la configuración del entorno
 const llave = require('dotenv').config().parsed.SECRET_KEY;
 
+//Importamos el logger
+const logger = require('../Config/logger');
+
 // Exportamos un middleware que verifica el token JWT
 module.exports = (req,res,next) =>{
     // Obtenemos el token de autorización de los encabezados de la solicitud
@@ -11,6 +14,7 @@ module.exports = (req,res,next) =>{
 
     // Si no se proporcionó el token, enviamos un mensaje de error
     if(!headerAuth){
+        logger.error('No se proporcionó token.');
         res.status(401).send({
             message: "No se proporcionó token"
         });
@@ -24,6 +28,7 @@ module.exports = (req,res,next) =>{
     jwt.verify(token, llave, (err,decoded) =>{
         // Si hay un error (por ejemplo, el token es inválido), enviamos un mensaje de error
         if(err){
+            logger.error('Token inválido. ', err);
             res.status(401).send({
                 message: "Token inválido"
             });
