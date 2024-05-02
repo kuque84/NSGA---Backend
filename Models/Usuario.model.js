@@ -19,17 +19,17 @@ module.exports = (sequelize) => {
     // El campo dni, que es una cadena de hasta 8 caracteres y puede ser nulo
     dni: {
       type: DataTypes.STRING(8),
-      allowNull: true,
+      allowNull: false,
     },
     // El campo password, que es una cadena de hasta 100 caracteres y puede ser nulo
     password: {
       type: DataTypes.STRING(100),
-      allowNull: true,
+      allowNull: false,
     },
     // El campo id_rol, que es un número entero, no puede ser nulo y hace referencia a la tabla 'roles'
     id_rol: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'roles', // nombre de la tabla referenciada
         key: 'id_rol'
