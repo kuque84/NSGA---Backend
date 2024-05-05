@@ -124,7 +124,7 @@ exports.eliminar = (req,res, next) =>{
 }
 
 // Función para manejar el inicio de sesión de los usuarios
-exports.login = (req,res, next) => {
+exports.login = (req, res, next) => {
     db.Usuario.findOne({
         where: {
             dni: req.body.dni // Buscamos un usuario con el DNI proporcionado en el cuerpo de la solicitud
@@ -150,11 +150,14 @@ exports.login = (req,res, next) => {
 
         let usuarioToSend = {...usuario.dataValues}; // Hacemos una copia del objeto de datos del usuario
         delete usuarioToSend.password; // Eliminamos la propiedad de la contraseña
+        usuarioToSend.token = token; // Agregamos el token al objeto de datos del usuario
+        usuarioToSend.msg = 'Login exitoso'; // Agregamos un mensaje de éxito al objeto de datos del usuario
+        usuario = usuarioToSend;
 
-        res.json({
-            usuario: usuarioToSend, // Enviamos los datos del usuario (sin la contraseña) como respuesta
-            token: token // Enviamos el token como respuesta
+        res.status(200).send({
+            usuario
         });
+        console.log(usuario) // Imprimimos el nombre del usuario en el log
     }).catch(err => {
         logger.error('Error al iniciar sesión: ', err); // Imprimimos el error en el log
         next(err); // Pasamos el error al middleware de manejo de errores
