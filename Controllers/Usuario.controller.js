@@ -163,3 +163,35 @@ exports.login = (req, res, next) => {
         next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
+
+exports.verificar = (req, res, next) => {
+    console.log('Entrando al verificador: ',req.body.token);
+    const token = req.body.token; // Obtenemos el token de autenticación almacenado en el cuerpo de la solicitud
+    if(!token){
+        res.status(403).send({
+            message: "No se proporcionó un token" // Enviamos un mensaje de error si no se proporcionó un token
+        });
+        return;
+    }
+    jwt.verify(token, llave, (err, decoded) => {
+        if(err){
+            res.status(401).send({
+                message: "Token inválido" // Enviamos un mensaje de error si el token no es válido
+            });
+            console.log('Token inválido');
+            logger.error('Token inválido: ', err); // Imprimimos el error en el log
+            next(err);
+            return;
+        }
+        db.Usuario.findByPk(decoded.id)
+        .then(usuario => {
+            let usuarioToSend = {...usuario.dataValues}; // Hacemos una copia del objeto de datos del usuario
+            delete usuarioToSend.password; // Eliminamos la propiedad de la contraseña
+            res.json(usuarioToSend); // Enviamos los datos del usuario como respuesta
+            console.log(usuarioToSend)
+        }).catch(err => {
+            logger.error('Error al verificar el token: ', err); // Imprimimos el error en el log
+            next(err); // Pasamos el error al middleware de manejo de errores
+        });
+    });
+};

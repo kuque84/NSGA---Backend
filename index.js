@@ -36,7 +36,7 @@ app.use(errorHandler);
 // Sincronizamos la base de datos
 const syncDatabase = async () => {
     try {
-        const result = await db.sequelize.sync({alter:true});
+        const result = await db.sequelize.sync();//{alter:true}
         logger.info(`Base de Datos conectada: ${result}`);
     } catch (err) {
         logger.error('Error: ', err);

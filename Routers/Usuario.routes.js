@@ -31,5 +31,7 @@ Rutas.put('/actualizar/:id', Auth, UsuarioController.actualizar);
 // Esta ruta requiere autenticación
 Rutas.delete('/eliminar/:id', Auth, UsuarioController.eliminar);
 
+Rutas.post('/verificar', UsuarioController.verificar);
+
 // Exportamos las rutas
 module.exports = Rutas;
