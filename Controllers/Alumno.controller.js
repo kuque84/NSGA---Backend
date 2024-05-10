@@ -107,3 +107,32 @@ exports.eliminar = (req, res, next) =>{
         next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
+
+exports.listaPag = (req,res) =>{
+    console.log('Procesamiento de lista filtrada por pagina');
+    const pag = req.params.pag;
+    const text = req.params.text;
+    if (!pag) { pag = 1; }
+    const limit = 10; //limite de registros por pagina
+    const offset = (pag - 1) * limit; //offset es el numero de registros que se saltara - desde donde comenzará
+    if (!text){
+    db.Alumno.findAndCountAll({limit: limit, offset: offset, order: [['apellidos', 'ASC']]})
+        .then( registros => {
+            res.status(200).send(registros);
+        })
+        .catch(error =>{
+            res.status(500).send(error);
+        });
+    }else{
+        db.Alumno.findAndCountAll({where: {apellidos: {
+            [Op.like]: `%${text}%`
+        }}, limit: limit, offset: offset, order: [['apellidos', 'ASC']]})
+        .then( registros => {
+            res.status(200).send(registros);
+        })
+        .catch(error =>{
+            res.status(500).send(error);
+        });
+    }
+    console.log(`pagina: ${pag} texto:${text}`)
+};

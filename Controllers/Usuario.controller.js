@@ -158,6 +158,7 @@ exports.login = (req, res, next) => {
             usuario
         });
         console.log(usuario) // Imprimimos el nombre del usuario en el log
+
     }).catch(err => {
         logger.error('Error al iniciar sesión: ', err); // Imprimimos el error en el log
         next(err); // Pasamos el error al middleware de manejo de errores
@@ -187,8 +188,11 @@ exports.verificar = (req, res, next) => {
         .then(usuario => {
             let usuarioToSend = {...usuario.dataValues}; // Hacemos una copia del objeto de datos del usuario
             delete usuarioToSend.password; // Eliminamos la propiedad de la contraseña
-            res.json(usuarioToSend); // Enviamos los datos del usuario como respuesta
-            console.log(usuarioToSend)
+            usuario = usuarioToSend;
+            res.status(200).send({
+                usuario
+            });
+            console.log(usuario)
         }).catch(err => {
             logger.error('Error al verificar el token: ', err); // Imprimimos el error en el log
             next(err); // Pasamos el error al middleware de manejo de errores
