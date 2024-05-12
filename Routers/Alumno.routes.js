@@ -12,8 +12,8 @@ const Auth = require('../Middlewares/Auth.js');
 Rutas.get('/lista', Auth, AlumnoController.lista);
 //Rutas.get('/Alumno', Auth, AlumnoController.lista);
 
-Rutas.get('/lista/:pag', AlumnoController.listaPag);
-Rutas.get('/lista/:pag/:text', AlumnoController.listaPag);
+Rutas.get('/lista/:pag', Auth, AlumnoController.listaPag);
+Rutas.get('/lista/:pag/:text', Auth, AlumnoController.listaPag);
 
 // Definimos una ruta GET para filtrar Alumnos por un campo y valor específicos
 // Esta ruta requiere autenticación

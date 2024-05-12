@@ -23,7 +23,7 @@ module.exports = (req,res,next) =>{
 
     // Extraemos el token del encabezado de autorización
     const token = headerAuth.split(' ')[1]; // Bearer token
-
+    console.log(token);
     // Verificamos el token
     jwt.verify(token, llave, (err,decoded) =>{
         // Si hay un error (por ejemplo, el token es inválido), enviamos un mensaje de error

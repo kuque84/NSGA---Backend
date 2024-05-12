@@ -1,5 +1,6 @@
 // Importamos los modelos de la base de datos
 const db = require('../Models');
+const Op = db.Sequelize.Op;
 
 // Definimos un controlador para obtener la lista de todos los alumnos
 exports.lista = (req, res, next) =>{
@@ -113,7 +114,7 @@ exports.listaPag = (req,res) =>{
     const pag = req.params.pag;
     const text = req.params.text;
     if (!pag) { pag = 1; }
-    const limit = 10; //limite de registros por pagina
+    const limit = 5; //limite de registros por pagina
     const offset = (pag - 1) * limit; //offset es el numero de registros que se saltara - desde donde comenzará
     if (!text){
     db.Alumno.findAndCountAll({limit: limit, offset: offset, order: [['apellidos', 'ASC']]})
@@ -124,13 +125,22 @@ exports.listaPag = (req,res) =>{
             res.status(500).send(error);
         });
     }else{
-        db.Alumno.findAndCountAll({where: {apellidos: {
-            [Op.like]: `%${text}%`
-        }}, limit: limit, offset: offset, order: [['apellidos', 'ASC']]})
-        .then( registros => {
+        db.Alumno.findAndCountAll({
+            where: {
+                [Op.or]: [
+                    { apellidos: { [Op.like]: `%${text}%` } },
+                    { nombres: { [Op.like]: `%${text}%` } },
+                    { dni: { [Op.like]: `%${text}%` } }
+                ]
+            },
+            limit: limit,
+            offset: offset,
+            order: [['apellidos', 'ASC']]
+        })
+        .then(registros => {
             res.status(200).send(registros);
         })
-        .catch(error =>{
+        .catch(error => {
             res.status(500).send(error);
         });
     }
