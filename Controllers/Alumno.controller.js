@@ -55,7 +55,14 @@ exports.nuevo = (req, res, next) =>{
         // Si la operación es exitosa, enviamos los datos del nuevo alumno como respuesta en formato JSON
         res.json(data);
     }).catch(err => {
-        next(err); // Pasamos el error al middleware de manejo de errores
+        // Si el error es una violación de restricción única, enviamos un código de estado 409
+        if (err.name === 'SequelizeUniqueConstraintError') {
+            res.status(409).send({
+                message: 'Ya existe un alumno con el DNI proporcionado.'
+            });
+        } else {
+            next(err); // Pasamos el error al middleware de manejo de errores
+        }
     });
 }
 
