@@ -145,7 +145,8 @@ exports.login = (req, res, next) => {
             return;
         }
         const token = jwt.sign({id: usuario.id}, llave, {
-            expiresIn: '1h' // Generamos un token de autenticación que expira en 24 horas
+            // Generamos un token de autenticación que expira en 15 minutos
+            expiresIn: '1h' // 15 minutos
         });
 
         let usuarioToSend = {...usuario.dataValues}; // Hacemos una copia del objeto de datos del usuario

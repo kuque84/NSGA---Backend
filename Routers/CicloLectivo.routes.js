@@ -12,6 +12,9 @@ const Auth = require('../Middlewares/Auth.js');
 Rutas.get('/lista', Auth, CicloLectivoController.lista);
 //Rutas.get('/ciclolectivo', Auth, CicloLectivoController.lista);
 
+Rutas.get('/lista/:pag', Auth, CicloLectivoController.listaPag);
+Rutas.get('/lista/:pag/:text', Auth, CicloLectivoController.listaPag);
+
 // Definimos una ruta GET para filtrar CicloLectivos por un campo y valor específicos
 // Esta ruta requiere autenticación
 Rutas.get('/filtrar/:campo/:valor', Auth, CicloLectivoController.filtrar);
