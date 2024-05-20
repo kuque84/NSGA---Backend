@@ -45,8 +45,7 @@ exports.nuevo = (req, res, next) =>{
     // Creamos un objeto con los datos del nuevo plan
     const Plan = {
         codigo: req.body.codigo,
-        descripcion: req.body.descripcion,
-        id_ciclo: req.body.id_ciclo
+        descripcion: req.body.descripcion
     }
     // Usamos el método create de Sequelize para crear el nuevo plan
     db.Plan.create(Plan)

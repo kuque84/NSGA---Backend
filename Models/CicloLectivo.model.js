@@ -16,6 +16,7 @@ module.exports = (sequelize) => {
         anio: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            unique: true,
         },
     },
     {

@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt'); // Importamos bcrypt para cifrar las contrase�
 const jwt = require('jsonwebtoken'); // Importamos jsonwebtoken para generar tokens de autenticación
 const llave = require('dotenv').config().parsed.SECRET_KEY; // Importamos la llave secreta para firmar los tokens
 const logger = require('../Config/logger'); // Importamos el logger
+const Op = db.Sequelize.Op; // Importamos el operador de Sequelize
+
 
 // Función para obtener la lista de todos los usuarios
 exports.lista = (req, res, next) =>{
@@ -35,7 +37,7 @@ exports.filtrar = (req, res, next) =>{
 
 // Función para crear un nuevo usuario
 exports.nuevo = (req, res, next) => {
-    if(!req.body.nombre || !req.body.email || !req.body.password || !req.body.dni || !req.body.id_rol){
+    if(!req.body.nombres || !req.body.apellidos || !req.body.email || !req.body.dni || !req.body.password || !req.body.id_rol){
         res.status(400).send({
             message: "Faltan datos" // Enviamos un mensaje de error si faltan datos
         });
@@ -58,9 +60,10 @@ exports.nuevo = (req, res, next) => {
     
         // Si el dni no está en uso, creamos el nuevo usuario
         const usuario = {
-            nombre: req.body.nombre, // Obtenemos el nombre del cuerpo de la solicitud
-            email: req.body.email, // Obtenemos el email del cuerpo de la solicitud
             dni: req.body.dni, // Obtenemos el DNI del cuerpo de la solicitud
+            nombres: req.body.nombres, // Obtenemos el nombre del cuerpo de la solicitud
+            apellidos: req.body.apellidos, // Obtenemos los apellidos del cuerpo de la solicitud
+            email: req.body.email, // Obtenemos el email del cuerpo de la solicitud
             password: bcrypt.hashSync(req.body.password, 8), // Ciframos la contraseña obtenida del cuerpo de la solicitud
             id_rol: req.body.id_rol // Obtenemos el ID del rol del cuerpo de la solicitud
         }
@@ -199,4 +202,44 @@ exports.verificar = (req, res, next) => {
             next(err); // Pasamos el error al middleware de manejo de errores
         });
     });
+};
+
+exports.listaPag = (req,res) =>{
+    console.log('Procesamiento de lista filtrada por pagina');
+    const pag = req.params.pag;
+    const text = req.params.text;
+    if (!pag) { pag = 1; }
+    const limit = 5; //limite de registros por pagina
+    const offset = (pag - 1) * limit; //offset es el numero de registros que se saltara - desde donde comenzará
+    if (!text){
+    db.Usuario.findAndCountAll({limit: limit, offset: offset, order: [['nombres', 'ASC']]})
+        .then( registros => {
+            res.status(200).send(registros);
+        })
+        .catch(error =>{
+            res.status(500).send(error);
+        });
+    }else{
+        db.Usuario.findAndCountAll({
+            where: {
+                [Op.or]: [
+                    { dni: { [Op.like]: `%${text}%` } },
+                    { nombres: { [Op.like]: `%${text}%` } },
+                    { apellidos: { [Op.like]: `%${text}%` } },
+                    { email: { [Op.like]: `%${text}%` } },
+                    { id_rol: { [Op.like]: `%${text}%` } },
+                ]
+            },
+            limit: limit,
+            offset: offset,
+            order: [['nombres', 'ASC']]
+        })
+        .then(registros => {
+            res.status(200).send(registros);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        });
+    }
+    console.log(`pagina: ${pag} texto:${text}`)
 };

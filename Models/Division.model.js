@@ -15,15 +15,6 @@ module.exports = (sequelize) => {
     nombre: {
       type: DataTypes.STRING(1),
     },
-    // El modelo Division tiene un campo id_curso que es un número entero, no puede ser nulo y hace referencia a la tabla 'cursos'
-    id_curso: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'cursos', // nombre de la tabla referenciada
-        key: 'id_curso'
-      }
-    },
   },
   {
     // El nombre de la tabla en la base de datos es 'divisiones'

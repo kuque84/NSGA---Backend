@@ -1,3 +1,2 @@
-"id";"nombre";"email";"dni";"password";"createdAt";"updatedAt"
-1;"Eugenio Regis";"kuque84@gmail.com";"30711347";"$2b$08$WeyhSl/raBQfky6wMCBcy.SxvxkpmzKv4Uud6o.txubKkln4j4FIS";"2024-04-27 17:28:17";"2024-04-27 17:28:17"
-2;"Paula Ramirez";"paula.ramirez@ipem168.com";"11111111";"$2b$08$WeyhSl/raBQfky6wMCBcy.SxvxkpmzKv4Uud6o.txubKkln4j4FIS";"2024-04-27 17:28:17";"2024-04-27 17:28:17"
+"id";"dni";"nombres";"apellidos";"email";"password";"id_rol";"createdAt";"updatedAt"
+1;"30711347";"EUGENIO RENÉ";"REGIS";"kuque84@hotmail.com";"$2b$08$j.lnU3HW6pfIAuxlQbOAredBk0T9Rc1fqSn1F9Kwp5hEkjTlDA5tC";1;"2024-05-18 22:44:39";"2024-05-18 22:46:28"

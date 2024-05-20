@@ -11,6 +11,9 @@ const Auth = require('../Middlewares/Auth.js');
 // Esta ruta requiere autenticación
 Rutas.get('/lista', Auth, UsuarioController.lista);
 
+Rutas.get('/lista/:pag', Auth, UsuarioController.listaPag);
+Rutas.get('/lista/:pag/:text', Auth, UsuarioController.listaPag);
+
 // Definimos una ruta GET para filtrar usuarios por un campo y valor específicos
 // Esta ruta requiere autenticación
 Rutas.get('/filtrar/:campo/:valor', Auth, UsuarioController.filtrar);

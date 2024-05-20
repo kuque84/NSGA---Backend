@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
     // El modelo Alumno tiene un campo dni que es una cadena de hasta 12 caracteres y es la clave primaria
     dni: {
       type: DataTypes.STRING(12),
-      primaryKey: true,
+      unique: true,
     },
     // El modelo Alumno tiene un campo apellidos que es una cadena de hasta 255 caracteres y no puede ser nulo
     apellidos: {

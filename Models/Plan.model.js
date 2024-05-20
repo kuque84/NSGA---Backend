@@ -15,6 +15,7 @@ module.exports = (sequelize) => {
     codigo: {
       type: DataTypes.STRING(25),
       allowNull: false,
+      unique: true,
     },
     // El campo descripcion, que es una cadena de hasta 255 caracteres y no puede ser nulo
     descripcion: {
@@ -22,13 +23,6 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     // El campo id_ciclo, que es una referencia a la tabla CicloLectivo
-    id_ciclo: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'cicloLectivos', // nombre del modelo
-        key: 'id_ciclo', // nombre del campo
-      },
-    },
   },
   {
     tableName: 'planes',

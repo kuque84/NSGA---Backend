@@ -1,5 +1,6 @@
 // Importamos el objeto 'db' que contiene los modelos de la base de datos
 const db = require('../Models');
+const Op = db.Sequelize.Op;
 
 // Definimos el método 'lista' que se encargará de obtener todas las instancias de 'Rol'
 exports.lista = (req, res, next) =>{
@@ -35,7 +36,7 @@ exports.filtrar = (req, res, next) =>{
 // Definimos el método 'nuevo' que se encargará de crear una nueva instancia de 'Rol'
 exports.nuevo = (req, res, next) =>{
     // Verificamos que los datos necesarios estén presentes en el cuerpo de la solicitud HTTP
-    if(!req.body.nombre){
+    if(!req.body.rol){
         // Si faltan datos, enviamos un mensaje de error con un código de estado HTTP 400
         res.status(400).send({
             message: "Faltan datos"
@@ -44,8 +45,7 @@ exports.nuevo = (req, res, next) =>{
     }
     // Creamos un objeto con los datos de la nueva instancia
     const rol = {
-        nombre: req.body.nombre,
-        id_plan: req.body.id_plan
+        rol: req.body.rol,
     }
     // Utilizamos el método 'create' de Sequelize para crear la nueva instancia en la base de datos
     db.Rol.create(rol)
@@ -108,3 +108,39 @@ exports.eliminar = (req, res, next) =>{
         next(err); // Pasamos el error al middleware de manejo de errores
     });
 }
+
+exports.listaPag = (req,res) =>{
+    console.log('Procesamiento de lista filtrada por pagina');
+    const pag = req.params.pag;
+    const text = req.params.text;
+    if (!pag) { pag = 1; }
+    const limit = 5; //limite de registros por pagina
+    const offset = (pag - 1) * limit; //offset es el numero de registros que se saltara - desde donde comenzará
+    if (!text){
+    db.Rol.findAndCountAll({limit: limit, offset: offset, order: [['id_rol', 'ASC']]})
+        .then( registros => {
+            res.status(200).send(registros);
+        })
+        .catch(error =>{
+            res.status(500).send(error);
+        });
+    }else{
+        db.Rol.findAndCountAll({
+            where: {
+                [Op.or]: [
+                    { rol: { [Op.like]: `%${text}%` } },
+                ]
+            },
+            limit: limit,
+            offset: offset,
+            order: [['id_rol', 'ASC']]
+        })
+        .then(registros => {
+            res.status(200).send(registros);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        });
+    }
+    console.log(`pagina: ${pag} texto:${text}`)
+};

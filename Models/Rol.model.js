@@ -17,6 +17,7 @@ module.exports = (sequelize) => {
     rol: {
       type: DataTypes.STRING(25),
       allowNull: false,
+      unique: true,
     },
   },{
     // Especificamos el nombre de la tabla en la base de datos.
