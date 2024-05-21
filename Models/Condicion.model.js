@@ -22,7 +22,8 @@ module.exports = (sequelize) => {
     // El nombre de la tabla en la base de datos es 'condiciones'
     tableName: 'condiciones',
   });
-
+  
   // La función exportada retorna el modelo Condicion
   return Condicion;
 };
+

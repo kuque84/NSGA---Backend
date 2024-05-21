@@ -28,7 +28,6 @@ module.exports = (sequelize) => {
     tableName: 'planes',
   }
 );
-
   // Devolvemos el modelo Plan
   return Plan;
 };
