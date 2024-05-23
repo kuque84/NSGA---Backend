@@ -65,7 +65,7 @@ db.Curso = require("./Curso.model")(sequelize); //
 db.Division = require("./Division.model")(sequelize); //
 db.Materia = require("./Materia.model")(sequelize); //
 db.Condicion = require("./Condicion.model")(sequelize); // PREVIA - EQUIVALENCIA - TERCERA MATERIA - EXCEPTUADA - COLOQUIO
-db.Calificacion = require("./Calificacion.model")(sequelize); // A - 1 a 10
+db.Calificacion = require("./Calificacion.model")(sequelize); // A , 1 a 10
 db.Alumno = require("./Alumno.model")(sequelize); //
 db.Previa = require("./Previa.model")(sequelize); //
 db.TurnoExamen = require("./TurnoExamen.model")(sequelize); // ABRIL - JULIO - SEPTIEMBRE - DICIEMBRE - FEBRERO
@@ -85,6 +85,15 @@ db.Previa.belongsTo(db.Materia, { foreignKey: "id_materia", as: "Materia"});
 
 db.CicloLectivo.hasMany(db.Previa, { foreignKey: "id_ciclo", as: "Previa"});
 db.Previa.belongsTo(db.CicloLectivo, { foreignKey: "id_ciclo", as: "CicloLectivo"});
+
+db.Condicion.hasMany(db.Previa, { foreignKey: "id_condicion", as: "Previa"});
+db.Previa.belongsTo(db.Condicion, { foreignKey: "id_condicion", as: "Condicion"});
+
+db.Plan.hasMany(db.Previa, { foreignKey: "id_plan", as: "Previa"});
+db.Previa.belongsTo(db.Plan, { foreignKey: "id_plan", as: "Plan"});
+
+db.Alumno.hasMany(db.Previa, { foreignKey: "id_alumno", as: "Previa"});
+db.Previa.belongsTo(db.Alumno, { foreignKey: "id_alumno", as: "Alumno"});
 
 // Exportamos el objeto db
 module.exports = db;

@@ -5,6 +5,11 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // Definimos el modelo Alumno usando sequelize.define
   const Alumno = sequelize.define('Alumno', {
+    id_alumno: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     // El modelo Alumno tiene un campo dni que es una cadena de hasta 12 caracteres y es la clave primaria
     dni: {
       type: DataTypes.STRING(12),

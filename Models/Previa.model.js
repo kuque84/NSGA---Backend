@@ -9,12 +9,20 @@ module.exports = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      dni_alumno: {
-        type: DataTypes.STRING(12),
+      id_alumno: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "alumnos",
-          key: "dni",
+          key: "id_alumno",
+        },
+      },
+      id_materia: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "materias",
+          key: "id_materia",
         },
       },
       id_condicion: {
@@ -32,6 +40,12 @@ module.exports = (sequelize) => {
     },
     {
       tableName: "previas",
+      indexes: [
+        {
+          unique: true,
+          fields: ['id_alumno', 'id_materia']
+        }
+      ]
     }
   );
 
