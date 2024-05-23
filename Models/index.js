@@ -95,5 +95,18 @@ db.Previa.belongsTo(db.Plan, { foreignKey: "id_plan", as: "Plan"});
 db.Alumno.hasMany(db.Previa, { foreignKey: "id_alumno", as: "Previa"});
 db.Previa.belongsTo(db.Alumno, { foreignKey: "id_alumno", as: "Alumno"});
 
+// Relación entre Turno de exámen y condición
+db.Condicion.hasMany(db.TurnoExamen, { foreignKey: "id_condicion", as: "TurnoExamen"});
+db.TurnoExamen.belongsTo(db.Condicion, { foreignKey: "id_condicion", as: "Condicion"});
+// Relación entre Turno de exámen y ciclo lectivo
+db.CicloLectivo.hasMany(db.TurnoExamen, { foreignKey: "id_ciclo", as: "TurnoExamen"});
+db.TurnoExamen.belongsTo(db.CicloLectivo, { foreignKey: "id_ciclo", as: "CicloLectivo"});
+
+db.TurnoExamen.hasMany(db.FechaExamen, { foreignKey: "id_turno", as: "FechaExamen"});
+db.FechaExamen.belongsTo(db.TurnoExamen, { foreignKey: "id_turno", as: "TurnoExamen"});
+
+db.Materia.hasMany(db.FechaExamen, { foreignKey: "id_materia", as: "FechaExamen"});
+db.FechaExamen.belongsTo(db.Materia, { foreignKey: "id_materia", as: "Materia"});
+
 // Exportamos el objeto db
 module.exports = db;

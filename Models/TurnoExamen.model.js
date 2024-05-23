@@ -37,6 +37,12 @@ module.exports = (sequelize) => {
   }, {
     // El nombre de la tabla en la base de datos es 'turnosExamen'
     tableName: 'turnosExamen',
+    indexes: [
+      {
+        unique: true,
+        fields: ['id_condicion', 'id_ciclo', 'nombre']
+      }
+    ]
   });
 
   // La función exportada retorna el modelo TurnoExamen
