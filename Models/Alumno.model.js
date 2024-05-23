@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
   // Definimos el modelo Alumno usando sequelize.define
   const Alumno = sequelize.define('Alumno', {
     id_alumno: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(12),
       primaryKey: true,
       autoIncrement: true,
     },
