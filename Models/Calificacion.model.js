@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
     // El modelo Calificacion tiene un campo calificacion que es una cadena de hasta 4 caracteres y no puede ser nulo
     calificacion: {
       type: DataTypes.STRING(4),
-      allowNull: false,
+      allowNull: true,
     },
     // El modelo Calificacion tiene un campo aprobado que es un valor booleano y no puede ser nulo
     aprobado: {

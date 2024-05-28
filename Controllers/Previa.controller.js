@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
 // Importamos el objeto 'db' que contiene los modelos de la base de datos
 const db = require("../Models");
@@ -18,7 +18,7 @@ exports.lista = (req, res, next) => {
 
 // Definimos el método 'filtrar' que se encargará de obtener las instancias de 'Previa' que coincidan con un valor específico en un campo específico
 exports.filtrar = (req, res, next) => {
-  console.log("Filtrar previas")
+  console.log("Filtrar previas");
   // Obtenemos el campo y el valor de los parámetros de la ruta de la solicitud HTTP
   const campo = req.params.campo;
   const valor = req.params.valor;
@@ -31,32 +31,37 @@ exports.filtrar = (req, res, next) => {
       {
         model: db.Curso,
         attributes: ["nombre"],
-        as: "Curso"
+        as: "Curso",
       },
       {
         model: db.Materia,
         attributes: ["nombre"],
-        as: "Materia"
+        as: "Materia",
       },
       {
         model: db.CicloLectivo,
         attributes: ["anio"],
-        as: "CicloLectivo"
+        as: "CicloLectivo",
       },
       {
         model: db.Condicion,
         attributes: ["nombre"],
-        as: "Condicion"
+        as: "Condicion",
       },
       {
         model: db.Plan,
         attributes: ["codigo"],
-        as: "Plan"
+        as: "Plan",
       },
       {
         model: db.Alumno,
-        attributes: ["dni","apellidos", "nombres"],
-        as: "Alumno"
+        attributes: ["dni", "apellidos", "nombres"],
+        as: "Alumno",
+      },
+      {
+        model: db.Calificacion,
+        attributes: ["calificacion", "aprobado"],
+        as: "Calificacion"
       }
     ],
   })
@@ -72,7 +77,13 @@ exports.filtrar = (req, res, next) => {
 // Definimos el método 'nuevo' que se encargará de crear una nueva instancia de 'Previa'
 exports.nuevo = (req, res, next) => {
   // Verificamos que los datos necesarios estén presentes en el cuerpo de la solicitud HTTP
-  if (!req.body.id_alumno || !req.body.id_condicion || !req.body.id_materia || !req.body.id_curso || !req.body.id_ciclo) {
+  if (
+    !req.body.id_alumno ||
+    !req.body.id_condicion ||
+    !req.body.id_materia ||
+    !req.body.id_curso ||
+    !req.body.id_ciclo
+  ) {
     // Si faltan datos, enviamos un mensaje de error con un código de estado HTTP 400
     res.status(400).json({
       message: "Faltan completar datos",
@@ -87,7 +98,7 @@ exports.nuevo = (req, res, next) => {
     id_curso: req.body.id_curso,
     id_ciclo: req.body.id_ciclo,
     id_plan: req.body.id_plan,
-    aprobado: req.body.aprobado ? req.body.aprobado : false,
+    id_calificacion: req.body.id_calificacion ? req.body.id_calificacion : 1,
   };
   // Utilizamos el método 'create' de Sequelize para crear la nueva instancia en la base de datos
   db.Previa.create(previa)
@@ -98,7 +109,7 @@ exports.nuevo = (req, res, next) => {
     .catch((err) => {
       if (err instanceof Sequelize.UniqueConstraintError) {
         res.status(409).json({
-          message: 'El alumno ya tiene inscripta esta materia.',
+          message: "El alumno ya tiene inscripta esta materia.",
         });
       } else {
         next(err);
@@ -110,7 +121,13 @@ exports.nuevo = (req, res, next) => {
 exports.actualizar = (req, res, next) => {
   // Obtenemos el ID de los parámetros de la ruta de la solicitud HTTP
   const id = req.params.id;
-  if (!req.body.id_alumno || !req.body.id_condicion || !req.body.id_materia || !req.body.id_curso || !req.body.id_ciclo) {
+  if (
+    !req.body.id_alumno ||
+    !req.body.id_condicion ||
+    !req.body.id_materia ||
+    !req.body.id_curso ||
+    !req.body.id_ciclo
+  ) {
     // Si faltan datos, enviamos un mensaje de error con un código de estado HTTP 400
     res.status(400).json({
       message: "Faltan completar datos",

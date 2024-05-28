@@ -33,21 +33,24 @@ module.exports = (sequelize) => {
           key: "id_condicion",
         },
       },
-      aprobado: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-      },
+      id_calificacion: { 
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: "calificaciones",
+          key: "id_calificacion",
+        },
+      }
     },
     {
       tableName: "previas",
       indexes: [
         {
           unique: true,
-          fields: ['id_alumno', 'id_materia']
-        }
-      ]
+          fields: ["id_alumno", "id_materia"],
+        },
+      ],
     }
   );
-
   return Previa;
 };

@@ -15,6 +15,7 @@ Rutas.get('/lista', Auth, FechaExamenController.lista);
 // Definimos una ruta GET para filtrar FechaExamens por un campo y valor específicos
 // Esta ruta requiere autenticación
 Rutas.get('/filtrar/:campo/:valor', Auth, FechaExamenController.filtrar);
+Rutas.get('/filtrar/inscripcion/:id_turno/:id_materia', Auth, FechaExamenController.filtrarPorInscripcion);
 
 // Definimos una ruta POST para crear un nuevo FechaExamen
 // Esta ruta no requiere autenticación

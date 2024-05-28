@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
     // El modelo FechaExamen tiene un campo fechaExamen que es una fecha y no puede ser nulo
     fechaExamen: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
     },
     // El modelo FechaExamen tiene un campo id_turno que es un número entero, no puede ser nulo y hace referencia a la tabla 'turnosExamen'
     id_turno: {

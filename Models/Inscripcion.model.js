@@ -41,7 +41,7 @@ module.exports = (sequelize) => {
     // El modelo Inscripcion tiene un campo id_calificacion que es un número entero, no puede ser nulo y hace referencia a la tabla 'calificaciones'
     id_calificacion: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'calificaciones', // nombre de la tabla referenciada
         key: 'id_calificacion'
@@ -60,6 +60,12 @@ module.exports = (sequelize) => {
   }, {
     // El nombre de la tabla en la base de datos es 'inscripciones'
     tableName: 'inscripciones',
+    indexes: [
+      {
+        unique: true,
+        fields: ['id_previa', 'id_turno']
+      }
+    ]
   });
 
   // La función exportada retorna el modelo Inscripcion
