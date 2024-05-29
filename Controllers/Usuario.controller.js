@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt"); // Importamos bcrypt para cifrar las contrase�
 const jwt = require("jsonwebtoken"); // Importamos jsonwebtoken para generar tokens de autenticación
 const llave = require("dotenv").config().parsed.SECRET_KEY; // Importamos la llave secreta para firmar los tokens
 const logger = require("../Config/logger"); // Importamos el logger
+const { where } = require("sequelize");
 const Op = db.Sequelize.Op; // Importamos el operador de Sequelize
 
 // Función para obtener la lista de todos los usuarios
@@ -258,7 +259,7 @@ exports.listaPag = (req, res) => {
     db.Usuario.findAndCountAll({
       limit: limit,
       offset: offset,
-      order: [["nombres", "ASC"]],
+      order: [["apellidos", "ASC"]],
       include: [
         {
           model: db.Rol,
@@ -294,7 +295,14 @@ exports.listaPag = (req, res) => {
       },
       limit: limit,
       offset: offset,
-      order: [["nombres", "ASC"]],
+      order: [["apellidos", "ASC"]],
+      include: [
+        {
+          model: db.Rol,
+          as: "Rol",
+          attributes: ["rol"],
+        },
+      ],
     })
       .then((registros) => {
         res.status(200).send(registros);
