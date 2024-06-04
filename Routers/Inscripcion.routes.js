@@ -16,6 +16,7 @@ Rutas.get('/lista', Auth, InscripcionController.lista);
 // Esta ruta requiere autenticación
 Rutas.get('/filtrar/:campo/:valor', Auth, InscripcionController.filtrar);
 Rutas.get('/filtrar/acta/:id_turno/:id_condicion/:id_materia', Auth, InscripcionController.filtrarActa);
+Rutas.get('/rac/:id_alumno', Auth, InscripcionController.filtrarPorAlumno);
 
 // Definimos una ruta POST para crear un nuevo Inscripcion
 // Esta ruta no requiere autenticación
@@ -24,6 +25,7 @@ Rutas.post('/nuevo', Auth, InscripcionController.nuevo);
 // Definimos una ruta PUT para actualizar un Inscripcion por su ID
 // Esta ruta requiere autenticación
 Rutas.put('/actualizar/:id', Auth, InscripcionController.actualizar);
+Rutas.put('/acta', Auth, InscripcionController.actualizarActa);
 
 // Definimos una ruta DELETE para eliminar un Inscripcion por su ID
 // Esta ruta requiere autenticación

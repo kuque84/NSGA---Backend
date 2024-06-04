@@ -21,22 +21,17 @@ if (
 }
 
 // Creamos una nueva instancia de Sequelize con la configuración de la base de datos
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT,
-    port: process.env.DB_PORT,
-    pool: {
-      max: parseInt(process.env.DB_POOL_MAX),
-      min: parseInt(process.env.DB_POOL_MIN),
-      acquire: parseInt(process.env.DB_POOL_ACQUIRE),
-      idle: parseInt(process.env.DB_POOL_IDLE),
-    },
-  }
-);
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
+  dialect: process.env.DB_DIALECT,
+  port: process.env.DB_PORT,
+  pool: {
+    max: parseInt(process.env.DB_POOL_MAX),
+    min: parseInt(process.env.DB_POOL_MIN),
+    acquire: parseInt(process.env.DB_POOL_ACQUIRE),
+    idle: parseInt(process.env.DB_POOL_IDLE),
+  },
+});
 
 let dbConfig = { ...sequelize.config }; // Hacemos una copia del objeto de datos del usuario
 dbConfig.PASSWORD = "********"; // Eliminamos la propiedad de la contraseña
@@ -74,51 +69,53 @@ db.Inscripcion = require("./Inscripcion.model")(sequelize); // Inscripcion de un
 db.Rol = require("./Rol.model")(sequelize);
 
 // Asociaciones}
-db.Usuario.belongsTo(db.Rol, {foreignKey: "id_rol",as: "Rol"});
-db.Rol.hasMany(db.Usuario, {foreignKey: "id_rol", as: "Usuarios"});
+db.Usuario.belongsTo(db.Rol, { foreignKey: "id_rol", as: "Rol" });
+db.Rol.hasMany(db.Usuario, { foreignKey: "id_rol", as: "Usuarios" });
 
-db.Curso.hasMany(db.Previa, { foreignKey: "id_curso", as: "Previa"});
-db.Previa.belongsTo(db.Curso, { foreignKey: "id_curso", as: "Curso"});
+db.Curso.hasMany(db.Previa, { foreignKey: "id_curso", as: "Previa" });
+db.Previa.belongsTo(db.Curso, { foreignKey: "id_curso", as: "Curso" });
 
-db.Materia.hasMany(db.Previa, { foreignKey: "id_materia", as: "Previa"});
-db.Previa.belongsTo(db.Materia, { foreignKey: "id_materia", as: "Materia"});
+db.Materia.hasMany(db.Previa, { foreignKey: "id_materia", as: "Previa" });
+db.Previa.belongsTo(db.Materia, { foreignKey: "id_materia", as: "Materia" });
 
-db.CicloLectivo.hasMany(db.Previa, { foreignKey: "id_ciclo", as: "Previa"});
-db.Previa.belongsTo(db.CicloLectivo, { foreignKey: "id_ciclo", as: "CicloLectivo"});
+db.CicloLectivo.hasMany(db.Previa, { foreignKey: "id_ciclo", as: "Previa" });
+db.Previa.belongsTo(db.CicloLectivo, { foreignKey: "id_ciclo", as: "CicloLectivo" });
 
-db.Condicion.hasMany(db.Previa, { foreignKey: "id_condicion", as: "Previa"});
-db.Previa.belongsTo(db.Condicion, { foreignKey: "id_condicion", as: "Condicion"});
+db.Condicion.hasMany(db.Previa, { foreignKey: "id_condicion", as: "Previa" });
+db.Previa.belongsTo(db.Condicion, { foreignKey: "id_condicion", as: "Condicion" });
 
-db.Plan.hasMany(db.Previa, { foreignKey: "id_plan", as: "Previa"});
-db.Previa.belongsTo(db.Plan, { foreignKey: "id_plan", as: "Plan"});
+db.Plan.hasMany(db.Previa, { foreignKey: "id_plan", as: "Previa" });
+db.Previa.belongsTo(db.Plan, { foreignKey: "id_plan", as: "Plan" });
 
-db.Alumno.hasMany(db.Previa, { foreignKey: "id_alumno", as: "Previa"});
-db.Previa.belongsTo(db.Alumno, { foreignKey: "id_alumno", as: "Alumno"});
+db.Alumno.hasMany(db.Previa, { foreignKey: "id_alumno", as: "Previa" });
+db.Previa.belongsTo(db.Alumno, { foreignKey: "id_alumno", as: "Alumno" });
 
-db.Calificacion.hasMany(db.Previa, { foreignKey: "id_previa", as: "Previa"});
-db.Previa.belongsTo(db.Calificacion, { foreignKey: "id_previa", as: "Calificacion"});
+db.Calificacion.hasMany(db.Previa, { foreignKey: "id_previa", as: "Previa" });
+db.Previa.belongsTo(db.Calificacion, { foreignKey: "id_previa", as: "Calificacion" });
 
-// Relación entre Turno de exámen y condición
-db.Condicion.hasMany(db.TurnoExamen, { foreignKey: "id_condicion", as: "TurnoExamen"});
-db.TurnoExamen.belongsTo(db.Condicion, { foreignKey: "id_condicion", as: "Condicion"});
-// Relación entre Turno de exámen y ciclo lectivo
-db.CicloLectivo.hasMany(db.TurnoExamen, { foreignKey: "id_ciclo", as: "TurnoExamen"});
-db.TurnoExamen.belongsTo(db.CicloLectivo, { foreignKey: "id_ciclo", as: "CicloLectivo"});
+db.Condicion.hasMany(db.TurnoExamen, { foreignKey: "id_condicion", as: "TurnoExamen" });
+db.TurnoExamen.belongsTo(db.Condicion, { foreignKey: "id_condicion", as: "Condicion" });
 
-db.TurnoExamen.hasMany(db.FechaExamen, { foreignKey: "id_turno", as: "FechaExamen"});
-db.FechaExamen.belongsTo(db.TurnoExamen, { foreignKey: "id_turno", as: "TurnoExamen"});
+db.CicloLectivo.hasMany(db.TurnoExamen, { foreignKey: "id_ciclo", as: "TurnoExamen" });
+db.TurnoExamen.belongsTo(db.CicloLectivo, { foreignKey: "id_ciclo", as: "CicloLectivo" });
 
-db.Materia.hasMany(db.FechaExamen, { foreignKey: "id_materia", as: "FechaExamen"});
-db.FechaExamen.belongsTo(db.Materia, { foreignKey: "id_materia", as: "Materia"});
+db.TurnoExamen.hasMany(db.FechaExamen, { foreignKey: "id_turno", as: "FechaExamen" });
+db.FechaExamen.belongsTo(db.TurnoExamen, { foreignKey: "id_turno", as: "TurnoExamen" });
 
-db.Previa.hasMany(db.Inscripcion, { foreignKey: "id_previa", as: "Inscripcion"});
-db.Inscripcion.belongsTo(db.Previa, { foreignKey: "id_previa", as: "Previa"});
+db.Materia.hasMany(db.FechaExamen, { foreignKey: "id_materia", as: "FechaExamen" });
+db.FechaExamen.belongsTo(db.Materia, { foreignKey: "id_materia", as: "Materia" });
 
-db.FechaExamen.hasMany(db.Inscripcion, { foreignKey: "id_fechaExamen", as: "Inscripcion"});
-db.Inscripcion.belongsTo(db.FechaExamen, { foreignKey: "id_fechaExamen", as: "FechaExamen"});
+db.Previa.hasMany(db.Inscripcion, { foreignKey: "id_previa", as: "Inscripcion" });
+db.Inscripcion.belongsTo(db.Previa, { foreignKey: "id_previa", as: "Previa" });
 
-db.Calificacion.hasMany(db.Inscripcion, { foreignKey: "id_calificacion", as: "Inscripcion"});
-db.Inscripcion.belongsTo(db.Calificacion, { foreignKey: "id_calificacion", as: "Calificacion"});
+db.FechaExamen.hasMany(db.Inscripcion, { foreignKey: "id_fechaExamen", as: "Inscripcion" });
+db.Inscripcion.belongsTo(db.FechaExamen, { foreignKey: "id_fechaExamen", as: "FechaExamen" });
+
+db.Calificacion.hasMany(db.Inscripcion, { foreignKey: "id_calificacion", as: "Inscripcion" });
+db.Inscripcion.belongsTo(db.Calificacion, { foreignKey: "id_calificacion", as: "Calificacion" });
+
+db.TurnoExamen.hasMany(db.Inscripcion, { foreignKey: "id_turno", as: "Inscripcion" });
+db.Inscripcion.belongsTo(db.TurnoExamen, { foreignKey: "id_turno", as: "TurnoExamen" });
 
 // Exportamos el objeto db
 module.exports = db;
