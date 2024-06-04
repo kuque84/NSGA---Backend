@@ -16,16 +16,18 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(15),
       allowNull: false,
     },
+
     // El modelo TurnoExamen tiene un campo id_condicion que es un número entero, no puede ser nulo y hace referencia a la tabla 'condiciones'
-    id_condicion: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'condiciones', // nombre de la tabla referenciada
-        key: 'id_condicion'
-      }
-    },
+    // id_condicion: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   references: {
+    //     model: 'condiciones', // nombre de la tabla referenciada
+    //     key: 'id_condicion'
+    //   }
+    // },
     // El modelo TurnoExamen tiene un campo id_ciclo que es un número entero, no puede ser nulo y hace referencia a la tabla 'cicloLectivos'
+
     id_ciclo: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -40,7 +42,8 @@ module.exports = (sequelize) => {
     indexes: [
       {
         unique: true,
-        fields: ['id_condicion', 'id_ciclo', 'nombre']
+        //fields: ['id_condicion', 'id_ciclo', 'nombre']
+        fields: ['id_ciclo', 'nombre']
       }
     ]
   });

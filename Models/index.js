@@ -90,11 +90,11 @@ db.Previa.belongsTo(db.Plan, { foreignKey: "id_plan", as: "Plan" });
 db.Alumno.hasMany(db.Previa, { foreignKey: "id_alumno", as: "Previa" });
 db.Previa.belongsTo(db.Alumno, { foreignKey: "id_alumno", as: "Alumno" });
 
-db.Calificacion.hasMany(db.Previa, { foreignKey: "id_previa", as: "Previa" });
-db.Previa.belongsTo(db.Calificacion, { foreignKey: "id_previa", as: "Calificacion" });
+db.Calificacion.hasMany(db.Previa, { foreignKey: "id_calificacion", as: "Previa" });
+db.Previa.belongsTo(db.Calificacion, { foreignKey: "id_calificacion", as: "Calificacion" });
 
-db.Condicion.hasMany(db.TurnoExamen, { foreignKey: "id_condicion", as: "TurnoExamen" });
-db.TurnoExamen.belongsTo(db.Condicion, { foreignKey: "id_condicion", as: "Condicion" });
+//db.Condicion.hasMany(db.TurnoExamen, { foreignKey: "id_condicion", as: "TurnoExamen" });
+//db.TurnoExamen.belongsTo(db.Condicion, { foreignKey: "id_condicion", as: "Condicion" });
 
 db.CicloLectivo.hasMany(db.TurnoExamen, { foreignKey: "id_ciclo", as: "TurnoExamen" });
 db.TurnoExamen.belongsTo(db.CicloLectivo, { foreignKey: "id_ciclo", as: "CicloLectivo" });

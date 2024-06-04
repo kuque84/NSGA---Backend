@@ -24,11 +24,11 @@ exports.filtrar = (req, res, next) =>{
             [campo]: valor
         },
         include:[
-            {
-                model: db.Condicion,
-                attributes: ["nombre"],
-                as: "Condicion"
-            },
+            // {
+            //     model: db.Condicion,
+            //     attributes: ["nombre"],
+            //     as: "Condicion"
+            // },
             {
                 model: db.CicloLectivo,
                 attributes: ["anio"],
@@ -48,7 +48,8 @@ exports.filtrar = (req, res, next) =>{
 // Definimos el método 'nuevo' que se encargará de crear una nueva instancia de 'TurnoExamen'
 exports.nuevo = (req, res, next) =>{
     // Verificamos que los datos necesarios estén presentes en el cuerpo de la solicitud HTTP
-    if(!req.body.nombre || !req.body.id_condicion || !req.body.id_ciclo ){
+    if(!req.body.nombre || !req.body.id_ciclo){
+    //if(!req.body.nombre || !req.body.id_ciclo || !req.body.id_condicion){
         // Si faltan datos, enviamos un mensaje de error con un código de estado HTTP 400
         res.status(400).send({
             message: "Faltan datos"
@@ -58,7 +59,7 @@ exports.nuevo = (req, res, next) =>{
     // Creamos un objeto con los datos de la nueva instancia
     const turnoExamen = {
         nombre: req.body.nombre,
-        id_condicion: req.body.id_condicion,
+        //id_condicion: req.body.id_condicion,
         id_ciclo: req.body.id_ciclo
     }
     // Utilizamos el método 'create' de Sequelize para crear la nueva instancia en la base de datos

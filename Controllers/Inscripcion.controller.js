@@ -307,6 +307,11 @@ exports.filtrarPorAlumno = (req, res, next) => {
         attributes: ["calificacion", "aprobado"],
         as: "Calificacion",
       },
+      {
+      model: db.TurnoExamen,
+      attributes: ["nombre","id_ciclo"],
+      as: "TurnoExamen",
+      }
     ],
   })
     .then((inscripciones) => {
