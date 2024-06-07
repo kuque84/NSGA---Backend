@@ -62,6 +62,10 @@ exports.filtrar = (req, res, next) => {
         model: db.Calificacion,
         attributes: ["calificacion", "aprobado"],
         as: "Calificacion"
+      },
+      {
+        model: db.Inscripcion,
+        as: "Inscripcion",
       }
     ],
   })
