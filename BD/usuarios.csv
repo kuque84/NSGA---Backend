@@ -1,2 +1,5 @@
-"id";"dni";"nombres";"apellidos";"email";"password";"id_rol";"createdAt";"updatedAt"
-1;"30711347";"EUGENIO RENÉ";"REGIS";"kuque84@hotmail.com";"$2b$08$j.lnU3HW6pfIAuxlQbOAredBk0T9Rc1fqSn1F9Kwp5hEkjTlDA5tC";1;"2024-05-18 22:44:39";"2024-05-18 22:46:28"
+"id";"dni";"nombres";"apellidos";"email";"password";"createdAt";"updatedAt";"id_rol"
+1;"30711347";"EUGENIO RENÉ";"REGIS";"kuque84@hotmail.com";"$2b$08$j.lnU3HW6pfIAuxlQbOAredBk0T9Rc1fqSn1F9Kwp5hEkjTlDA5tC";"2024-05-18 22:44:39";"2024-05-18 22:46:28";1
+2;"22458471";"PAULA VERÓNICA";"RAMIREZ";"paula.ramirez@ipem168.com";"$2b$08$c53hrJ4WWc/ZFTcWg6K9zOae94j5eT0anm4iT4M0PtcWmR4sn7HaS";"2024-09-05 12:22:50";"2024-09-05 12:22:50";3
+3;"29478527";"ALEJANDRO JAVIER";"PLANES";"alejandro.planes@ipem168.com";"$2b$08$8anEmjS4ZYeBuBLYRjlcx.Sf/3GOrGCdgnnC4oh0u9k24oFh36c72";"2024-09-05 12:31:52";"2024-09-05 12:31:52";2
+4;"22034042";"MARISA GABRIELA";"TESTONI";"gabriela.testoni@ipem168.com";"$2b$08$DrZwQ79iJnLfzcCWjSuy.OQMcvIFvLx.N6ZA3DihTwhAl1Ekq50ce";"2024-09-05 12:33:47";"2024-09-05 12:33:47";5
