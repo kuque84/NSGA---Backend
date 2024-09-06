@@ -281,6 +281,11 @@ exports.filtrarPorAlumno = (req, res, next) => {
             as: "Alumno",
           },
           {
+            model: db.Curso,
+            attributes: ["nombre"],
+            as: "Curso",
+          },
+          {
             model: db.Materia,
             attributes: ["nombre"],
             as: "Materia",
