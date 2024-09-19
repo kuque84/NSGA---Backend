@@ -12,6 +12,8 @@ const MARGEN_RIGHT = 2 * 28.35;
 const MARGEN_BOTTOM = 3 * 28.35;
 
 const addMembrete = (doc) => {
+    console.log('Añadiendo membrete...');
+    console.log('Image path:', imagePath); // Verifica que la ruta sea correcta
     // Ajusta el membrete para que ocupe toda la página, considerando los márgenes
     doc.image(imagePath, -MARGEN_LEFT, -MARGEN_TOP, {
         width: 595.276 + MARGEN_LEFT + MARGEN_RIGHT,  // Ancho total considerando los márgenes

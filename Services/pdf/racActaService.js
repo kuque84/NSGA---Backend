@@ -1,5 +1,12 @@
 const PDFDocument = require('pdfkit');
-const { addMembrete, addHeader, addTextWithMargins, MARGEN_TOP } = require('./pdfService');
+const { addMembrete, 
+    addHeader,
+    addTextWithMargins, 
+    MARGEN_TOP, // Exportar constantes
+    MARGEN_LEFT,
+    MARGEN_RIGHT,
+    MARGEN_BOTTOM
+    } = require('./pdfService');
 
 const generateRACActaPDF = (data, res) => {
     const doc = new PDFDocument({ size: 'A4' });
