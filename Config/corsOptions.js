@@ -1,8 +1,8 @@
 module.exports = {
-    origin: process.env.CORS_ORIGIN || '*', 
-    methods: 'GET,PUT,POST,DELETE', 
-    allowedHeaders: '*', 
-    optionsSuccessStatus: 200,
+  origin: process.env.CORS_ORIGIN || '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: ['Content-Type', 'Authorization'], // Lista explícitamente el encabezado Authorization
+  optionsSuccessStatus: 204, //200 valor anterior
 };
 /*
 module.exports = {

@@ -29,7 +29,7 @@ const addMembrete = (doc) => {
 
 const addHeader = (doc, title) => {
   doc
-    .fontSize(20)
+    .font('Helvetica-Bold')
     .fillColor('black')
     .text(title, {
       align: 'center',
