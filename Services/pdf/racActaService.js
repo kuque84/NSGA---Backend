@@ -39,12 +39,17 @@ const drawTable = (doc, headers, rows, startX, startY, rowHeight, columnWidths, 
   rows.forEach((row, rowIndex) => {
     headers.forEach((header, i) => {
       let fontSize = 8;
-      let textWidth = doc.widthOfString(row[i], { fontSize });
+      doc.fontSize(fontSize); // Aplicar el tamaño de la fuente antes de calcular el ancho del texto
+      let textWidth = doc.widthOfString(row[i]);
 
       // Reducir el tamaño de la fuente si el texto no cabe en la celda
       while (textWidth > columnWidths[i] - 2 * padding && fontSize > 4) {
         fontSize -= 0.5;
-        textWidth = doc.widthOfString(row[i], { fontSize });
+        doc.fontSize(fontSize); // Aplicar el nuevo tamaño de la fuente
+        textWidth = doc.widthOfString(row[i]); // Recalcular el ancho del texto
+        //console.log('Reduciendo tamaño de fuente:', fontSize);
+        //console.log('Ancho de la columna:', columnWidths[i]);
+        //console.log('Ancho del texto:', textWidth);
       }
 
       doc
