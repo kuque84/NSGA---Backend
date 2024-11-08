@@ -15,7 +15,18 @@ Rutas.get('/lista', Auth, InscripcionController.lista);
 // Definimos una ruta GET para filtrar Inscripcions por un campo y valor específicos
 // Esta ruta requiere autenticación
 Rutas.get('/filtrar/:campo/:valor', Auth, InscripcionController.filtrar);
-Rutas.get('/filtrar/acta/:id_turno/:id_condicion/:id_materia', Auth, InscripcionController.filtrarActa);
+Rutas.get(
+  '/filtrar/acta/:id_turno/:id_condicion/:id_materia',
+  Auth,
+  InscripcionController.filtrarActa
+);
+/*
+Rutas.get(
+  '/filtrar/acta/:id_ciclo/:id_condicion/:id_materia',
+  Auth,
+  InscripcionController.filtrarActaNew
+);
+*/
 Rutas.get('/rac/:id_alumno', Auth, InscripcionController.filtrarPorAlumno);
 
 // Definimos una ruta POST para crear un nuevo Inscripcion

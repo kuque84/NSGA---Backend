@@ -1,6 +1,7 @@
 const PDFDocument = require('pdfkit');
 const { addMembrete, addHeader, addTextWithMargins, MARGEN_TOP } = require('./pdfService');
 const { getRacData, getAlumnoData, getCicloLectivoData, getPreviaData } = require('./dataService'); // Asegúrate de que la ruta sea correcta
+
 const hoy = new Date();
 //guardar la fecha de hoy en formato dd/mm/aaaa
 const fecha = hoy.getDate() + '/' + (hoy.getMonth() + 1) + '/' + hoy.getFullYear();
