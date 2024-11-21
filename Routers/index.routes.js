@@ -20,6 +20,7 @@ module.exports = (app) => {
   const RolRoutes = require('./Rol.routes.js');
   const ActaRoutes = require('./Acta.routes.js');
   const ActaExamenRoutes = require('./ActaExamen.routes.js');
+  const InscripcionCursoRoutes = require('./InscripcionCurso.routes.js');
 
   // Usamos el middleware de autenticación y las rutas del usuario para todas las solicitudes a '/usuario'
   app.use('/usuario', UsuarioRoutes);
@@ -38,4 +39,5 @@ module.exports = (app) => {
   app.use('/rol', RolRoutes);
   app.use('/acta', ActaRoutes);
   app.use('/actaexamen', ActaExamenRoutes);
+  app.use('/inscripcioncurso', InscripcionCursoRoutes);
 };
