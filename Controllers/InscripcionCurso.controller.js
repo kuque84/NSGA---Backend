@@ -17,6 +17,7 @@ exports.filtrar = (req, res, next) => {
     where: {
       [campo]: valor,
     },
+    order: [['id_curso', 'DESC']],
   })
     .then((inscripciones_cursos) => {
       res.json(inscripciones_cursos);
