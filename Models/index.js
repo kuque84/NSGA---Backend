@@ -106,7 +106,14 @@ db.FechaExamen.belongsTo(db.TurnoExamen, { foreignKey: 'id_turno', as: 'TurnoExa
 db.Materia.hasMany(db.FechaExamen, { foreignKey: 'id_materia', as: 'FechaExamen' });
 db.FechaExamen.belongsTo(db.Materia, { foreignKey: 'id_materia', as: 'Materia' });
 
-db.Previa.hasMany(db.Inscripcion, { foreignKey: 'id_inscripcion', as: 'Inscripcion' });
+db.Condicion.hasMany(db.FechaExamen, { foreignKey: 'id_condicion', as: 'FechaExamen' });
+db.FechaExamen.belongsTo(db.Condicion, { foreignKey: 'id_condicion', as: 'Condicion' });
+
+db.Previa.hasMany(db.Inscripcion, {
+  foreignKey: 'id_previa',
+  onDelete: 'CASCADE',
+  as: 'Inscripcion',
+});
 db.Inscripcion.belongsTo(db.Previa, { foreignKey: 'id_previa', as: 'Previa' });
 
 db.FechaExamen.hasMany(db.Inscripcion, { foreignKey: 'id_fechaExamen', as: 'Inscripcion' });

@@ -185,6 +185,24 @@ exports.filtrarActa = (req, res, next) => {
     ],
   })
     .then((inscripciones) => {
+      inscripciones.sort((a, b) => {
+        const apellidoA = a.Previa.Alumno.apellidos.toUpperCase();
+        const apellidoB = b.Previa.Alumno.apellidos.toUpperCase();
+        const nombreA = a.Previa.Alumno.nombres.toUpperCase();
+        const nombreB = b.Previa.Alumno.nombres.toUpperCase();
+
+        if (apellidoA < apellidoB) {
+          return -1;
+        } else if (apellidoA > apellidoB) {
+          return 1;
+        }
+        if (nombreA < nombreB) {
+          return -1;
+        } else if (nombreA > nombreB) {
+          return 1;
+        }
+        return 0;
+      });
       if (generatePDF) {
         //pasar inscripciones a json
         inscripciones = inscripciones.map((inscripcion) => inscripcion.toJSON());
@@ -208,10 +226,19 @@ exports.actualizarActa = async (req, res, next) => {
     return res.status(400).send({ message: 'Faltan datos del acta' });
   }
 
-  const { fecha, inscripcion, libro, folio, previa } = acta;
+  const { fecha, inscripcion, libro, folio, previa, id_condicion } = acta;
   const { id_fechaExamen, fechaExamen } = fecha;
 
-  if (!fechaExamen || !inscripcion || !libro || !folio || !id_fechaExamen || !previa) {
+  if (
+    !fechaExamen ||
+    !inscripcion ||
+    /*
+    !libro ||
+    !folio ||*/
+    !id_fechaExamen ||
+    !previa ||
+    !id_condicion
+  ) {
     console.error('Datos incompletos del acta:', {
       fecha,
       inscripcion,
@@ -219,6 +246,7 @@ exports.actualizarActa = async (req, res, next) => {
       folio,
       id_fechaExamen,
       previa,
+      id_condicion,
     });
     return res.status(400).send({ message: 'Faltan datos del acta' });
   }

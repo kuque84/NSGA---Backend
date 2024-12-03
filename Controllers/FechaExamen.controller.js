@@ -1,5 +1,5 @@
 // Importamos los modelos de la base de datos
-const db = require("../Models");
+const db = require('../Models');
 
 // Definimos un controlador para obtener la lista de todas las fechas de examen
 exports.lista = (req, res, next) => {
@@ -36,31 +36,34 @@ exports.filtrar = (req, res, next) => {
 
 exports.filtrarPorInscripcion = (req, res, next) => {
   // Obtenemos el campo y el valor de los parámetros de la ruta
-  console.log("Filtrar por inscripcion");
+  console.log('Filtrar por inscripcion');
+  console.table(req.params);
   const id_turno = req.params.id_turno;
   const id_materia = req.params.id_materia;
+  const id_condicion = req.params.id_condicion;
   // Utilizamos el método findAll de Sequelize para obtener las fechas de examen que cumplen con el filtro
   db.FechaExamen.findOrCreate({
     where: {
       id_turno: id_turno,
       id_materia: id_materia,
+      id_condicion: id_condicion,
     },
     defaults: {
-      fechaExamen: new Date()
-    }
+      fechaExamen: new Date(),
+    },
   })
-  .then(([fechaExamen, created]) => {
-    if (created) {
-      res.json(fechaExamen);
-      console.log('Se creó una nueva fecha de examen.');
-    } else {
-      res.json(fechaExamen);
-      console.log('Se encontró una fecha de examen existente.');
-    }
-  })
-  .catch(error => {
-    console.error(error);
-  });
+    .then(([fechaExamen, created]) => {
+      if (created) {
+        res.json(fechaExamen);
+        console.log('Se creó una nueva fecha de examen.');
+      } else {
+        res.json(fechaExamen);
+        console.log('Se encontró una fecha de examen existente.');
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 // Definimos un controlador para crear una nueva fecha de examen
@@ -69,7 +72,7 @@ exports.nuevo = (req, res, next) => {
   if (!req.body.fechaExamen || !req.body.id_turno || !req.body.id_materia) {
     // Si no están presentes, enviamos un mensaje de error con el estado 400
     res.status(400).send({
-      message: "Faltan datos",
+      message: 'Faltan datos',
     });
     return;
   }
@@ -102,12 +105,12 @@ exports.actualizar = (req, res, next) => {
       // Si la operación es exitosa y se actualizó una fecha de examen, enviamos un mensaje de éxito
       if (num == 1) {
         res.send({
-          message: "fechaExamen actualizado",
+          message: 'fechaExamen actualizado',
         });
       } else {
         // Si no se actualizó ninguna fecha de examen, enviamos un mensaje de error
         res.send({
-          message: "No se pudo actualizar la fecha de examen",
+          message: 'No se pudo actualizar la fecha de examen',
         });
       }
     })
@@ -130,12 +133,12 @@ exports.eliminar = (req, res, next) => {
       // Si la operación es exitosa y se eliminó una fecha de examen, enviamos un mensaje de éxito
       if (num == 1) {
         res.send({
-          message: "fechaExamen eliminado",
+          message: 'fechaExamen eliminado',
         });
       } else {
         // Si no se eliminó ninguna fecha de examen, enviamos un mensaje de error
         res.send({
-          message: "No se pudo eliminar la fecha de examen",
+          message: 'No se pudo eliminar la fecha de examen',
         });
       }
     })
