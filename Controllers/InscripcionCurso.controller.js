@@ -1,4 +1,6 @@
 const db = require('../Models');
+const { Sequelize, where } = require('sequelize');
+const { Op } = require('sequelize');
 
 exports.lista = (req, res, next) => {
   db.InscripcionCurso.findAll()
@@ -140,4 +142,30 @@ exports.eliminar = (req, res, next) => {
     .catch((err) => {
       next(err);
     });
+};
+
+exports.cursoPorCiclo = async (req, res, next) => {
+  const id_ciclo = req.params.id_ciclo;
+  console.log('CURSOS POR CICLO', id_ciclo);
+  try {
+    const inscripciones_cursos = await db.InscripcionCurso.findAll({
+      where: {
+        id_ciclo: id_ciclo,
+      },
+      attributes: [[db.Sequelize.fn('DISTINCT', db.Sequelize.col('id_curso')), 'id_curso']],
+      include: [
+        {
+          model: db.Curso,
+          as: 'Curso',
+        },
+      ],
+      order: [['id_curso', 'ASC']],
+    });
+    console.log(inscripciones_cursos);
+    res.json(inscripciones_cursos);
+  } catch (err) {
+    console.error('Error al obtener las inscripciones de cursos por ciclo', err);
+    res.status(500).json({ error: 'Error al obtener las inscripciones de cursos por ciclo' });
+    next(err);
+  }
 };
