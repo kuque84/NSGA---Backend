@@ -149,23 +149,30 @@ exports.cursoPorCiclo = async (req, res, next) => {
   console.log('CURSOS POR CICLO', id_ciclo);
   try {
     const inscripciones_cursos = await db.InscripcionCurso.findAll({
+      attributes: [
+        'id_curso',
+        [db.Sequelize.fn('COUNT', db.Sequelize.col('InscripcionCurso.id_curso')), 'cantidad'],
+      ],
       where: {
-        id_ciclo: id_ciclo,
+        id_ciclo,
       },
-      attributes: [[db.Sequelize.fn('DISTINCT', db.Sequelize.col('id_curso')), 'id_curso']],
       include: [
         {
           model: db.Curso,
           as: 'Curso',
         },
       ],
-      order: [['id_curso', 'ASC']],
+      group: ['InscripcionCurso.id_curso'],
+      order: [[db.Sequelize.col('InscripcionCurso.id_curso'), 'ASC']],
     });
-    console.log(inscripciones_cursos);
+    console.table(inscripciones_cursos);
+    console.log('CANTIDAD DE CURSOS POR CICLO', inscripciones_cursos.length);
     res.json(inscripciones_cursos);
   } catch (err) {
     console.error('Error al obtener las inscripciones de cursos por ciclo', err);
-    res.status(500).json({ error: 'Error al obtener las inscripciones de cursos por ciclo' });
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Error al obtener las inscripciones de cursos por ciclo' });
+    }
     next(err);
   }
 };

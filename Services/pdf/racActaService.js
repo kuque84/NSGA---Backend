@@ -118,7 +118,7 @@ const generateRACActaPDF = async (data, res) => {
     );
     addHeader(
       doc.moveDown(-1).font('Helvetica').fontSize(12),
-      `Anexo - Examenes Previos y Equivalencias`
+      `Anexo - Exámenes Previos y Equivalencias`
     );
 
     // Agregar información del alumno y ciclo lectivo en negrita
@@ -139,7 +139,7 @@ const generateRACActaPDF = async (data, res) => {
       .moveDown(1)
       .font('Helvetica-Bold')
       .fontSize(10)
-      .text('Listado de Espacios Curriculares Previos:', { align: 'left' });
+      .text('Listado de Espacios Curriculares Adeudados:', { align: 'left' });
 
     const headers = [
       'Nº',
