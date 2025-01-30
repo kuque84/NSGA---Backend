@@ -44,6 +44,22 @@ module.exports = (sequelize) => {
           key: 'id_condicion',
         },
       },
+      id_curso: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'cursos',
+          key: 'id_curso',
+        },
+      },
+      id_division: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'divisiones',
+          key: 'id_division',
+        },
+      },
     },
     {
       // El nombre de la tabla en la base de datos es 'fechasExamen'

@@ -37,6 +37,27 @@ Rutas.get(
     }
   }
 );
+
+Rutas.get(
+  '/Coloquio/pdf/:id_ciclo/:id_curso/:id_division/:id_turno/:id_condicion/:id_materia',
+  Auth,
+  (req, res, next) => {
+    req.query.generatePDF = true; // Añadir el parámetro generatePDF
+    next();
+  },
+  InscripcionController.filtrarActaColoquio,
+  async (req, res) => {
+    try {
+      const data = req.data;
+      console.log('data:', data.Curso);
+      // Generar el PDF con los datos obtenidos
+      await generateExamenActaPDF(data, res);
+    } catch (error) {
+      console.error('Error al generar el PDF:', error);
+      res.status(500).send('Error al generar el PDF');
+    }
+  }
+);
 /*
 Rutas.get('/examen/pdf', Auth, async (req, res) => {
   const { id_turno, id_condicion, id_materia } = req.query;

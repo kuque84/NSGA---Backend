@@ -176,3 +176,36 @@ exports.cursoPorCiclo = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.alumnosPorCurso = async (req, res, next) => {
+  const id_ciclo = req.params.id_ciclo;
+  const id_curso = req.params.id_curso;
+  const id_division = req.params.id_division;
+  console.log('ALUMNOS POR CURSO', id_ciclo, id_curso, id_division);
+
+  try {
+    const inscripciones_cursos = await db.InscripcionCurso.findAll({
+      where: {
+        id_ciclo,
+        id_curso,
+        id_division,
+      },
+      include: [
+        {
+          model: db.Alumno,
+          as: 'Alumno',
+        },
+      ],
+      order: [[db.Sequelize.col('Alumno.apellidos'), 'ASC']], // Se cambió 'apellido' por 'apellidos'
+    });
+    console.table(inscripciones_cursos);
+    console.log('CANTIDAD DE ALUMNOS POR CURSO', inscripciones_cursos.length);
+    res.json(inscripciones_cursos);
+  } catch (err) {
+    console.error('Error al obtener las inscripciones de alumnos por curso', err);
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Error al obtener las inscripciones de alumnos por curso' });
+    }
+    next(err);
+  }
+};

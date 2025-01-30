@@ -743,6 +743,7 @@ const generateExamenActaPDF = (data, res) => {
     });
 
     //=======================================================
+    console.log('Data:', data[0].Previa.Curso);
     const curso = data[0].Previa.Curso.nombre || '';
     const division = data[0].Previa.Curso.division || '';
     const turno = curso === '1º' || curso === '2º' || curso === '3º' ? 'Mañana' : 'Tarde';

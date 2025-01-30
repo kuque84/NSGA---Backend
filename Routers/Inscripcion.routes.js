@@ -20,6 +20,11 @@ Rutas.get(
   Auth,
   InscripcionController.filtrarActa
 );
+Rutas.get(
+  '/filtrar/actaColoquio/:id_ciclo/:id_curso/:id_division/:id_turno/:id_condicion/:id_materia',
+  Auth,
+  InscripcionController.filtrarActaColoquio
+);
 /*
 Rutas.get(
   '/filtrar/acta/:id_ciclo/:id_condicion/:id_materia',
@@ -37,6 +42,14 @@ Rutas.post('/nuevo', Auth, InscripcionController.nuevo);
 // Esta ruta requiere autenticación
 Rutas.put('/actualizar/:id', Auth, InscripcionController.actualizar);
 Rutas.put('/acta', Auth, InscripcionController.actualizarActa);
+
+Rutas.get(
+  '/coloquioporcurso/:id_ciclo/:id_curso/:id_division/:id_materia/:id_turno',
+  Auth,
+  InscripcionController.filtrarColoquioPorCurso
+);
+
+Rutas.post('/actualizarColoquioporcurso', Auth, InscripcionController.actualizarColoquioporcurso);
 
 // Definimos una ruta DELETE para eliminar un Inscripcion por su ID
 // Esta ruta requiere autenticación
