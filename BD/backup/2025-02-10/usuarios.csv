@@ -1,0 +1,16 @@
+"id";"dni";"nombres";"apellidos";"email";"password";"createdAt";"updatedAt";"id_rol"
+1;"30711347";"EUGENIO RENÉ";"REGIS";"kuque84@hotmail.com";"$2b$08$j.lnU3HW6pfIAuxlQbOAredBk0T9Rc1fqSn1F9Kwp5hEkjTlDA5tC";"2024-05-18 22:44:39";"2024-10-01 12:58:36";1
+2;"22458471";"PAULA VERÓNICA";"RAMIREZ";"paula.ramirez@ipem168.com";"$2b$08$c53hrJ4WWc/ZFTcWg6K9zOae94j5eT0anm4iT4M0PtcWmR4sn7HaS";"2024-09-05 12:22:50";"2024-09-05 12:22:50";3
+3;"29478527";"ALEJANDRO JAVIER";"PLANES";"alejandro.planes@ipem168.com";"$2b$08$8anEmjS4ZYeBuBLYRjlcx.Sf/3GOrGCdgnnC4oh0u9k24oFh36c72";"2024-09-05 12:31:52";"2024-09-05 12:31:52";2
+4;"22034042";"MARISA GABRIELA";"TESTONI";"gabriela.testoni@ipem168.com";"$2b$08$DrZwQ79iJnLfzcCWjSuy.OQMcvIFvLx.N6ZA3DihTwhAl1Ekq50ce";"2024-09-05 12:33:47";"2024-09-05 12:33:47";5
+6;"27955659";"ANA SOLEDAD";"MEDINA";"ana.medina@ipem168.com";"$2b$08$0S8YJc2dosXLZcCTZa0RgevXhvVAyxgZwlU8ClEtEPbyivbmrEAD.";"2024-09-06 11:19:04";"2024-09-06 11:19:04";2
+7;"27779739";"VANESA CECILIA";"PEREYRA";"vanesa.pereyra@ipem168.com";"$2b$08$/97zes911tHqGeGYoq0qmOv5Z/pmCXqks/oyHgO59ui5UM.QhCfHC";"2024-09-06 11:21:37";"2024-09-06 11:21:37";5
+8;"22746662";"VIOLETA";"MACEIRA ZEMBORAIN";"violeta.maceira.zemborain@ipem168.com";"$2b$08$pn74n0o9.boRjWt6VBDEPue0/iP/Ho/CJURKLf2ISXQbIHpclEnIu";"2024-09-06 11:58:23";"2024-09-06 11:58:56";3
+9;"22361520";"EVANGELINA CECILIA";"PEREZ";"evangelina.perez@ipem168.com";"$2b$08$Y5VPB/I8/kmV7OA2TjVKYOUN96VIGpyYvwlzTGJQQO6/uxnhor5qO";"2024-09-06 12:02:03";"2024-09-06 12:02:03";4
+10;"26348754";"LEONOR VALERIA";"ECHEGOY";"valeria.echegoy@ipem168.com";"$2b$08$4WtnBZ9806u4/VReaOystuhyjS9PtF8liCBGLuD5unupidbEHlXeW";"2024-09-09 11:57:04";"2024-09-09 11:57:04";7
+11;"28478935";"SUSANA LORENA";"PAEZ";"susana.paez.masson@ipem168.com";"$2b$08$BQjO2OjZ7RJLQvk7brblo.OUldda5gEMgp4GN2i.kfpERtm6m/d2S";"2024-09-09 12:06:20";"2024-09-09 12:06:20";7
+12;"22510384";"FABIANA MARIA";"PERRUNE";"fabiana.perrune@ipem168.com";"$2b$08$UCTh76B4gmi9ENfxWO3cueiopvazUVwTZMMMjAgbGW.1WN7.bkoUW";"2024-09-09 12:14:55";"2024-09-09 12:14:55";7
+13;"25093695";"CLAUDIA ALEJANDRA";"PIZARRO";"claudia.pizarro@ipem168.com";"$2b$08$oPK8VcYHQcrKZRgqSZAW1.EwqbMQ0J.AnQ8t3MD9sC4idNlm3YdQi";"2024-09-09 12:18:44";"2024-09-09 12:18:44";7
+14;"34965417";"GABRIEL";"RIVAROLA";"gabriel.rivarola@ipem168.com";"$2b$08$FF7BhL9w4f2CWFTekUkRfulTjsOh8ctMLPRYQO7ozezbpn4jtCLhi";"2024-09-09 12:22:18";"2024-09-09 12:22:18";7
+15;"16502348";"DOROTEO RAMON";"ROMERO HERNANDEZ";"doroteo.romero.hernandez@ipem168.com";"$2b$08$tjJFA7fuDujMA1SYd6MojurkFWZuZXYp35LtNfC9mTV4upsLS1LIy";"2024-09-09 12:25:35";"2024-09-09 12:25:35";7
+16;"29316247";"MARIA CLARA";"SINELLI";"maria.clara.sinelli@ipem168.com";"$2b$08$pKGFEYL2zdlhT/3ytPW0m./hgVXnXwdEKsF3OAQXRCSEi6WLXlRsu";"2024-09-09 12:28:33";"2024-09-09 12:28:33";7
