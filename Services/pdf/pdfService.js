@@ -6,7 +6,7 @@ const imagePath = path.resolve(__dirname, '../../Src/Img/MEMBRETE - 2024 - compl
 console.log('Image path:', imagePath); // Verifica que la ruta sea correcta
 
 // Márgenes en puntos (1 cm ≈ 28.35 puntos)
-const MARGEN_TOP = 4 * 28.35;
+const MARGEN_TOP = 3 * 28.35;
 const MARGEN_LEFT = 3 * 28.35;
 const MARGEN_RIGHT = 2 * 28.35;
 const MARGEN_BOTTOM = 3 * 28.35;

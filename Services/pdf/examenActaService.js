@@ -711,7 +711,8 @@ const generateExamenActaPDF = (data, res) => {
   try {
     // Agregar membrete y encabezados
     addMembrete(doc);
-    addHeader(doc.moveUp(1).font('Helvetica-Bold').fontSize(14), 'ACTA VOLANTE DE EXAMEN', {
+    addHeader(doc.font('Helvetica-Bold').fontSize(14), 'ACTA VOLANTE DE EXAMEN', {
+      //addHeader(doc.moveUp(1).font('Helvetica-Bold').fontSize(14), 'ACTA VOLANTE DE EXAMEN', {
       align: 'center',
       y: MARGEN_TOP_LOCAL,
     });
@@ -893,7 +894,7 @@ const generateExamenActaPDF = (data, res) => {
       }
     );
 
-    currentY += 100; // Ajustar la posición Y para las firmas
+    currentY = 745; // Ajustar la posición Y para las firmas
 
     doc.lineWidth(0.5).moveTo(50, currentY).lineTo(210, currentY).stroke();
     doc.lineWidth(0.5).moveTo(230, currentY).lineTo(390, currentY).stroke();
@@ -914,7 +915,7 @@ const generateExamenActaPDF = (data, res) => {
       x: 470,
     });
 
-    currentY += 25;
+    currentY += 10;
 
     addTextWithMargins(doc.font('Helvetica').fontSize(6), `Aclar.:`, {
       y: currentY,
