@@ -1,6 +1,6 @@
-const db = require('../Models');
-const { Sequelize, where } = require('sequelize');
-const moment = require('moment'); // Importa la librería moment
+const db = require("../Models");
+const { Sequelize, where } = require("sequelize");
+const moment = require("moment"); // Importa la librería moment
 
 // Función para obtener la lista de todas las inscripciones
 exports.lista = (req, res, next) => {
@@ -33,11 +33,12 @@ exports.filtrar = (req, res, next) => {
 
 // Función para crear una nueva inscripción
 exports.nuevo = (req, res, next) => {
-  const { id_previa, id_turno, id_fechaExamen, id_calificacion, libro, folio } = req.body;
+  const { id_previa, id_turno, id_fechaExamen, id_calificacion, libro, folio } =
+    req.body;
 
   if (!id_previa || !id_turno || !id_fechaExamen) {
     return res.status(400).send({
-      message: 'Faltan datos para realizar la inscripción',
+      message: "Faltan datos para realizar la inscripción",
     });
   }
 
@@ -57,7 +58,7 @@ exports.nuevo = (req, res, next) => {
     .catch((err) => {
       if (err instanceof Sequelize.UniqueConstraintError) {
         res.status(409).json({
-          message: 'El alumno ya se encuentra inscripto en esta materia.',
+          message: "El alumno ya se encuentra inscripto en esta materia.",
         });
       } else {
         next(err);
@@ -75,10 +76,10 @@ exports.actualizar = (req, res, next) => {
     .then((num) => {
       if (num == 1) {
         res.json({
-          message: 'Inscripcion actualizada exitosamente',
+          message: "Inscripcion actualizada exitosamente",
         });
       } else {
-        throw new Error('No se pudo actualizar la inscripcion');
+        throw new Error("No se pudo actualizar la inscripcion");
       }
     })
     .catch((err) => {
@@ -99,11 +100,11 @@ exports.eliminar = (req, res, next) => {
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: 'inscripcion eliminada',
+          message: "inscripcion eliminada",
         });
       } else {
         res.send({
-          message: 'No se pudo eliminar la inscripcion',
+          message: "No se pudo eliminar la inscripcion",
         });
       }
     })
@@ -124,8 +125,8 @@ exports.filtrarActa = (req, res, next) => {
     include: [
       {
         model: db.Previa,
-        as: 'Previa',
-        attributes: ['id_previa', 'id_alumno', 'id_materia', 'id_condicion'],
+        as: "Previa",
+        attributes: ["id_previa", "id_alumno", "id_materia", "id_condicion"],
         where: {
           id_condicion,
           id_materia,
@@ -133,55 +134,55 @@ exports.filtrarActa = (req, res, next) => {
         include: [
           {
             model: db.Curso,
-            attributes: ['nombre'],
-            as: 'Curso',
+            attributes: ["nombre"],
+            as: "Curso",
           },
           {
             model: db.Materia,
-            attributes: ['nombre'],
-            as: 'Materia',
+            attributes: ["nombre"],
+            as: "Materia",
           },
           {
             model: db.CicloLectivo,
-            attributes: ['anio'],
-            as: 'CicloLectivo',
+            attributes: ["anio"],
+            as: "CicloLectivo",
           },
           {
             model: db.Condicion,
-            attributes: ['nombre'],
-            as: 'Condicion',
+            attributes: ["nombre"],
+            as: "Condicion",
           },
           {
             model: db.Plan,
-            attributes: ['codigo'],
-            as: 'Plan',
+            attributes: ["codigo"],
+            as: "Plan",
           },
           {
             model: db.Alumno,
-            attributes: ['dni', 'apellidos', 'nombres'],
-            as: 'Alumno',
+            attributes: ["dni", "apellidos", "nombres"],
+            as: "Alumno",
           },
           {
             model: db.Calificacion,
-            attributes: ['calificacion', 'aprobado'],
-            as: 'Calificacion',
+            attributes: ["calificacion", "aprobado"],
+            as: "Calificacion",
           },
         ],
       },
       {
         model: db.FechaExamen,
-        attributes: ['fechaExamen'],
-        as: 'FechaExamen',
+        attributes: ["fechaExamen"],
+        as: "FechaExamen",
       },
       {
         model: db.Calificacion,
-        attributes: ['calificacion', 'aprobado'],
-        as: 'Calificacion',
+        attributes: ["calificacion", "aprobado"],
+        as: "Calificacion",
       },
       {
         model: db.TurnoExamen,
-        attributes: ['nombre', 'id_ciclo'],
-        as: 'TurnoExamen',
+        attributes: ["nombre", "id_ciclo"],
+        as: "TurnoExamen",
       },
     ],
   })
@@ -206,7 +207,9 @@ exports.filtrarActa = (req, res, next) => {
       });
       if (generatePDF) {
         //pasar inscripciones a json
-        inscripciones = inscripciones.map((inscripcion) => inscripcion.toJSON());
+        inscripciones = inscripciones.map((inscripcion) =>
+          inscripcion.toJSON()
+        );
         req.data = inscripciones; // Almacenar los datos en req.data
         next(); // Pasar al siguiente middleware para generar el PDF
       } else {
@@ -219,9 +222,16 @@ exports.filtrarActa = (req, res, next) => {
 };
 
 exports.filtrarActaColoquio = async (req, res, next) => {
-  const { id_ciclo, id_curso, id_division, id_materia, id_condicion, id_turno } = req.params;
+  const {
+    id_ciclo,
+    id_curso,
+    id_division,
+    id_materia,
+    id_condicion,
+    id_turno,
+  } = req.params;
   const { generatePDF } = req.query; // Obtener el parámetro opcional de la consulta
-  console.log('Filtrar acta de coloquio');
+  console.log("Filtrar acta de coloquio");
 
   try {
     const fechaExamen = await db.FechaExamen.findOne({
@@ -236,9 +246,9 @@ exports.filtrarActaColoquio = async (req, res, next) => {
 
     if (fechaExamen) {
       const id_fechaExamen = fechaExamen.id_fechaExamen;
-      console.log('Fecha de examen encontrada:', fechaExamen.fechaExamen);
+      console.log("Fecha de examen encontrada:", fechaExamen.fechaExamen);
 
-      console.log('Datos recibidos:', {
+      console.log("Datos recibidos:", {
         id_ciclo,
         id_curso,
         id_division,
@@ -250,7 +260,7 @@ exports.filtrarActaColoquio = async (req, res, next) => {
 
       const division = await db.Division.findOne({
         where: { id_division },
-        attributes: ['nombre'],
+        attributes: ["nombre"],
       });
 
       const inscripciones = await db.Inscripcion.findAll({
@@ -261,8 +271,13 @@ exports.filtrarActaColoquio = async (req, res, next) => {
         include: [
           {
             model: db.Previa,
-            as: 'Previa',
-            attributes: ['id_previa', 'id_alumno', 'id_materia', 'id_condicion'],
+            as: "Previa",
+            attributes: [
+              "id_previa",
+              "id_alumno",
+              "id_materia",
+              "id_condicion",
+            ],
             where: {
               id_condicion,
               id_materia,
@@ -270,55 +285,55 @@ exports.filtrarActaColoquio = async (req, res, next) => {
             include: [
               {
                 model: db.Curso,
-                attributes: ['nombre'],
-                as: 'Curso',
+                attributes: ["nombre"],
+                as: "Curso",
               },
               {
                 model: db.Materia,
-                attributes: ['nombre'],
-                as: 'Materia',
+                attributes: ["nombre"],
+                as: "Materia",
               },
               {
                 model: db.CicloLectivo,
-                attributes: ['anio'],
-                as: 'CicloLectivo',
+                attributes: ["anio"],
+                as: "CicloLectivo",
               },
               {
                 model: db.Condicion,
-                attributes: ['nombre'],
-                as: 'Condicion',
+                attributes: ["nombre"],
+                as: "Condicion",
               },
               {
                 model: db.Plan,
-                attributes: ['codigo'],
-                as: 'Plan',
+                attributes: ["codigo"],
+                as: "Plan",
               },
               {
                 model: db.Alumno,
-                attributes: ['dni', 'apellidos', 'nombres'],
-                as: 'Alumno',
+                attributes: ["dni", "apellidos", "nombres"],
+                as: "Alumno",
               },
               {
                 model: db.Calificacion,
-                attributes: ['calificacion', 'aprobado'],
-                as: 'Calificacion',
+                attributes: ["calificacion", "aprobado"],
+                as: "Calificacion",
               },
             ],
           },
           {
             model: db.FechaExamen,
-            attributes: ['fechaExamen'],
-            as: 'FechaExamen',
+            attributes: ["fechaExamen"],
+            as: "FechaExamen",
           },
           {
             model: db.Calificacion,
-            attributes: ['calificacion', 'aprobado'],
-            as: 'Calificacion',
+            attributes: ["calificacion", "aprobado"],
+            as: "Calificacion",
           },
           {
             model: db.TurnoExamen,
-            attributes: ['nombre', 'id_ciclo'],
-            as: 'TurnoExamen',
+            attributes: ["nombre", "id_ciclo"],
+            as: "TurnoExamen",
           },
         ],
       });
@@ -346,21 +361,26 @@ exports.filtrarActaColoquio = async (req, res, next) => {
       inscripciones.forEach((inscripcion) => {
         inscripcion.Previa.Curso.dataValues.division = division.nombre;
       });
-      console.log('inscripciones.Previa.Curso:', inscripciones[0].Previa.Curso);
+      console.log("inscripciones.Previa.Curso:", inscripciones[0].Previa.Curso);
       if (generatePDF) {
         // Pasar inscripciones a JSON
-        const inscripcionesJSON = inscripciones.map((inscripcion) => inscripcion.toJSON());
+        const inscripcionesJSON = inscripciones.map((inscripcion) =>
+          inscripcion.toJSON()
+        );
         req.data = inscripcionesJSON; // Almacenar los datos en req.data
-        console.log('Inscripciones encontradas:', inscripciones);
+        console.log("Inscripciones encontradas:", inscripciones);
         next(); // Pasar al siguiente middleware para generar el PDF
       } else {
         res.json(inscripciones); // Enviar la respuesta JSON
       }
     } else {
-      console.log('No se encontró una fecha de examen para los criterios proporcionados.');
-      return res
-        .status(404)
-        .send({ message: 'No se encontró una fecha de examen para los criterios proporcionados.' });
+      console.log(
+        "No se encontró una fecha de examen para los criterios proporcionados."
+      );
+      return res.status(404).send({
+        message:
+          "No se encontró una fecha de examen para los criterios proporcionados.",
+      });
     }
   } catch (err) {
     next(err);
@@ -373,7 +393,7 @@ exports.actualizarActa = async (req, res, next) => {
   //console.log('Acta recibida:', acta);
 
   if (!acta) {
-    return res.status(400).send({ message: 'Faltan datos del acta' });
+    return res.status(400).send({ message: "Faltan datos del acta" });
   }
 
   const { fecha, inscripcion, libro, folio, previa, id_condicion } = acta;
@@ -389,7 +409,7 @@ exports.actualizarActa = async (req, res, next) => {
     !previa ||
     !id_condicion
   ) {
-    console.error('Datos incompletos del acta:', {
+    console.error("Datos incompletos del acta:", {
       fecha,
       inscripcion,
       libro,
@@ -398,7 +418,7 @@ exports.actualizarActa = async (req, res, next) => {
       previa,
       id_condicion,
     });
-    return res.status(400).send({ message: 'Faltan datos del acta' });
+    return res.status(400).send({ message: "Faltan datos del acta" });
   }
 
   const t = await db.sequelize.transaction();
@@ -418,7 +438,7 @@ exports.actualizarActa = async (req, res, next) => {
       const { id_inscripcion, ...restoInscripcion } = insc;
 
       if (isNaN(id_inscripcion)) {
-        throw new Error('El id de inscripción debe ser un número entero');
+        throw new Error("El id de inscripción debe ser un número entero");
       }
 
       console.log(
@@ -439,7 +459,7 @@ exports.actualizarActa = async (req, res, next) => {
       console.log(`Buscando Calificacion: id_calificacion=${id_calificacion}`);
       const calificacion = await db.Calificacion.findOne({
         where: { id_calificacion },
-        attributes: ['aprobado'],
+        attributes: ["aprobado"],
         transaction: t,
       });
 
@@ -448,16 +468,24 @@ exports.actualizarActa = async (req, res, next) => {
           console.log(
             `Actualizando Previa aprobada: id_previa=${id_previa}, id_calificacion=${id_calificacion}`
           );
-          return db.Previa.update({ id_calificacion }, { where: { id_previa }, transaction: t });
+          return db.Previa.update(
+            { id_calificacion },
+            { where: { id_previa }, transaction: t }
+          );
         } else {
           console.log(
             `Previa no aprobada: id_previa=${id_previa}, estableciendo id_calificacion=1`
           );
-          return db.Previa.update({ id_calificacion: 1 }, { where: { id_previa }, transaction: t });
+          return db.Previa.update(
+            { id_calificacion: 1 },
+            { where: { id_previa }, transaction: t }
+          );
         }
       }
 
-      console.log(`Calificación no encontrada: id_calificacion=${id_calificacion}`);
+      console.log(
+        `Calificación no encontrada: id_calificacion=${id_calificacion}`
+      );
       return Promise.resolve();
     });
 
@@ -465,66 +493,68 @@ exports.actualizarActa = async (req, res, next) => {
 
     await t.commit();
 
-    res.json({ message: 'Acta actualizada exitosamente' });
+    res.json({ message: "Acta actualizada exitosamente" });
   } catch (error) {
     await t.rollback();
-    console.error('Error al actualizar el acta:', error.message, error.stack);
-    res.status(500).send({ message: 'Error al actualizar el acta', error: error.message });
+    console.error("Error al actualizar el acta:", error.message, error.stack);
+    res
+      .status(500)
+      .send({ message: "Error al actualizar el acta", error: error.message });
   }
 };
 
 exports.filtrarPorAlumno = (req, res, next) => {
-  console.log('Filtrar inscripciones por alumno');
+  console.log("Filtrar inscripciones por alumno");
   const { id_alumno } = req.params;
 
   db.Inscripcion.findAll({
     include: [
       {
         model: db.Previa,
-        as: 'Previa',
+        as: "Previa",
         where: { id_alumno },
         include: [
           {
             model: db.Alumno,
-            attributes: ['dni', 'apellidos', 'nombres'],
-            as: 'Alumno',
+            attributes: ["dni", "apellidos", "nombres"],
+            as: "Alumno",
           },
           {
             model: db.Curso,
-            attributes: ['nombre'],
-            as: 'Curso',
+            attributes: ["nombre"],
+            as: "Curso",
           },
           {
             model: db.Materia,
-            attributes: ['nombre'],
-            as: 'Materia',
+            attributes: ["nombre"],
+            as: "Materia",
           },
           {
             model: db.Condicion,
-            attributes: ['nombre'],
-            as: 'Condicion',
+            attributes: ["nombre"],
+            as: "Condicion",
           },
           {
             model: db.Plan,
-            attributes: ['codigo'],
-            as: 'Plan',
+            attributes: ["codigo"],
+            as: "Plan",
           },
         ],
       },
       {
         model: db.FechaExamen,
-        attributes: ['fechaExamen'],
-        as: 'FechaExamen',
+        attributes: ["fechaExamen"],
+        as: "FechaExamen",
       },
       {
         model: db.Calificacion,
-        attributes: ['calificacion', 'aprobado'],
-        as: 'Calificacion',
+        attributes: ["calificacion", "aprobado"],
+        as: "Calificacion",
       },
       {
         model: db.TurnoExamen,
-        attributes: ['nombre', 'id_ciclo'],
-        as: 'TurnoExamen',
+        attributes: ["nombre", "id_ciclo"],
+        as: "TurnoExamen",
       },
     ],
   })
@@ -537,7 +567,7 @@ exports.filtrarPorAlumno = (req, res, next) => {
 };
 
 exports.filtrarColoquioPorCurso = async (req, res, next) => {
-  console.log('Filtrar inscripciones de coloquio por curso');
+  console.log("Filtrar inscripciones de coloquio por curso");
   const { id_ciclo, id_curso, id_division, id_materia, id_turno } = req.params;
   const id_condicion = 4; // Coloquio
 
@@ -549,14 +579,16 @@ exports.filtrarColoquioPorCurso = async (req, res, next) => {
         id_curso,
         id_division,
       },
-      attributes: ['id_alumno'],
+      attributes: ["id_alumno"],
     });
 
     if (inscripcionCurso.length === 0) {
       return res.json([]); // No hay alumnos inscritos en el curso
     }
 
-    const id_alumnos = inscripcionCurso.map((inscripcion) => inscripcion.id_alumno);
+    const id_alumnos = inscripcionCurso.map(
+      (inscripcion) => inscripcion.id_alumno
+    );
     //console.log('Alumnos del curso:', id_alumnos);
 
     // Filtrar en la tabla Previa
@@ -568,7 +600,7 @@ exports.filtrarColoquioPorCurso = async (req, res, next) => {
         id_curso,
         id_ciclo,
       },
-      attributes: ['id_previa'],
+      attributes: ["id_previa"],
     });
 
     if (previas.length === 0) {
@@ -576,7 +608,7 @@ exports.filtrarColoquioPorCurso = async (req, res, next) => {
     }
 
     const id_previas = previas.map((previa) => previa.id_previa);
-    console.log('Previas encontradas:', id_previas.length);
+    console.log("Previas encontradas:", id_previas.length);
 
     // Filtrar en la tabla Inscripcion
     const inscripciones = await db.Inscripcion.findAll({
@@ -587,12 +619,12 @@ exports.filtrarColoquioPorCurso = async (req, res, next) => {
       include: [
         {
           model: db.Previa,
-          as: 'Previa', // Especificar el alias correcto
+          as: "Previa", // Especificar el alias correcto
           include: [
             {
               model: db.Alumno,
-              as: 'Alumno', // Especificar el alias correcto
-              attributes: ['id_alumno', 'apellidos', 'nombres', 'dni'],
+              as: "Alumno", // Especificar el alias correcto
+              attributes: ["id_alumno", "apellidos", "nombres", "dni"],
             },
           ],
         },
@@ -603,7 +635,7 @@ exports.filtrarColoquioPorCurso = async (req, res, next) => {
       return res.json([]); // No hay inscripciones para las previas encontradas
     }
 
-    console.log('Inscripciones encontradas:', inscripciones.length);
+    console.log("Inscripciones encontradas:", inscripciones.length);
 
     // Ordenar los resultados por apellido y nombre
     inscripciones.sort((a, b) => {
@@ -627,7 +659,7 @@ exports.filtrarColoquioPorCurso = async (req, res, next) => {
 
     res.json(inscripciones); // Enviar la respuesta JSON
   } catch (err) {
-    console.error('Error al obtener las inscripciones:', err);
+    console.error("Error al obtener las inscripciones:", err);
     next(err);
   }
 };
@@ -636,7 +668,7 @@ exports.actualizarColoquioporcurso = async (req, res, next) => {
   const { alumnos } = req.body;
   const { id_materia, id_turno, id_ciclo, id_curso, id_division } = alumnos[0]; // Asegúrate de recibir estos datos del frontend
 
-  console.log('Actualizar inscripciones de coloquio por curso');
+  console.log("Actualizar inscripciones de coloquio por curso");
   //console.log(alumnos);
 
   const id_condicion = 4; // Coloquio
@@ -644,10 +676,10 @@ exports.actualizarColoquioporcurso = async (req, res, next) => {
   const id_calificacion = 1;
   const { id_plan } = await db.Curso.findOne({
     where: { id_curso },
-    attributes: ['id_plan'],
+    attributes: ["id_plan"],
   });
 
-  console.log('Datos recibidos:', {
+  console.log("Datos recibidos:", {
     id_materia,
     id_condicion,
     id_calificacion,
@@ -672,13 +704,15 @@ exports.actualizarColoquioporcurso = async (req, res, next) => {
     });
 
     if (fechaExamen) {
-      console.log('Fecha de examen encontrada:', fechaExamen);
+      console.log("Fecha de examen encontrada:", fechaExamen);
       id_fechaExamen = fechaExamen.id_fechaExamen;
     } else {
-      console.log('No se encontró una fecha de examen para los criterios proporcionados.');
+      console.log(
+        "No se encontró una fecha de examen para los criterios proporcionados."
+      );
       // Crear una nueva fecha de examen
       const fechaActual = moment();
-      console.log('Fecha actual:', fechaActual);
+      console.log("Fecha actual:", fechaActual);
       fechaExamen = await db.FechaExamen.create({
         id_turno,
         id_materia,
@@ -688,7 +722,7 @@ exports.actualizarColoquioporcurso = async (req, res, next) => {
         fechaExamen: fechaActual, // Fecha y hora actuales
       });
       id_fechaExamen = fechaExamen.id_fechaExamen;
-      console.log('Nueva fecha de examen creada:', id_fechaExamen);
+      console.log("Nueva fecha de examen creada:", id_fechaExamen);
     }
 
     // Buscar si tienen las previas cargadas de los alumnos del curso en la tabla Previa
@@ -709,8 +743,12 @@ exports.actualizarColoquioporcurso = async (req, res, next) => {
 
       if (coloquio) {
         if (previa) {
-          console.log(`El alumno ${id_alumno} tiene su previa cargada: ${previa.id_previa}`);
-          console.log(`Inscribir previa a examen de coloquio para el alumno ${id_alumno}`);
+          console.log(
+            `El alumno ${id_alumno} tiene su previa cargada: ${previa.id_previa}`
+          );
+          console.log(
+            `Inscribir previa a examen de coloquio para el alumno ${id_alumno}`
+          );
           // Verificar si ya existe una inscripción con la combinación de id_previa e id_turno
           const inscripcionExistente = await db.Inscripcion.findOne({
             where: {
@@ -726,12 +764,16 @@ exports.actualizarColoquioporcurso = async (req, res, next) => {
               id_turno,
               id_fechaExamen,
             });
-            console.log(`Inscripción creada con id: ${inscripcion.id_inscripcion}`);
+            console.log(
+              `Inscripción creada con id: ${inscripcion.id_inscripcion}`
+            );
           } else {
             console.log(`La inscripción ya existe para el alumno ${id_alumno}`);
           }
         } else {
-          console.log(`El alumno ${id_alumno} no tiene cargada la previa (cargar previa)`);
+          console.log(
+            `El alumno ${id_alumno} no tiene cargada la previa (cargar previa)`
+          );
           console.log(
             `Cargar previa e inscribir en examen de coloquio para el alumno ${id_alumno}`
           );
@@ -745,18 +787,24 @@ exports.actualizarColoquioporcurso = async (req, res, next) => {
             id_ciclo,
             id_plan,
           });
-          console.log(`Previa creada con id: ${nuevaPrevia.id_previa} para el alumno ${id_alumno}`);
+          console.log(
+            `Previa creada con id: ${nuevaPrevia.id_previa} para el alumno ${id_alumno}`
+          );
           // Inscribir en el examen de coloquio
           const inscripcion = await db.Inscripcion.create({
             id_previa: nuevaPrevia.id_previa,
             id_turno,
             id_fechaExamen,
           });
-          console.log(`Inscripción creada con id: ${inscripcion.id_inscripcion}`);
+          console.log(
+            `Inscripción creada con id: ${inscripcion.id_inscripcion}`
+          );
         }
       } else {
         if (previa) {
-          console.log(`Eliminar previa ${previa.id_previa} para el alumno ${id_alumno}`);
+          console.log(
+            `Eliminar previa ${previa.id_previa} para el alumno ${id_alumno}`
+          );
           // Verificar si existe una inscripción con la combinación de id_previa e id_fechaExamen
           const inscripcionExistente = await db.Inscripcion.findOne({
             where: {
@@ -770,7 +818,9 @@ exports.actualizarColoquioporcurso = async (req, res, next) => {
             await db.Inscripcion.destroy({
               where: { id_inscripcion: inscripcionExistente.id_inscripcion },
             });
-            console.log(`Inscripción eliminada con id: ${inscripcionExistente.id_inscripcion}`);
+            console.log(
+              `Inscripción eliminada con id: ${inscripcionExistente.id_inscripcion}`
+            );
           }
 
           // Eliminar la previa
@@ -783,9 +833,109 @@ exports.actualizarColoquioporcurso = async (req, res, next) => {
     }
 
     // Aquí puedes agregar la lógica para actualizar las inscripciones en la base de datos.
-    res.json({ message: 'Inscripciones actualizadas exitosamente', id_fechaExamen });
+    res.json({
+      message: "Inscripciones actualizadas exitosamente",
+      id_fechaExamen,
+    });
   } catch (err) {
-    console.error('Error al actualizar las inscripciones:', err);
+    console.error("Error al actualizar las inscripciones:", err);
+    next(err);
+  }
+};
+
+// Función para filtrar el permiso de examen
+exports.filtrarPermisoExamen = async (req, res, next) => {
+  // Recibir los parámetros de la solicitud (id_alumno, id_turno)
+  const { id_alumno, id_turno } = req.params;
+
+  // Pasar a integro id_turno
+  const { generatePDF } = req.query; // Obtener el parámetro opcional de la consulta
+
+  console.log("Filtrar permiso de examen");
+  console.log("Datos recibidos:", {
+    id_alumno,
+    id_turno,
+  });
+
+  // Buscar todas las inscripciones del alumno, filtrando por id_alumno y id_turno utilizando try/catch y Ordenar los resultados por FechaExamen y generar el PDF porque es necesario
+  try {
+    const inscripciones = await db.Inscripcion.findAll({
+      where: {
+        id_turno,
+      },
+      include: [
+        {
+          model: db.TurnoExamen,
+          as: "TurnoExamen",
+          where: { id_turno },
+          attributes: ["nombre"],
+        },
+        {
+          model: db.Previa,
+          as: "Previa",
+          where: { id_alumno },
+          include: [
+            {
+              model: db.Alumno,
+              as: "Alumno",
+              attributes: ["dni", "apellidos", "nombres"],
+            },
+            {
+              model: db.Materia,
+              as: "Materia",
+            },
+            {
+              model: db.Condicion,
+              as: "Condicion",
+            },
+            {
+              model: db.Curso,
+              as: "Curso",
+              attributes: ["nombre"],
+            },
+            {
+              model: db.Calificacion,
+              as: "Calificacion",
+              attributes: ["id_calificacion", "calificacion", "aprobado"],
+            },
+          ],
+        },
+        {
+          model: db.FechaExamen,
+          as: "FechaExamen",
+        },
+      ],
+    });
+
+    // Ordenar los resultados por FechaExamen
+    inscripciones.sort((a, b) => {
+      const fechaA = new Date(a.FechaExamen.fechaExamen);
+      const fechaB = new Date(b.FechaExamen.fechaExamen);
+      return fechaA - fechaB; // Ordenar de forma ascendente
+    });
+
+    // Mostrar en consola las inscripciones encontradas
+    console.log("Inscripciones encontradas:", inscripciones.length);
+    inscripciones.forEach((inscripcion) => {
+      console.log(
+        `Inscripción: ${inscripcion.id_inscripcion}, FechaExamen: ${inscripcion.FechaExamen.fechaExamen}`
+      );
+    });
+    // Si se solicita generar un PDF, pasar los datos a JSON y continuar al siguiente middleware
+    // Si no, enviar la respuesta JSON
+
+    if (generatePDF) {
+      // Pasar inscripciones a JSON
+      const inscripcionesJSON = inscripciones.map((inscripcion) =>
+        inscripcion.toJSON()
+      );
+      req.data = inscripcionesJSON; // Almacenar los datos en req.data
+      next(); // Pasar al siguiente middleware para generar el PDF
+    } else {
+      res.json(inscripciones); // Enviar la respuesta JSON
+    }
+  } catch (err) {
+    console.error("Error al filtrar el permiso de examen:", err);
     next(err);
   }
 };

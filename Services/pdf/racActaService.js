@@ -1,13 +1,36 @@
-const PDFDocument = require('pdfkit');
-const { addMembrete, addHeader, addTextWithMargins, MARGEN_TOP } = require('./pdfService');
-const { getRacData, getAlumnoData, getCicloLectivoData, getPreviaData } = require('./dataService'); // Asegúrate de que la ruta sea correcta
+const PDFDocument = require("pdfkit");
+console.log("PDFDocument: racActaService");
+const {
+  addMembrete,
+  addHeader,
+  addTextWithMargins,
+  MARGEN_TOP,
+} = require("./pdfService");
+const {
+  getRacData,
+  getAlumnoData,
+  getCicloLectivoData,
+  getPreviaData,
+} = require("./dataService"); // Asegúrate de que la ruta sea correcta
 
 const hoy = new Date();
 //guardar la fecha de hoy en formato dd/mm/aaaa
-const fecha = hoy.getDate() + '/' + (hoy.getMonth() + 1) + '/' + hoy.getFullYear();
+const fecha =
+  hoy.getDate() + "/" + (hoy.getMonth() + 1) + "/" + hoy.getFullYear();
 
-const drawTable = (doc, headers, rows, startX, startY, rowHeight, columnWidths, padding = 6) => {
+const drawTable = (
+  doc,
+  headers,
+  rows,
+  startX,
+  startY,
+  rowHeight,
+  columnWidths,
+  padding = 6
+) => {
   let y = startY;
+  const pageHeight = doc.page.height;
+  const bottomMargin = 50;
 
   // Dibujar línea horizontal superior de la tabla
   doc
@@ -17,15 +40,32 @@ const drawTable = (doc, headers, rows, startX, startY, rowHeight, columnWidths, 
     .stroke();
 
   // Dibujar encabezados
-  doc.font('Helvetica-Bold').fontSize(8);
+  doc.font("Helvetica-Bold").fontSize(8);
   headers.forEach((header, i) => {
     doc.text(
       header,
       startX + columnWidths.slice(0, i).reduce((a, b) => a + b, 0) + padding,
       y + padding,
-      { width: columnWidths[i] - 2 * padding, align: 'center' }
+      {
+        width: columnWidths[i] - 2 * padding,
+        align: "center",
+      }
     );
   });
+
+  // Dibujar líneas verticales en el encabezado
+  let x = startX;
+  columnWidths.forEach((width) => {
+    doc
+      .moveTo(x, y)
+      .lineTo(x, y + rowHeight)
+      .stroke();
+    x += width;
+  });
+  doc
+    .moveTo(x, y)
+    .lineTo(x, y + rowHeight)
+    .stroke();
 
   y += rowHeight;
 
@@ -36,119 +76,164 @@ const drawTable = (doc, headers, rows, startX, startY, rowHeight, columnWidths, 
     .lineTo(startX + columnWidths.reduce((a, b) => a + b, 0), y)
     .stroke();
 
-  // Dibujar filas
   rows.forEach((row, rowIndex) => {
-    headers.forEach((header, i) => {
-      let fontSize = 8;
-      doc.fontSize(fontSize); // Aplicar el tamaño de la fuente antes de calcular el ancho del texto
-      let textWidth = doc.widthOfString(row[i]);
-
-      // Reducir el tamaño de la fuente si el texto no cabe en la celda
-      while (textWidth > columnWidths[i] - 2 * padding && fontSize > 4) {
-        fontSize -= 0.5;
-        doc.fontSize(fontSize); // Aplicar el nuevo tamaño de la fuente
-        textWidth = doc.widthOfString(row[i]); // Recalcular el ancho del texto
-        //console.log('Reduciendo tamaño de fuente:', fontSize);
-        //console.log('Ancho de la columna:', columnWidths[i]);
-        //console.log('Ancho del texto:', textWidth);
-      }
-
+    // Verificar si se necesita un salto de página
+    if (y + rowHeight + bottomMargin > pageHeight - 50) {
       doc
-        .font('Helvetica')
-        .fontSize(fontSize)
-        .text(
-          row[i],
-          startX + columnWidths.slice(0, i).reduce((a, b) => a + b, 0) + padding,
+        .font("Helvetica")
+        .fontSize(8)
+        .text("Continúa en la siguiente página...", startX, y + padding, {
+          align: "left",
+        });
+      doc.addPage();
+      y = 50;
+
+      // Redibujar encabezados en la nueva página
+      doc
+        .lineWidth(0.5)
+        .moveTo(startX, y)
+        .lineTo(startX + columnWidths.reduce((a, b) => a + b, 0), y)
+        .stroke();
+      doc.font("Helvetica-Bold").fontSize(8);
+      headers.forEach((header, i) => {
+        doc.text(
+          header,
+          startX +
+            columnWidths.slice(0, i).reduce((a, b) => a + b, 0) +
+            padding,
           y + padding,
           {
             width: columnWidths[i] - 2 * padding,
-            align: i === 1 ? 'left' : 'center',
+            align: "center",
+          }
+        );
+      });
+
+      // Dibujar líneas verticales en el encabezado de la nueva página
+      x = startX;
+      columnWidths.forEach((width) => {
+        doc
+          .moveTo(x, y)
+          .lineTo(x, y + rowHeight)
+          .stroke();
+        x += width;
+      });
+      doc
+        .moveTo(x, y)
+        .lineTo(x, y + rowHeight)
+        .stroke();
+
+      y += rowHeight;
+      doc
+        .lineWidth(0.5)
+        .moveTo(startX, y)
+        .lineTo(startX + columnWidths.reduce((a, b) => a + b, 0), y)
+        .stroke();
+    }
+
+    // Dibujar contenido de la fila
+    headers.forEach((header, i) => {
+      let fontSize = 8;
+      doc.fontSize(fontSize);
+      let textWidth = doc.widthOfString(row[i]);
+      while (textWidth > columnWidths[i] - 2 * padding && fontSize > 4) {
+        fontSize -= 0.5;
+        doc.fontSize(fontSize);
+        textWidth = doc.widthOfString(row[i]);
+      }
+      doc
+        .font("Helvetica")
+        .fontSize(fontSize)
+        .text(
+          row[i],
+          startX +
+            columnWidths.slice(0, i).reduce((a, b) => a + b, 0) +
+            padding,
+          y + padding,
+          {
+            width: columnWidths[i] - 2 * padding,
+            align: i === 1 ? "left" : "center",
             continued: false,
           }
         );
     });
-    y += rowHeight;
 
     // Dibujar líneas horizontales para cada fila
     doc
-      .moveTo(startX, y)
-      .lineTo(startX + columnWidths.reduce((a, b) => a + b, 0), y)
+      .moveTo(startX, y + rowHeight)
+      .lineTo(startX + columnWidths.reduce((a, b) => a + b, 0), y + rowHeight)
       .stroke();
+
+    // Dibujar líneas verticales para cada fila
+    x = startX;
+    columnWidths.forEach((width) => {
+      doc
+        .moveTo(x, y)
+        .lineTo(x, y + rowHeight)
+        .stroke();
+      x += width;
+    });
+    doc
+      .moveTo(x, y)
+      .lineTo(x, y + rowHeight)
+      .stroke();
+
+    y += rowHeight;
   });
 
-  // Dibujar líneas verticales
-  let x = startX;
-  columnWidths.forEach((width) => {
-    doc.moveTo(x, startY).lineTo(x, y).stroke();
-    x += width;
-  });
-  // Dibujar la última línea vertical
-  doc.moveTo(x, startY).lineTo(x, y).stroke();
-
-  // Devolver la nueva posición y
   return y;
 };
 
 const generateRACActaPDF = async (data, res) => {
-  const doc = new PDFDocument({ size: 'A4' });
-  res.setHeader('Content-Type', 'application/pdf');
-  res.setHeader('Content-Disposition', 'attachment; filename=rac_acta.pdf');
+  const doc = new PDFDocument({ size: "A4" });
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", "attachment; filename=rac_acta.pdf");
   doc.pipe(res);
 
-  doc.on('error', (err) => {
-    console.error('Error en PDF:', err);
-    if (!res.headersSent) {
-      res.status(500).send('Error al generar el PDF');
-    }
-  });
-
   try {
-    // Obtener los datos del RAC
     const racData = await getRacData(data.id_alumno, data.id_ciclo);
     const alumnoData = await getAlumnoData(data.id_alumno);
     const cicloLectivoData = await getCicloLectivoData(data.id_ciclo);
     const previaData = await getPreviaData(data.id_alumno);
 
-    // Agregar membrete y encabezados
     addMembrete(doc);
-    addHeader(doc.font('Helvetica-Bold').fontSize(14), `Registro Anual de Calificaciones`);
     addHeader(
-      doc.moveDown(-1).font('Helvetica-Bold').fontSize(14),
+      doc.font("Helvetica-Bold").fontSize(14),
+      `Registro Anual de Calificaciones`
+    );
+    addHeader(
+      doc.moveDown(-1).font("Helvetica-Bold").fontSize(14),
       `CICLO LECTIVO ${cicloLectivoData.anio}`
     );
     addHeader(
-      doc.moveDown(-1).font('Helvetica').fontSize(12),
+      doc.moveDown(-1).font("Helvetica").fontSize(12),
       `Anexo - Exámenes Previos y Equivalencias`
     );
 
-    // Agregar información del alumno y ciclo lectivo en negrita
-    doc.font('Helvetica-Bold').fontSize(10);
-    addTextWithMargins(doc, `Estudiante: ${alumnoData.apellidos}, ${alumnoData.nombres}`, {
-      y: MARGEN_TOP + 65,
-    });
-    addTextWithMargins(doc, `DNI: ${alumnoData.dni}`, {
-      y: MARGEN_TOP + 80,
-    });
+    doc.font("Helvetica-Bold").fontSize(10);
+    addTextWithMargins(
+      doc,
+      `Estudiante: ${alumnoData.apellidos}, ${alumnoData.nombres}`,
+      { y: MARGEN_TOP + 65 }
+    );
+    addTextWithMargins(doc, `DNI: ${alumnoData.dni}`, { y: MARGEN_TOP + 80 });
 
-    // Restablecer la fuente a la normal si es necesario
-    doc.font('Helvetica').fontSize(10);
-
-    // Agregar tabla de avance de notas
+    doc.font("Helvetica").fontSize(10);
     doc.x = 50;
     doc
       .moveDown(0.5)
-      .font('Helvetica-Bold')
+      .font("Helvetica-Bold")
       .fontSize(10)
-      .text('Listado de Espacios Curriculares Adeudados:', { align: 'left' });
+      .text("Listado de Espacios Curriculares Adeudados:", { align: "left" });
 
     const headers = [
-      'Nº',
-      'ESPACIO CURRICULAR',
-      'CURSO',
-      'CONDICIÓN',
-      'C. LECTIVO',
-      'PLAN',
-      'ESTADO',
+      "Nº",
+      "ESPACIO CURRICULAR",
+      "CURSO",
+      "CONDICIÓN",
+      "C. LECTIVO",
+      "PLAN",
+      "ESTADO",
     ];
     const rows = previaData.map((item, index) => [
       index + 1,
@@ -157,11 +242,11 @@ const generateRACActaPDF = async (data, res) => {
       item.condicion,
       item.cicloLectivo,
       item.plan,
-      item.aprobado === null || item.aprobado === false
-        ? 'DESAPROBADO'
-        : item.aprobado === true
-        ? 'APROBADO'
-        : 'Error',
+      item.aprobado === null
+        ? "Error"
+        : item.aprobado === false
+        ? "DESAPROBADO"
+        : "APROBADO",
     ]);
 
     let currentY = drawTable(
@@ -174,22 +259,23 @@ const generateRACActaPDF = async (data, res) => {
       [25, 180, 50, 75, 60, 60, 80]
     );
 
-    // Agregar "Historial de Exámenes" debajo de la primera tabla
-    currentY += 10; // Añadir un espacio entre las tablas
+    currentY += 10;
     doc.x = 50;
-    doc.moveDown(2);
-    doc.font('Helvetica-Bold').fontSize(10).text('Historial de Exámenes:', { align: 'left' });
+    doc
+      .moveDown(2)
+      .font("Helvetica-Bold")
+      .fontSize(10)
+      .text("Historial de Exámenes:", { align: "left" });
 
-    // Agregar tabla de historial de exámenes
     const examHeaders = [
-      'Nº',
-      'ESPACIO CURRICULAR',
-      'CURSO',
-      'CONDICIÓN',
-      'FECHA',
-      'NOTA',
-      'L',
-      'F',
+      "Nº",
+      "ESPACIO CURRICULAR",
+      "CURSO",
+      "CONDICIÓN",
+      "FECHA",
+      "NOTA",
+      "L",
+      "F",
     ];
     const examRows = racData.map((item, index) => [
       index + 1,
@@ -207,19 +293,21 @@ const generateRACActaPDF = async (data, res) => {
       examHeaders,
       examRows,
       50,
-      currentY + 20, // Ajustar la posición y para evitar superposición
+      currentY + 20,
       20,
       [25, 180, 50, 75, 60, 60, 40, 40]
     );
 
     doc.x = 50;
-    doc.moveDown(2).fontSize(10).text(`Villa General Belgrano, ${fecha}`, { align: 'right' });
-
+    doc
+      .moveDown(2)
+      .fontSize(10)
+      .text(`Villa General Belgrano, ${fecha}`, { align: "right" });
     doc.end();
   } catch (error) {
-    console.error('Error al procesar el PDF:', error);
+    console.error("Error al procesar el PDF:", error);
     if (!res.headersSent) {
-      res.status(500).send('Error al procesar el PDF');
+      res.status(500).send("Error al procesar el PDF");
     }
   }
 };

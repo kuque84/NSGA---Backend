@@ -124,10 +124,10 @@ const generateRACActaPDF = async (data, res) => {
     // Agregar información del alumno y ciclo lectivo en negrita
     doc.font('Helvetica-Bold').fontSize(10);
     addTextWithMargins(doc, `Estudiante: ${alumnoData.apellidos}, ${alumnoData.nombres}`, {
-      y: MARGEN_TOP + 80,
+      y: MARGEN_TOP + 65,
     });
     addTextWithMargins(doc, `DNI: ${alumnoData.dni}`, {
-      y: MARGEN_TOP + 95,
+      y: MARGEN_TOP + 80,
     });
 
     // Restablecer la fuente a la normal si es necesario
@@ -136,7 +136,7 @@ const generateRACActaPDF = async (data, res) => {
     // Agregar tabla de avance de notas
     doc.x = 50;
     doc
-      .moveDown(1)
+      .moveDown(0.5)
       .font('Helvetica-Bold')
       .fontSize(10)
       .text('Listado de Espacios Curriculares Adeudados:', { align: 'left' });
@@ -169,7 +169,7 @@ const generateRACActaPDF = async (data, res) => {
       headers,
       rows,
       50,
-      MARGEN_TOP + 130,
+      MARGEN_TOP + 110,
       20,
       [25, 180, 50, 75, 60, 60, 80]
     );
@@ -213,7 +213,7 @@ const generateRACActaPDF = async (data, res) => {
     );
 
     doc.x = 50;
-    doc.moveDown(5).fontSize(10).text(`Villa General Belgrano, ${fecha}`, { align: 'right' });
+    doc.moveDown(2).fontSize(10).text(`Villa General Belgrano, ${fecha}`, { align: 'right' });
 
     doc.end();
   } catch (error) {
