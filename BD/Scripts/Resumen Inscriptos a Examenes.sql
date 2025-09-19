@@ -29,7 +29,7 @@ JOIN
 LEFT JOIN 
     calificaciones cal ON i.id_calificacion = cal.id_calificacion
 WHERE
-    i.id_turno = 22
+    i.id_turno = 21
 ORDER BY 
     f.fechaExamen,
     m.nombre,

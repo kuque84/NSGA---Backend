@@ -33,14 +33,23 @@ module.exports = (sequelize) => {
           key: "id_condicion",
         },
       },
-      id_calificacion: { 
+      id_calificacion: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: "calificaciones",
           key: "id_calificacion",
         },
-      }
+      },
+      id_curso: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "cursos",
+          key: "id_curso",
+        },
+        onDelete: "CASCADE",
+      },
     },
     {
       tableName: "previas",

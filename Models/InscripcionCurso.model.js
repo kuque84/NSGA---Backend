@@ -1,8 +1,8 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   const InscripcionCurso = sequelize.define(
-    'InscripcionCurso',
+    "InscripcionCurso",
     {
       id_inscripcion_curso: {
         type: DataTypes.INTEGER,
@@ -13,49 +13,50 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'cicloLectivos',
-          key: 'id_ciclo',
+          model: "cicloLectivos",
+          key: "id_ciclo",
         },
       },
       id_plan: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'planes',
-          key: 'id_plan',
+          model: "planes",
+          key: "id_plan",
         },
       },
       id_curso: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'cursos',
-          key: 'id_curso',
+          model: "cursos",
+          key: "id_curso",
         },
+        onDelete: "CASCADE",
       },
       id_division: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'divisiones',
-          key: 'id_division',
+          model: "divisiones",
+          key: "id_division",
         },
       },
       id_alumno: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: 'alumnos',
-          key: 'id_alumno',
+          model: "alumnos",
+          key: "id_alumno",
         },
       },
     },
     {
-      tableName: 'inscripciones_cursos',
+      tableName: "inscripciones_cursos",
       indexes: [
         {
           unique: true,
-          fields: ['id_ciclo', 'id_alumno'],
+          fields: ["id_ciclo", "id_alumno"],
         },
       ],
       //timestamps: false,

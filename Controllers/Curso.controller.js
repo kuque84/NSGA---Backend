@@ -5,7 +5,14 @@ const Op = db.Sequelize.Op;
 // Definimos un controlador para obtener la lista de todos los cursos
 exports.lista = (req, res, next) => {
   // Utilizamos el método findAll de Sequelize para obtener todos los cursos
-  db.Curso.findAll()
+  db.Curso.findAll({
+    include: [
+      {
+        model: db.Plan,
+        as: "Plan",
+      },
+    ],
+  })
     .then((cursos) => {
       // Si la operación es exitosa, enviamos los cursos como respuesta en formato JSON
       res.json(cursos);
@@ -25,10 +32,19 @@ exports.filtrar = (req, res, next) => {
     where: {
       [campo]: valor,
     },
+    include: [
+      {
+        model: db.Plan,
+        as: "Plan",
+      },
+    ],
   })
     .then((cursos) => {
       // Si la operación es exitosa, enviamos los cursos como respuesta en formato JSON
       res.json(cursos);
+      console.log(`Filtrando por ${campo} con valor ${valor}`);
+      console.log(`Se encontraron ${cursos.length} cursos.`);
+      console.log(`Cursos: ${JSON.stringify(cursos)}`);
     })
     .catch((err) => {
       next(err); // Pasamos el error al middleware de manejo de errores
@@ -93,7 +109,7 @@ exports.eliminar = (req, res, next) => {
   const id = req.params.id;
   // Utilizamos el método destroy de Sequelize para eliminar el curso
   db.Curso.destroy({
-    where: { id: id },
+    where: { id_curso: id },
   })
     .then((num) => {
       // Si la operación es exitosa y se eliminó un curso, enviamos un mensaje de éxito
@@ -127,10 +143,15 @@ exports.listaPag = (req, res) => {
       limit: limit,
       offset: offset,
       order: [["id_curso", "DESC"]],
+      include: [
+        {
+          model: db.Plan,
+          as: "Plan",
+        },
+      ],
     })
       .then((registros) => {
         res.status(200).send(registros);
-        console.log(registros);
       })
       .catch((error) => {
         res.status(500).send(error);
@@ -143,6 +164,12 @@ exports.listaPag = (req, res) => {
       limit: limit,
       offset: offset,
       order: [["id_curso", "DESC"]],
+      include: [
+        {
+          model: db.Plan,
+          as: "Plan",
+        },
+      ],
     })
       .then((registros) => {
         res.status(200).send(registros);

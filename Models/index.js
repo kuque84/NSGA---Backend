@@ -78,7 +78,11 @@ db.InscripcionCurso = require("./InscripcionCurso.model")(sequelize); // Inscrip
 db.Usuario.belongsTo(db.Rol, { foreignKey: "id_rol", as: "Rol" });
 db.Rol.hasMany(db.Usuario, { foreignKey: "id_rol", as: "Usuarios" });
 
-db.Curso.hasMany(db.Previa, { foreignKey: "id_curso", as: "Previa" });
+db.Curso.hasMany(db.Previa, {
+  foreignKey: "id_curso",
+  onDelete: "CASCADE",
+  as: "Previa",
+});
 db.Previa.belongsTo(db.Curso, { foreignKey: "id_curso", as: "Curso" });
 
 db.Materia.hasMany(db.Previa, { foreignKey: "id_materia", as: "Previa" });
@@ -212,6 +216,7 @@ db.InscripcionCurso.belongsTo(db.Plan, { foreignKey: "id_plan", as: "Plan" });
 
 db.Curso.hasMany(db.InscripcionCurso, {
   foreignKey: "id_curso",
+  onDelete: "CASCADE",
   as: "InscripcionCurso",
 });
 db.InscripcionCurso.belongsTo(db.Curso, {
@@ -227,6 +232,27 @@ db.InscripcionCurso.belongsTo(db.Division, {
   foreignKey: "id_division",
   as: "Division",
 });
+
+db.Plan.hasMany(db.Curso, {
+  foreignKey: "id_plan",
+  onDelete: "CASCADE",
+  as: "Cursos",
+});
+db.Curso.belongsTo(db.Plan, { foreignKey: "id_plan", as: "Plan" });
+
+db.Curso.hasMany(db.FechaExamen, {
+  foreignKey: "id_curso",
+  onDelete: "CASCADE",
+  as: "FechaExamen",
+});
+db.FechaExamen.belongsTo(db.Curso, { foreignKey: "id_curso", as: "Curso" });
+
+db.Curso.hasMany(db.Materia, {
+  foreignKey: "id_curso",
+  onDelete: "CASCADE",
+  as: "Materias",
+});
+db.Materia.belongsTo(db.Curso, { foreignKey: "id_curso", as: "Curso" });
 
 // Exportamos el objeto db
 module.exports = db;

@@ -160,9 +160,110 @@ const getRacData = async (id_alumno, id_ciclo) => {
   }
 };
 
+const getResumenInscriptosExamenes = async (id_turno, condiciones) => {
+  try {
+    const moment = require("moment-timezone");
+
+    const inscriptos = await db.Inscripcion.findAll({
+      where: { id_turno },
+      include: [
+        {
+          model: db.Previa,
+          as: "Previa",
+          include: [
+            {
+              model: db.Alumno,
+              as: "Alumno",
+              attributes: ["apellidos", "nombres", "dni"],
+              required: true,
+            },
+            {
+              model: db.Curso,
+              as: "Curso",
+              attributes: ["nombre"],
+              required: true,
+            },
+          ],
+          required: true,
+        },
+        {
+          model: db.FechaExamen,
+          as: "FechaExamen",
+          attributes: ["fechaExamen"],
+          include: [
+            {
+              model: db.Materia,
+              as: "Materia",
+              attributes: ["nombre"],
+              required: true,
+            },
+            {
+              model: db.Condicion,
+              as: "Condicion",
+              attributes: ["nombre"],
+              where: {
+                id_condicion: {
+                  [Op.in]: condiciones,
+                },
+              },
+              required: true,
+            },
+          ],
+          required: true,
+        },
+        {
+          model: db.Calificacion,
+          as: "Calificacion",
+          attributes: ["calificacion", "aprobado"],
+          required: false,
+        },
+      ],
+      attributes: ["libro", "folio"],
+      order: [
+        ["FechaExamen", "fechaExamen", "ASC"],
+        ["FechaExamen", "Materia", "nombre", "ASC"],
+        ["FechaExamen", "Condicion", "nombre", "ASC"],
+        ["Previa", "Curso", "nombre", "ASC"],
+        ["Previa", "Alumno", "apellidos", "ASC"],
+      ],
+    });
+
+    const resumen = inscriptos.map((i) => ({
+      Apellido_Alumno: i.Previa.Alumno.apellidos,
+      Nombre_Alumno: i.Previa.Alumno.nombres,
+      DNI: i.Previa.Alumno.dni,
+      Nombre_Materia: i.FechaExamen.Materia.nombre,
+      Fecha_Examen: moment
+        .utc(i.FechaExamen.fechaExamen)
+        .format("DD/MM/YYYY HH:mm"),
+      Condicion: i.FechaExamen.Condicion.nombre,
+      Nombre_Curso: i.Previa.Curso.nombre,
+      Nota: i.Calificacion?.calificacion ?? "—",
+      Aprobado: i.Calificacion?.aprobado ?? "—",
+      L: i.libro,
+      F: i.folio,
+    }));
+
+    const turno = await db.TurnoExamen.findByPk(id_turno, {
+      include: [
+        {
+          model: db.CicloLectivo,
+          as: "CicloLectivo",
+          attributes: ["anio"],
+        },
+      ],
+    });
+
+    return { resumen, turno };
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getRacData,
   getAlumnoData,
   getCicloLectivoData,
   getPreviaData,
+  getResumenInscriptosExamenes,
 };

@@ -46,10 +46,33 @@ const addTextWithMargins = (doc, text, options = {}) => {
   doc.text(text, x, y, { align });
 };
 
+const addFooter = (doc, footerText) => {
+  const bottomY = doc.page.height - MARGEN_BOTTOM + 20; // Ajuste para que el pie de página no quede demasiado cerca del borde
+  doc
+    .font("Helvetica")
+    .fontSize(8)
+    .fillColor("gray")
+    .text(footerText, MARGEN_LEFT, bottomY, {
+      align: "center",
+      width: doc.page.width - MARGEN_LEFT - MARGEN_RIGHT,
+    });
+  //ágina x de y
+  doc.text(
+    `Página ${doc.page.number} de ${doc.pageCount}`,
+    MARGEN_LEFT,
+    bottomY + 10,
+    {
+      align: "center",
+      width: doc.page.width - MARGEN_LEFT - MARGEN_RIGHT,
+    }
+  );
+};
+
 module.exports = {
   addMembrete,
   addHeader,
   addTextWithMargins,
+  addFooter,
   MARGEN_TOP, // Exportar constantes
   MARGEN_LEFT,
   MARGEN_RIGHT,
