@@ -281,7 +281,7 @@ const generateRACActaPDF = async (data, res) => {
       index + 1,
       item.materia,
       item.curso,
-      item.condicion,
+      item.condicionHistorica,
       new Date(item.fechaExamen).toLocaleDateString(),
       item.calificacion,
       item.libro,

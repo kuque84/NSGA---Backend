@@ -545,6 +545,13 @@ exports.filtrarPorAlumno = (req, res, next) => {
         model: db.FechaExamen,
         attributes: ["fechaExamen"],
         as: "FechaExamen",
+        include: [
+          {
+            model: db.Condicion,
+            attributes: ["nombre"],
+            as: "Condicion",
+          },
+        ],
       },
       {
         model: db.Calificacion,

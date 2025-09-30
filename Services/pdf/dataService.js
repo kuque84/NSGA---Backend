@@ -126,6 +126,13 @@ const getRacData = async (id_alumno, id_ciclo) => {
           model: db.FechaExamen,
           attributes: ["fechaExamen"],
           as: "FechaExamen",
+          include: [
+            {
+              model: db.Condicion,
+              attributes: ["nombre"],
+              as: "Condicion",
+            },
+          ],
         },
         {
           model: db.Calificacion,
@@ -144,6 +151,7 @@ const getRacData = async (id_alumno, id_ciclo) => {
       materia: examen.Previa.Materia.nombre,
       curso: examen.Previa.Curso.nombre,
       condicion: examen.Previa.Condicion.nombre,
+      condicionHistorica: examen.FechaExamen.Condicion.nombre,
       calificacion: examen.Calificacion?.calificacion ?? "Aus.",
       libro: examen.libro ?? "-",
       folio: examen.folio ?? "-",
