@@ -6,6 +6,7 @@ require("dotenv").config();
 
 // Importamos el logger
 const logger = require("../Config/logger"); // Asegúrate de reemplazar 'path/to/logger' con la ruta correcta al archivo del logger
+const { log } = require("winston");
 
 // Validamos que todas las variables de entorno necesarias están definidas
 if (
@@ -28,6 +29,7 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
+    logging: (msg) => logger.debug(msg), // Usamos el logger para registrar los mensajes de Sequelize
     port: process.env.DB_PORT,
     pool: {
       max: parseInt(process.env.DB_POOL_MAX),

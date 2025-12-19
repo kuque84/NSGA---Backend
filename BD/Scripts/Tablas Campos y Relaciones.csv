@@ -1,0 +1,132 @@
+Tabla,Campo,"Tipo de Dato","Permite Nulos","Tipo de Clave","Referencia Tabla","Referencia Columna"
+alumnos,id_alumno,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+alumnos,dni,varchar,YES,UNIQUE,NULL,NULL
+alumnos,dni,varchar,YES,UNIQUE,NULL,NULL
+alumnos,apellidos,varchar,NO,,NULL,NULL
+alumnos,nombres,varchar,NO,,NULL,NULL
+alumnos,createdAt,datetime,NO,,NULL,NULL
+alumnos,updatedAt,datetime,NO,,NULL,NULL
+calificaciones,id_calificacion,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+calificaciones,calificacion,varchar,YES,,NULL,NULL
+calificaciones,aprobado,tinyint,NO,,NULL,NULL
+calificaciones,createdAt,datetime,NO,,NULL,NULL
+calificaciones,updatedAt,datetime,NO,,NULL,NULL
+ciclolectivos,id_ciclo,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+ciclolectivos,anio,int,NO,UNIQUE,NULL,NULL
+ciclolectivos,anio,int,NO,UNIQUE,NULL,NULL
+ciclolectivos,createdAt,datetime,NO,,NULL,NULL
+ciclolectivos,updatedAt,datetime,NO,,NULL,NULL
+condiciones,id_condicion,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+condiciones,nombre,varchar,NO,UNIQUE,NULL,NULL
+condiciones,nombre,varchar,NO,UNIQUE,NULL,NULL
+condiciones,createdAt,datetime,NO,,NULL,NULL
+condiciones,updatedAt,datetime,NO,,NULL,NULL
+cursos,id_curso,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+cursos,id_plan,int,NO,"FOREIGN KEY (FK)",planes,id_plan
+cursos,id_plan,int,NO,"FOREIGN KEY (FK)",planes,id_plan
+cursos,nombre,varchar,NO,,NULL,NULL
+cursos,createdAt,datetime,NO,,NULL,NULL
+cursos,updatedAt,datetime,NO,,NULL,NULL
+divisiones,id_division,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+divisiones,nombre,varchar,YES,,NULL,NULL
+divisiones,createdAt,datetime,NO,,NULL,NULL
+divisiones,updatedAt,datetime,NO,,NULL,NULL
+fechasexamen,id_fechaExamen,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+fechasexamen,fechaExamen,datetime,YES,,NULL,NULL
+fechasexamen,id_turno,int,NO,"FOREIGN KEY (FK)",turnosexamen,id_turno
+fechasexamen,id_turno,int,NO,"FOREIGN KEY (FK)",turnosexamen,id_turno
+fechasexamen,id_materia,int,NO,"FOREIGN KEY (FK)",materias,id_materia
+fechasexamen,id_materia,int,NO,"FOREIGN KEY (FK)",materias,id_materia
+fechasexamen,id_condicion,int,YES,"FOREIGN KEY (FK)",condiciones,id_condicion
+fechasexamen,id_condicion,int,YES,"FOREIGN KEY (FK)",condiciones,id_condicion
+fechasexamen,id_curso,int,YES,"FOREIGN KEY (FK)",cursos,id_curso
+fechasexamen,id_curso,int,YES,"FOREIGN KEY (FK)",cursos,id_curso
+fechasexamen,id_division,int,YES,"FOREIGN KEY (FK)",divisiones,id_division
+fechasexamen,id_division,int,YES,"FOREIGN KEY (FK)",divisiones,id_division
+fechasexamen,createdAt,datetime,NO,,NULL,NULL
+fechasexamen,updatedAt,datetime,NO,,NULL,NULL
+inscripciones,id_inscripcion,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+inscripciones,id_previa,int,NO,,NULL,NULL
+inscripciones,id_previa,int,NO,"FOREIGN KEY (FK)",previas,id_previa
+inscripciones,id_previa,int,NO,"FOREIGN KEY (FK)",previas,id_previa
+inscripciones,id_turno,int,NO,,NULL,NULL
+inscripciones,id_turno,int,NO,"FOREIGN KEY (FK)",turnosexamen,id_turno
+inscripciones,id_turno,int,NO,"FOREIGN KEY (FK)",turnosexamen,id_turno
+inscripciones,id_fechaExamen,int,NO,"FOREIGN KEY (FK)",fechasexamen,id_fechaExamen
+inscripciones,id_fechaExamen,int,NO,"FOREIGN KEY (FK)",fechasexamen,id_fechaExamen
+inscripciones,id_calificacion,int,YES,"FOREIGN KEY (FK)",calificaciones,id_calificacion
+inscripciones,id_calificacion,int,YES,"FOREIGN KEY (FK)",calificaciones,id_calificacion
+inscripciones,libro,varchar,YES,,NULL,NULL
+inscripciones,folio,varchar,YES,,NULL,NULL
+inscripciones,createdAt,datetime,NO,,NULL,NULL
+inscripciones,updatedAt,datetime,NO,,NULL,NULL
+inscripciones_cursos,id_inscripcion_curso,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+inscripciones_cursos,id_ciclo,int,NO,,NULL,NULL
+inscripciones_cursos,id_ciclo,int,NO,"FOREIGN KEY (FK)",ciclolectivos,id_ciclo
+inscripciones_cursos,id_ciclo,int,NO,"FOREIGN KEY (FK)",ciclolectivos,id_ciclo
+inscripciones_cursos,id_plan,int,NO,"FOREIGN KEY (FK)",planes,id_plan
+inscripciones_cursos,id_plan,int,NO,"FOREIGN KEY (FK)",planes,id_plan
+inscripciones_cursos,id_curso,int,NO,"FOREIGN KEY (FK)",cursos,id_curso
+inscripciones_cursos,id_curso,int,NO,"FOREIGN KEY (FK)",cursos,id_curso
+inscripciones_cursos,id_division,int,NO,"FOREIGN KEY (FK)",divisiones,id_division
+inscripciones_cursos,id_division,int,NO,"FOREIGN KEY (FK)",divisiones,id_division
+inscripciones_cursos,id_alumno,int,NO,,NULL,NULL
+inscripciones_cursos,id_alumno,int,NO,"FOREIGN KEY (FK)",alumnos,id_alumno
+inscripciones_cursos,id_alumno,int,NO,"FOREIGN KEY (FK)",alumnos,id_alumno
+inscripciones_cursos,createdAt,datetime,NO,,NULL,NULL
+inscripciones_cursos,updatedAt,datetime,NO,,NULL,NULL
+materias,id_materia,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+materias,nombre,varchar,NO,,NULL,NULL
+materias,area,varchar,YES,,NULL,NULL
+materias,id_curso,int,NO,"FOREIGN KEY (FK)",cursos,id_curso
+materias,id_curso,int,NO,"FOREIGN KEY (FK)",cursos,id_curso
+materias,createdAt,datetime,NO,,NULL,NULL
+materias,updatedAt,datetime,NO,,NULL,NULL
+planes,id_plan,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+planes,codigo,varchar,NO,UNIQUE,NULL,NULL
+planes,codigo,varchar,NO,UNIQUE,NULL,NULL
+planes,descripcion,varchar,NO,,NULL,NULL
+planes,createdAt,datetime,NO,,NULL,NULL
+planes,updatedAt,datetime,NO,,NULL,NULL
+previas,id_previa,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+previas,id_alumno,int,NO,,NULL,NULL
+previas,id_alumno,int,NO,"FOREIGN KEY (FK)",alumnos,id_alumno
+previas,id_alumno,int,NO,"FOREIGN KEY (FK)",alumnos,id_alumno
+previas,id_materia,int,NO,,NULL,NULL
+previas,id_materia,int,NO,"FOREIGN KEY (FK)",materias,id_materia
+previas,id_materia,int,NO,"FOREIGN KEY (FK)",materias,id_materia
+previas,id_condicion,int,NO,"FOREIGN KEY (FK)",condiciones,id_condicion
+previas,id_condicion,int,NO,"FOREIGN KEY (FK)",condiciones,id_condicion
+previas,id_calificacion,int,YES,"FOREIGN KEY (FK)",calificaciones,id_calificacion
+previas,id_calificacion,int,YES,"FOREIGN KEY (FK)",calificaciones,id_calificacion
+previas,createdAt,datetime,NO,,NULL,NULL
+previas,updatedAt,datetime,NO,,NULL,NULL
+previas,id_curso,int,YES,"FOREIGN KEY (FK)",cursos,id_curso
+previas,id_curso,int,YES,"FOREIGN KEY (FK)",cursos,id_curso
+previas,id_ciclo,int,YES,"FOREIGN KEY (FK)",ciclolectivos,id_ciclo
+previas,id_ciclo,int,YES,"FOREIGN KEY (FK)",ciclolectivos,id_ciclo
+previas,id_plan,int,YES,"FOREIGN KEY (FK)",planes,id_plan
+previas,id_plan,int,YES,"FOREIGN KEY (FK)",planes,id_plan
+roles,id_rol,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+roles,rol,varchar,NO,UNIQUE,NULL,NULL
+roles,rol,varchar,NO,UNIQUE,NULL,NULL
+roles,createdAt,datetime,NO,,NULL,NULL
+roles,updatedAt,datetime,NO,,NULL,NULL
+turnosexamen,id_turno,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+turnosexamen,nombre,varchar,NO,,NULL,NULL
+turnosexamen,id_ciclo,int,NO,,NULL,NULL
+turnosexamen,id_ciclo,int,NO,"FOREIGN KEY (FK)",ciclolectivos,id_ciclo
+turnosexamen,id_ciclo,int,NO,"FOREIGN KEY (FK)",ciclolectivos,id_ciclo
+turnosexamen,createdAt,datetime,NO,,NULL,NULL
+turnosexamen,updatedAt,datetime,NO,,NULL,NULL
+usuarios,id,int,NO,"PRIMARY KEY (PK)",NULL,NULL
+usuarios,dni,varchar,NO,UNIQUE,NULL,NULL
+usuarios,dni,varchar,NO,UNIQUE,NULL,NULL
+usuarios,nombres,varchar,NO,,NULL,NULL
+usuarios,apellidos,varchar,NO,,NULL,NULL
+usuarios,email,varchar,NO,,NULL,NULL
+usuarios,password,varchar,NO,,NULL,NULL
+usuarios,createdAt,datetime,NO,,NULL,NULL
+usuarios,updatedAt,datetime,NO,,NULL,NULL
+usuarios,id_rol,int,YES,"FOREIGN KEY (FK)",roles,id_rol
+usuarios,id_rol,int,YES,"FOREIGN KEY (FK)",roles,id_rol

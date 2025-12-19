@@ -1,7 +1,7 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
 // Importamos el objeto 'db' que contiene los modelos de la base de datos
-const db = require('../Models');
+const db = require("../Models");
 
 // Definimos el método 'lista' que se encargará de obtener todas las instancias de 'Previa'
 exports.lista = (req, res, next) => {
@@ -18,7 +18,7 @@ exports.lista = (req, res, next) => {
 
 // Definimos el método 'filtrar' que se encargará de obtener las instancias de 'Previa' que coincidan con un valor específico en un campo específico
 exports.filtrar = (req, res, next) => {
-  console.log('Filtrar previas');
+  console.log("Filtrar previas");
   // Obtenemos el campo y el valor de los parámetros de la ruta de la solicitud HTTP
   const campo = req.params.campo;
   const valor = req.params.valor;
@@ -30,42 +30,42 @@ exports.filtrar = (req, res, next) => {
     include: [
       {
         model: db.Curso,
-        attributes: ['nombre'],
-        as: 'Curso',
+        attributes: ["nombre"],
+        as: "Curso",
       },
       {
         model: db.Materia,
-        attributes: ['nombre'],
-        as: 'Materia',
+        attributes: ["nombre"],
+        as: "Materia",
       },
       {
         model: db.CicloLectivo,
-        attributes: ['anio'],
-        as: 'CicloLectivo',
+        attributes: ["anio"],
+        as: "CicloLectivo",
       },
       {
         model: db.Condicion,
-        attributes: ['nombre'],
-        as: 'Condicion',
+        attributes: ["nombre"],
+        as: "Condicion",
       },
       {
         model: db.Plan,
-        attributes: ['codigo'],
-        as: 'Plan',
+        attributes: ["codigo"],
+        as: "Plan",
       },
       {
         model: db.Alumno,
-        attributes: ['dni', 'apellidos', 'nombres'],
-        as: 'Alumno',
+        attributes: ["dni", "apellidos", "nombres"],
+        as: "Alumno",
       },
       {
         model: db.Calificacion,
-        attributes: ['calificacion', 'aprobado'],
-        as: 'Calificacion',
+        attributes: ["calificacion", "aprobado"],
+        as: "Calificacion",
       },
       {
         model: db.Inscripcion,
-        as: 'Inscripcion',
+        as: "Inscripcion",
       },
     ],
   })
@@ -90,7 +90,7 @@ exports.nuevo = (req, res, next) => {
   ) {
     // Si faltan datos, enviamos un mensaje de error con un código de estado HTTP 400
     res.status(400).json({
-      message: 'Faltan completar datos',
+      message: "Faltan completar datos",
     });
     return;
   }
@@ -113,7 +113,7 @@ exports.nuevo = (req, res, next) => {
     .catch((err) => {
       if (err instanceof Sequelize.UniqueConstraintError) {
         res.status(409).json({
-          message: 'El alumno ya tiene inscripta esta materia.',
+          message: "El alumno ya tiene inscripta esta materia.",
         });
       } else {
         next(err);
@@ -134,7 +134,7 @@ exports.actualizar = (req, res, next) => {
   ) {
     // Si faltan datos, enviamos un mensaje de error con un código de estado HTTP 400
     res.status(400).json({
-      message: 'Faltan completar datos',
+      message: "Faltan completar datos",
     });
     return;
   }
@@ -146,12 +146,12 @@ exports.actualizar = (req, res, next) => {
       // Si la operación es exitosa y se actualizó una instancia, enviamos un mensaje de éxito
       if (num == 1) {
         res.send({
-          message: 'previa actualizado',
+          message: "previa actualizado",
         });
       } else {
         // Si no se pudo actualizar la instancia, enviamos un mensaje de error
         res.send({
-          message: 'No se pudo actualizar la previa',
+          message: "No se pudo actualizar la previa",
         });
       }
     })
@@ -182,11 +182,11 @@ exports.eliminar = async (req, res, next) => {
 
     if (deletedPrevia === 1) {
       res.send({
-        message: 'Previa eliminada',
+        message: "Previa eliminada",
       });
     } else {
       res.send({
-        message: 'No se pudo eliminar la previa',
+        message: "No se pudo eliminar la previa",
       });
     }
   } catch (err) {

@@ -5,7 +5,10 @@ const Op = db.Sequelize.Op;
 // Definimos un controlador para obtener la lista de todos los ciclos lectivos
 exports.lista = (req, res, next) => {
   // Utilizamos el método findAll de Sequelize para obtener todos los ciclos lectivos
-  db.CicloLectivo.findAll()
+  db.CicloLectivo.findAll(
+    // Ordenamos los resultados por el campo 'anio' en orden descendente
+    { order: [["anio", "DESC"]] }
+  )
     .then((ciclolectivos) => {
       // Si la operación es exitosa, enviamos los ciclos lectivos como respuesta en formato JSON
       res.json(ciclolectivos);

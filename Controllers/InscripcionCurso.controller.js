@@ -1,6 +1,6 @@
-const db = require('../Models');
-const { Sequelize, where } = require('sequelize');
-const { Op } = require('sequelize');
+const db = require("../Models");
+const { Sequelize, where } = require("sequelize");
+const { Op } = require("sequelize");
 
 exports.lista = (req, res, next) => {
   db.InscripcionCurso.findAll()
@@ -19,7 +19,7 @@ exports.filtrar = (req, res, next) => {
     where: {
       [campo]: valor,
     },
-    order: [['id_curso', 'DESC']],
+    order: [["id_ciclo", "DESC"]],
   })
     .then((inscripciones_cursos) => {
       res.json(inscripciones_cursos);
@@ -30,7 +30,7 @@ exports.filtrar = (req, res, next) => {
 };
 
 exports.nuevo = (req, res, next) => {
-  console.log('NUEVO REGISTRO', req.body);
+  console.log("NUEVO REGISTRO", req.body);
   if (
     !req.body.id_ciclo ||
     !req.body.id_plan ||
@@ -39,7 +39,7 @@ exports.nuevo = (req, res, next) => {
     !req.body.id_alumno
   ) {
     res.status(400).send({
-      message: 'Faltan datos',
+      message: "Faltan datos",
     });
     return;
   }
@@ -84,7 +84,7 @@ exports.actualizar = (req, res, next) => {
 */
 
 exports.actualizar = async (req, res, next) => {
-  console.log('ACTUALIZANDO REGISTRO', req.body);
+  console.log("ACTUALIZANDO REGISTRO", req.body);
   const id = req.params.id;
   const { id_alumno, id_ciclo } = req.body;
 
@@ -101,9 +101,9 @@ exports.actualizar = async (req, res, next) => {
       });
 
       if (num == 1) {
-        res.send({ message: 'InscripcionCurso actualizada.' });
+        res.send({ message: "InscripcionCurso actualizada." });
       } else {
-        res.send({ message: 'No se pudo actualizar la InscripcionCurso.' });
+        res.send({ message: "No se pudo actualizar la InscripcionCurso." });
       }
     } else {
       // Si no existe, crear un nuevo registro
@@ -131,11 +131,11 @@ exports.eliminar = (req, res, next) => {
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: 'InscripcionCurso eliminada.',
+          message: "InscripcionCurso eliminada.",
         });
       } else {
         res.send({
-          message: 'No se pudo eliminar la InscripcionCurso.',
+          message: "No se pudo eliminar la InscripcionCurso.",
         });
       }
     })
@@ -146,12 +146,18 @@ exports.eliminar = (req, res, next) => {
 
 exports.cursoPorCiclo = async (req, res, next) => {
   const id_ciclo = req.params.id_ciclo;
-  console.log('CURSOS POR CICLO', id_ciclo);
+  console.log("CURSOS POR CICLO", id_ciclo);
   try {
     const inscripciones_cursos = await db.InscripcionCurso.findAll({
       attributes: [
-        'id_curso',
-        [db.Sequelize.fn('COUNT', db.Sequelize.col('InscripcionCurso.id_curso')), 'cantidad'],
+        "id_curso",
+        [
+          db.Sequelize.fn(
+            "COUNT",
+            db.Sequelize.col("InscripcionCurso.id_curso")
+          ),
+          "cantidad",
+        ],
       ],
       where: {
         id_ciclo,
@@ -159,19 +165,26 @@ exports.cursoPorCiclo = async (req, res, next) => {
       include: [
         {
           model: db.Curso,
-          as: 'Curso',
+          as: "Curso",
         },
       ],
-      group: ['InscripcionCurso.id_curso'],
-      order: [[db.Sequelize.col('InscripcionCurso.id_curso'), 'ASC']],
+      group: ["InscripcionCurso.id_curso"],
+      order: [[db.Sequelize.col("InscripcionCurso.id_curso"), "ASC"]],
     });
     console.table(inscripciones_cursos);
-    console.log('CANTIDAD DE CURSOS POR CICLO', inscripciones_cursos.length);
+    console.log("CANTIDAD DE CURSOS POR CICLO", inscripciones_cursos.length);
     res.json(inscripciones_cursos);
   } catch (err) {
-    console.error('Error al obtener las inscripciones de cursos por ciclo', err);
+    console.error(
+      "Error al obtener las inscripciones de cursos por ciclo",
+      err
+    );
     if (!res.headersSent) {
-      res.status(500).json({ error: 'Error al obtener las inscripciones de cursos por ciclo' });
+      res
+        .status(500)
+        .json({
+          error: "Error al obtener las inscripciones de cursos por ciclo",
+        });
     }
     next(err);
   }
@@ -181,7 +194,7 @@ exports.alumnosPorCurso = async (req, res, next) => {
   const id_ciclo = req.params.id_ciclo;
   const id_curso = req.params.id_curso;
   const id_division = req.params.id_division;
-  console.log('ALUMNOS POR CURSO', id_ciclo, id_curso, id_division);
+  console.log("ALUMNOS POR CURSO", id_ciclo, id_curso, id_division);
 
   try {
     const inscripciones_cursos = await db.InscripcionCurso.findAll({
@@ -193,18 +206,25 @@ exports.alumnosPorCurso = async (req, res, next) => {
       include: [
         {
           model: db.Alumno,
-          as: 'Alumno',
+          as: "Alumno",
         },
       ],
-      order: [[db.Sequelize.col('Alumno.apellidos'), 'ASC']], // Se cambió 'apellido' por 'apellidos'
+      order: [[db.Sequelize.col("Alumno.apellidos"), "ASC"]], // Se cambió 'apellido' por 'apellidos'
     });
     console.table(inscripciones_cursos);
-    console.log('CANTIDAD DE ALUMNOS POR CURSO', inscripciones_cursos.length);
+    console.log("CANTIDAD DE ALUMNOS POR CURSO", inscripciones_cursos.length);
     res.json(inscripciones_cursos);
   } catch (err) {
-    console.error('Error al obtener las inscripciones de alumnos por curso', err);
+    console.error(
+      "Error al obtener las inscripciones de alumnos por curso",
+      err
+    );
     if (!res.headersSent) {
-      res.status(500).json({ error: 'Error al obtener las inscripciones de alumnos por curso' });
+      res
+        .status(500)
+        .json({
+          error: "Error al obtener las inscripciones de alumnos por curso",
+        });
     }
     next(err);
   }
