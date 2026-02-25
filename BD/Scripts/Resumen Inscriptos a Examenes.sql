@@ -4,7 +4,7 @@ SELECT
     a.dni AS DNI,
     m.nombre AS Nombre_Materia,
     f.fechaExamen AS Fecha_Examen,
-    c.nombre AS Condicion,
+    cond.nombre AS Condicion,
     cu.nombre AS Nombre_Curso,
     cal.calificacion AS Nota,
     cal.aprobado AS Aprobado,
@@ -21,18 +21,15 @@ JOIN
 JOIN 
     materias m ON f.id_materia = m.id_materia
 JOIN 
-    condiciones c ON f.id_condicion = c.id_condicion
+    condiciones cond ON f.id_condicion = cond.id_condicion
 JOIN 
     cursos cu ON p.id_curso = cu.id_curso
-JOIN 
-    ciclolectivos cl ON cu.id_curso = cl.id_ciclo
 LEFT JOIN 
     calificaciones cal ON i.id_calificacion = cal.id_calificacion
 WHERE
-    i.id_turno = 23
+    i.id_turno = 24  -- Asegúrate de que este ID sea el correcto
+    AND f.id_condicion = 4
 ORDER BY 
-    f.fechaExamen,
-    m.nombre,
-    c.nombre,
-    cu.nombre,
-    a.apellidos;
+    f.fechaExamen ASC, 
+    m.nombre ASC, 
+    a.apellidos ASC;
